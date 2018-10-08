@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'TableViewContent_Example' do
+  pod 'TableViewContent', :path => '../'
+
+  target 'TableViewContent_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

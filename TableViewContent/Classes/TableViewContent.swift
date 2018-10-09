@@ -126,8 +126,13 @@ open class TableViewContent: Declareble {
         return self
     }
     
-    open func configure(_ configuration: @escaping ((Cell) -> ())) -> Self {
-        self.configureCell = configuration
+    open func contentConfiguration(_ configuration: @escaping ((TableViewContent) -> ())) -> Self {
+        configuration(self)
+        return self
+    }
+    
+    open func cellConfiguration(_ configuration: @escaping ((Cell) -> ())) -> Self {
+        configureCell = configuration
         return self
     }
     

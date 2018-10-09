@@ -15,7 +15,7 @@ open class SwitchCellContent: TableViewContent {
     open override func configure(_ cell: TableViewContent.Cell) {
         sw.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
         cell.accessoryView = sw
-        self.selectedAction = { [unowned self] in
+        self.action = { [unowned self] in
             self.toggle()
         }
     }

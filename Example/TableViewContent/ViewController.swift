@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         for i in 0...10 {
             let row = TableViewContent(title: "row \(i)")
             section.contents.append(row)
-            row.selectedAction = { [unowned self] in
+            row.action = { [unowned self] in
                 let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
                 self.navigationController?.pushViewController(viewController, animated: true)
             }

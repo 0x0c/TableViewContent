@@ -47,7 +47,7 @@ open class TableViewContentDelegate: NSObject, UITableViewDelegate {
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = dataSource.sections[indexPath.section]
         let row = section.contents[indexPath.row]
-        if let action = row.selectedAction {
+        if let action = row.action {
             action()
         }
         tableView.deselectRow(at: indexPath, animated: true)
@@ -101,7 +101,7 @@ open class TableViewContent: Declareble {
     public var editingAccessoryView: UIView?
     public let source: RepresentationSource
     
-    open var selectedAction: (() -> ())?
+    open var action: (() -> ())?
     
     open var reuseIdentifier: String = "reuseIdentifier"
     
@@ -118,6 +118,11 @@ open class TableViewContent: Declareble {
     
     public convenience init(title: String) {
         self.init(title: title, detailText: "", style: .default, source: .class(UITableViewCell.self))
+    }
+    
+    open func selectedAction(selectedAction: @escaping ()->()) -> Self {
+        action = selectedAction
+        return self
     }
     
     open func configure(_ cell: Cell) {}

@@ -12,7 +12,7 @@ import TableViewContent
 open class SwitchCellContent: TableViewContent {
     let sw = UISwitch()
     
-    open override func configure(_ cell: TableViewContent.Cell) {
+    override open func staticConfiguration(_ cell: Cell) {
         sw.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
         cell.accessoryView = sw
         self.action = { [unowned self] in

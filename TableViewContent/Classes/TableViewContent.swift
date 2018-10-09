@@ -100,6 +100,7 @@ open class TableViewContent: Declareble {
     public var editingAccessoryType: UITableViewCell.AccessoryType = .none
     public var editingAccessoryView: UIView?
     public let source: RepresentationSource
+    public var configureCell: ((Cell) -> ())? = nil
     
     open var action: (() -> ())?
     
@@ -125,7 +126,12 @@ open class TableViewContent: Declareble {
         return self
     }
     
-    open func configure(_ cell: Cell) {}
+    open func configure(_ configuration: @escaping ((Cell) -> ())) -> Self {
+        self.configureCell = configuration
+        return self
+    }
+    
+    open func staticConfiguration(_ cell: Cell) {}
     
     public func cell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         switch source {
@@ -154,8 +160,11 @@ open class TableViewContent: Declareble {
             cell.editingAccessoryType = editingAccessoryType
         }
         
-        configure(cell)
-        
+        staticConfiguration(cell)
+        if let c = configureCell {
+            c(cell)
+        }
+
         return cell
     }
 }

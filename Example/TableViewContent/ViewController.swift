@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let section = TableViewSection()
-        for i in 0...10 {
+        for i in 0...3 {
             let row = TableViewContent(title: "row \(i)")
             section.contents.append(row)
             row.action = { [unowned self] in

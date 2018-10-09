@@ -1,0 +1,16 @@
+PODS:
+  - TableViewContent (0.1.0)
+
+DEPENDENCIES:
+  - TableViewContent (from `../`)
+
+EXTERNAL SOURCES:
+  TableViewContent:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  TableViewContent: a8cebe70f2f1c0912a4f2421fa7abbeeeb6518dc
+
+PODFILE CHECKSUM: da72eb19b5edaa7a2ab24eb95800c6a0c2ad7e7b
+
+COCOAPODS: 1.5.3

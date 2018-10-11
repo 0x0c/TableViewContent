@@ -12,55 +12,51 @@ import TableViewContent
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    let dataSource = TableViewContentDataSource()
-    var delegate: TableViewContentDelegate?
+    let dataSource = ContentDataSource()
+    var delegate: ContentDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let section = TableViewSection()
         for i in 0...3 {
-            let row = TableViewContent(title: "row \(i)")
-            section.contents.append(row)
-            row.action = { [unowned self] in
+            let row = CellContent(UITableViewCell.self, reuseIdentifier: "reuseIdentifier", configuration: { (cell, indexPath, data) in
+                cell.accessoryType = .disclosureIndicator
+                if let string = data as? String {
+                    cell.textLabel?.text = string
+                }
+            }, data: "\(i)").selectedAction { (_, _, _) in
                 let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
+
+            section.contents.append(row)
         }
         
         let section2 = TableViewSection(headerTitle: "header")
-        let switchRow = SwitchCellContent(title: "switch")
+        let switchRow = SwitchCellContent { (cell, indexPath, isOn) in
+            cell.textLabel?.text = "Switch"
+            }.toggleAction { (isOn) in
+                print("\(isOn)")
+        }
         section2.contents.append(switchRow)
         
         let section3 = TableViewSection(headerTitle: "header2", footerTitle: "footer2")
-        let customRow = CustomCellContent(nib: UINib(nibName: "CustomTableViewCell", bundle: nil))
+
+        let customRow = CellContent(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", configuration: { (cell, indexPath, data) in
+            cell.textLabel?.text = "CustomTableViewCell"
+        })
         section3.contents.append(customRow)
-        
+
         dataSource.sections = [section, section2, section3]
         tableView.dataSource = dataSource
         
-        delegate = TableViewContentDelegate(dataSource: dataSource)
+        delegate = ContentDelegate(dataSource: dataSource)
         tableView.delegate = delegate
-        
-        let refreshControl = UIRefreshControl()
-        tableView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(update), for: .valueChanged)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        update()
-    }
-    
-    @objc func update() {
-        tableView.refreshControl?.beginRefreshing()
-        tableView.reloadData()
-        tableView.refreshControl?.endRefreshing()
-    }
 }
-

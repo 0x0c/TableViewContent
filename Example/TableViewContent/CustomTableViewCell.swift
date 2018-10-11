@@ -7,18 +7,17 @@
 //
 
 import UIKit
+import TableViewContent
 
 class CustomTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+}
+
+class CustomCellContent: CellContent {
+    init(configuration: @escaping ((CustomTableViewCell, IndexPath, Any?) -> Void)) {
+        super.init(CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell")
+        let _ = self.cellConfiguration(CustomTableViewCell.self) { (cell, indexPath, data) in
+            configuration(cell, indexPath, data)
+        }
+    }
 }

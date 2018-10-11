@@ -9,22 +9,26 @@
 import UIKit
 import TableViewContent
 
-open class SwitchCellContent: TableViewContent {
-    let sw = UISwitch()
+open class SwitchCellContent: CellContent {
     
-    override open func staticConfiguration(_ cell: Cell) {
-        sw.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
-        cell.accessoryView = sw
-        self.action = { [unowned self] in
-            self.toggle()
+    internal var toggledAction: (Bool) -> Void = {(isOn) in }
+    
+    init(data: Bool = false, configuration: @escaping ((SwitchTableViewCell, IndexPath, Bool) -> Void)) {
+        super.init(SwitchTableViewCell.self, reuseIdentifier: "SwitchTableViewCell", data: data)
+        let _ = self.cellConfiguration(SwitchTableViewCell.self) { (cell, indexPath, data) in
+            cell.selectionStyle = .none
+            cell.sw.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
+            configuration(cell, indexPath, data as! Bool)
         }
     }
     
-    func toggle() {
-        sw.setOn(!sw.isOn, animated: true)
+    open func toggleAction(_ toggleAction: @escaping (Bool) -> Void) -> Self {
+        toggledAction = toggleAction
+        return self
     }
     
-    @objc func valueChanged() {
-        print("\(sw.isOn)")
+    @objc func valueChanged(_ sender: UISwitch) {
+        data = sender.isOn
+        toggledAction(sender.isOn)
     }
 }

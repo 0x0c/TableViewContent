@@ -139,7 +139,7 @@ open class CellContent {
 }
 
 open class TableCellContent : CellContent {
-    init(title: String, configuration: @escaping ((UITableViewCell, IndexPath, String) -> Void)) {
+    public init(title: String, configuration: @escaping ((UITableViewCell, IndexPath, String) -> Void)) {
         super.init(UITableViewCell.self, reuseIdentifier: "TableCellContent", data: title)
         let _ = self.cellConfiguration(UITableViewCell.self) { (cell, indexPath, data) in
             configuration(cell, indexPath, data as! String)

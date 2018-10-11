@@ -20,14 +20,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let section = TableViewSection()
         for i in 0...3 {
-            let row = CellContent(UITableViewCell.self, reuseIdentifier: "reuseIdentifier", configuration: { (cell, indexPath, data) in
-                cell.accessoryType = .disclosureIndicator
-                if let string = data as? String {
-                    cell.textLabel?.text = string
-                }
-            }, data: "\(i)").selectedAction { (_, _, _) in
+            let row = DefaultCellContent(title: "\(i)").selectedAction { (_, _, _) in
                 let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
                 self.navigationController?.pushViewController(viewController, animated: true)
+            }.contentConfiguration { (content) in
+                content.accessoryType = .disclosureIndicator
             }
 
             section.contents.append(row)

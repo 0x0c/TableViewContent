@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import TableViewContent
 
 open class TableCellContent : CellContent {
     public var title: String?
@@ -23,9 +22,10 @@ open class TableCellContent : CellContent {
     
     public init<Cell>(title: String, cellType: Cell.Type) {
         super.init(cellType, reuseIdentifier: "TableCellContent", data: title)
-        let _ = self.cellConfiguration(UITableViewCell.self) { (cell, _, _) in
+        self.title = title
+        let _ = self.cellConfiguration(UITableViewCell.self) { [unowned self] (cell, _, _) in
             self.contentConfiguration(self)
-            cell.detailTextLabel?.text = self.detailText
+
             cell.selectionStyle = self.selectionStyle
             if self.accessoryView != nil {
                 cell.accessoryView = self.accessoryView
@@ -116,4 +116,3 @@ open class SubtitleCellContent : TableCellContent {
         self.reuseIdentifier = "SubtitleCell"
     }
 }
-

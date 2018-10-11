@@ -139,16 +139,52 @@ open class CellContent {
 }
 
 open class TableCellContent : CellContent {
-    public init(title: String, accessoryType: UITableViewCell.AccessoryType = .none, image: UIImage? = nil) {
+    public var title: String?
+    public var detailText: String?
+    public var image: UIImage?
+    public var style: UITableViewCell.CellStyle = .default
+    public var selectionStyle: UITableViewCell.SelectionStyle = .blue
+    public var accessoryType: UITableViewCell.AccessoryType = .none
+    public var accessoryView: UIView?
+    public var editingAccessoryType: UITableViewCell.AccessoryType = .none
+    public var editingAccessoryView: UIView?
+    
+    internal var contentConfiguration: (TableCellContent) -> Void = { (_) in }
+    
+    public init(title: String) {
         super.init(UITableViewCell.self, reuseIdentifier: "TableCellContent", data: title)
-        let _ = self.cellConfiguration(UITableViewCell.self) { (cell, indexPath, data) in
-            cell.accessoryType = accessoryType
-            if let image = image {
+        let _ = self.cellConfiguration(UITableViewCell.self) { (cell, _, _) in
+            self.contentConfiguration(self)
+            cell.detailTextLabel?.text = self.detailText
+            cell.selectionStyle = self.selectionStyle
+            if self.accessoryView != nil {
+                cell.accessoryView = self.accessoryView
+            }
+            else {
+                cell.accessoryType = self.accessoryType
+            }
+            
+            if self.editingAccessoryView != nil {
+                cell.editingAccessoryView = self.editingAccessoryView
+            }
+            else {
+                cell.editingAccessoryType = self.editingAccessoryType
+            }
+            
+            if let image = self.image {
                 cell.imageView?.image = image
             }
-            if let title = data as? String {
+            if let title = self.title {
                 cell.textLabel?.text = title
             }
+            if let detailText = self.detailText {
+                cell.detailTextLabel?.text = detailText
+            }
         }
+    }
+    
+    open func contentConfiguration(_ configuration: @escaping ((TableCellContent) -> ())) -> Self {
+        contentConfiguration = configuration
+        return self
     }
 }

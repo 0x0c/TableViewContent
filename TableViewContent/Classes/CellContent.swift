@@ -139,10 +139,16 @@ open class CellContent {
 }
 
 open class TableCellContent : CellContent {
-    public init(title: String, configuration: @escaping ((UITableViewCell, IndexPath, String) -> Void)) {
+    public init(title: String, accessoryType: UITableViewCell.AccessoryType = .none, image: UIImage? = nil) {
         super.init(UITableViewCell.self, reuseIdentifier: "TableCellContent", data: title)
         let _ = self.cellConfiguration(UITableViewCell.self) { (cell, indexPath, data) in
-            configuration(cell, indexPath, data as! String)
+            cell.accessoryType = accessoryType
+            if let image = image {
+                cell.imageView?.image = image
+            }
+            if let title = data as? String {
+                cell.textLabel?.text = title
+            }
         }
     }
 }

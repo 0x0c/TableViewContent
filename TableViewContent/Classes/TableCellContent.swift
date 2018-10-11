@@ -55,6 +55,7 @@ open class TableCellContent : CellContent {
     
     open func contentConfiguration(_ configuration: @escaping ((TableCellContent) -> ())) -> Self {
         contentConfiguration = configuration
+        contentConfiguration(self)
         return self
     }
 }

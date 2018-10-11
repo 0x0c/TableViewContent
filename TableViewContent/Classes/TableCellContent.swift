@@ -11,7 +11,6 @@ open class TableCellContent : CellContent {
     public var title: String?
     public var detailText: String?
     public var image: UIImage?
-    public var style: UITableViewCell.CellStyle = .default
     public var selectionStyle: UITableViewCell.SelectionStyle = .blue
     public var accessoryType: UITableViewCell.AccessoryType = .none
     public var accessoryView: UIView?
@@ -26,36 +25,22 @@ open class TableCellContent : CellContent {
         let _ = self.cellConfiguration(UITableViewCell.self) { [unowned self] (cell, _, _) in
             self.contentConfiguration(self)
 
+            cell.textLabel?.text = self.title
+            cell.detailTextLabel?.text = self.detailText
+            cell.imageView?.image = self.image
+            
             cell.selectionStyle = self.selectionStyle
-            if self.accessoryView != nil {
-                cell.accessoryView = self.accessoryView
-            }
-            else {
-                cell.accessoryType = self.accessoryType
-            }
             
-            if self.editingAccessoryView != nil {
-                cell.editingAccessoryView = self.editingAccessoryView
-            }
-            else {
-                cell.editingAccessoryType = self.editingAccessoryType
-            }
+            cell.accessoryView = self.accessoryView
+            cell.accessoryType = self.accessoryType
             
-            if let image = self.image {
-                cell.imageView?.image = image
-            }
-            if let title = self.title {
-                cell.textLabel?.text = title
-            }
-            if let detailText = self.detailText {
-                cell.detailTextLabel?.text = detailText
-            }
+            cell.editingAccessoryView = self.editingAccessoryView
+            cell.editingAccessoryType = self.editingAccessoryType
         }
     }
     
     open func contentConfiguration(_ configuration: @escaping ((TableCellContent) -> ())) -> Self {
         contentConfiguration = configuration
-        contentConfiguration(self)
         return self
     }
 }

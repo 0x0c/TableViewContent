@@ -25,6 +25,7 @@ class ViewController: UIViewController {
                 self.navigationController?.pushViewController(viewController, animated: true)
             }.contentConfiguration { (content) in
                 content.accessoryType = .disclosureIndicator
+                content.reuseIdentifier = "test"
             }
 
             section.contents.append(row)

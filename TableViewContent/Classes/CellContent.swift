@@ -33,7 +33,7 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
                 tableView.register(cellClass, forCellReuseIdentifier: row.reuseIdentifier)
             }
         }
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
         row.configure(cell, indexPath)
         

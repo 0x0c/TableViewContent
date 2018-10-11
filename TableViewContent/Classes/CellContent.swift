@@ -31,6 +31,16 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
                 tableView.register(nib, forCellReuseIdentifier: row.reuseIdentifier)
             case let .class(cellClass):
                 tableView.register(cellClass, forCellReuseIdentifier: row.reuseIdentifier)
+            case let .style(cellStyle):
+                if let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier) {
+                    row.configure(cell, indexPath)
+                    return cell
+                }
+                else {
+                    let cell = UITableViewCell(style: cellStyle, reuseIdentifier: row.reuseIdentifier)
+                    row.configure(cell, indexPath)
+                    return cell
+                }
             }
         }
 
@@ -95,6 +105,7 @@ open class CellContent {
     public enum RepresentationSource {
         case nib(UINib)
         case `class`(AnyClass)
+        case style(UITableViewCell.CellStyle)
     }
     
     public let source: RepresentationSource
@@ -103,6 +114,12 @@ open class CellContent {
     public var action: ((Any?, UITableView, IndexPath) -> Void)? = nil
     public var data: Any? = nil
     internal var configure: (Any, IndexPath) -> Void = {(data, indexPath) in }
+    
+    public init(style: UITableViewCell.CellStyle, reuseIdentifier: String, data: Any? = nil) {
+        self.source = .style(style)
+        self.reuseIdentifier = reuseIdentifier
+        self.data = data
+    }
     
     public init<Cell>(_ cellType: Cell.Type, reuseIdentifier: String, data: Any? = nil) {
         self.source = .class(cellType as! AnyClass)

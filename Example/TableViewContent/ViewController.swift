@@ -19,16 +19,33 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let section = TableViewSection()
-        for i in 0...3 {
-            let row = DefaultCellContent(title: "\(i)").selectedAction { (_, _, _) in
-                let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
-                self.navigationController?.pushViewController(viewController, animated: true)
+        section.contents.append(DefaultCellContent(title: "title").selectedAction { (_, _, _) in
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+            self.navigationController?.pushViewController(viewController, animated: true)
             }.contentConfiguration { (content) in
                 content.accessoryType = .disclosureIndicator
-            }
-
-            section.contents.append(row)
-        }
+        })
+        section.contents.append(DefaultCellContent(title: "title", style: .subtitle).selectedAction { (_, _, _) in
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+            self.navigationController?.pushViewController(viewController, animated: true)
+            }.contentConfiguration { (content) in
+                content.accessoryType = .disclosureIndicator
+                content.detailText = "subtitle"
+        })
+        section.contents.append(DefaultCellContent(title: "title", style: .value1).selectedAction { (_, _, _) in
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+            self.navigationController?.pushViewController(viewController, animated: true)
+            }.contentConfiguration { (content) in
+                content.accessoryType = .disclosureIndicator
+                content.detailText = "value1"
+        })
+        section.contents.append(DefaultCellContent(title: "title", style: .value2).selectedAction { (_, _, _) in
+            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+            self.navigationController?.pushViewController(viewController, animated: true)
+            }.contentConfiguration { (content) in
+                content.accessoryType = .disclosureIndicator
+                content.detailText = "value2"
+        })
         
         let section2 = TableViewSection(headerTitle: "header")
         let switchRow = SwitchCellContent { (cell, indexPath, isOn) in

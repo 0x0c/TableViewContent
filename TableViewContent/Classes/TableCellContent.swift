@@ -19,8 +19,8 @@ open class TableCellContent : CellContent {
     
     fileprivate var contentConfiguration: (TableCellContent) -> Void = { (_) in }
     
-    public init<Cell>(title: String, cellType: Cell.Type) {
-        super.init(cellType, reuseIdentifier: "TableCellContent", data: title)
+    public init<Cell>(title: String, cellType: Cell.Type, reuseIdentifier: String) {
+        super.init(cellType, reuseIdentifier: reuseIdentifier, data: title)
         self.title = title
         let _ = self.cellConfiguration(UITableViewCell.self) { [unowned self] (cell, _, _) in
             self.contentConfiguration(self)
@@ -47,8 +47,7 @@ open class TableCellContent : CellContent {
 
 open class DefaultCellContent : TableCellContent {
     public init(title: String) {
-        super.init(title: title, cellType: UITableViewCell.self)
-        self.reuseIdentifier = "DefaultCell"
+        super.init(title: title, cellType: UITableViewCell.self, reuseIdentifier: NSStringFromClass(TableCellContent.self))
     }
 }
 
@@ -64,8 +63,7 @@ class Value1Cell : UITableViewCell {
 
 open class Value1CellContent : TableCellContent {
     public init(title: String) {
-        super.init(title: title, cellType: Value1Cell.self)
-        self.reuseIdentifier = "Value1Cell"
+        super.init(title: title, cellType: Value1Cell.self, reuseIdentifier: NSStringFromClass(Value1Cell.self))
     }
 }
 
@@ -81,8 +79,7 @@ class Value2Cell : UITableViewCell {
 
 open class Value2CellContent : TableCellContent {
     public init(title: String) {
-        super.init(title: title, cellType: Value2Cell.self)
-        self.reuseIdentifier = "Value2Cell"
+        super.init(title: title, cellType: Value2Cell.self, reuseIdentifier: NSStringFromClass(Value2Cell.self))
     }
 }
 
@@ -98,7 +95,6 @@ class SubtitleCell : UITableViewCell {
 
 open class SubtitleCellContent : TableCellContent {
     public init(title: String) {
-        super.init(title: title, cellType: SubtitleCell.self)
-        self.reuseIdentifier = "SubtitleCell"
+        super.init(title: title, cellType: SubtitleCell.self, reuseIdentifier: NSStringFromClass(SubtitleCell.self))
     }
 }

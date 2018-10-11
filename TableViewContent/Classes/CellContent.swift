@@ -99,7 +99,7 @@ open class CellContent {
     
     public let source: RepresentationSource
     
-    public var reuseIdentifier: String
+    public let reuseIdentifier: String
     public var action: ((Any?, UITableView, IndexPath) -> Void)? = nil
     public var data: Any? = nil
     internal var configure: (Any, IndexPath) -> Void = {(data, indexPath) in }

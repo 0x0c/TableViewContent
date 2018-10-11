@@ -25,7 +25,6 @@ class ViewController: UIViewController {
                 self.navigationController?.pushViewController(viewController, animated: true)
             }.contentConfiguration { (content) in
                 content.accessoryType = .disclosureIndicator
-                content.reuseIdentifier = "test"
             }
 
             section.contents.append(row)
@@ -34,6 +33,7 @@ class ViewController: UIViewController {
         let section2 = TableViewSection(headerTitle: "header")
         let switchRow = SwitchCellContent { (cell, indexPath, isOn) in
             cell.textLabel?.text = "Switch"
+            cell.isSwitchOn = isOn
             }.toggleAction { (isOn) in
                 print("\(isOn)")
         }

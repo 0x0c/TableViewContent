@@ -1,23 +1,52 @@
 //
-//  SwitchCellContent.swift
+//  SwitchTableViewCell.swift
 //  TableViewContent_Example
 //
-//  Created by Akira Matsuda on 2018/10/09.
+//  Created by Akira Matsuda on 2018/10/11.
 //  Copyright © 2018 CocoaPods. All rights reserved.
 //
 
 import UIKit
 import TableViewContent
 
+class SwitchTableViewCell: UITableViewCell {
+    private let sw = UISwitch()
+    private var targetAdded = false
+    public var isSwitchOn: Bool {
+        get {
+            return sw.isOn
+        }
+        set(isOn) {
+            sw.isOn = isOn
+        }
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.accessoryView = sw
+        self.selectionStyle = .none
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
+        if targetAdded == false {
+            sw.addTarget(target, action: action, for: controlEvents)
+            targetAdded = true
+        }
+    }
+}
+
 open class SwitchCellContent: CellContent {
     
     internal var toggledAction: (Bool) -> Void = {(isOn) in }
     
-    init(data: Bool = false, configuration: @escaping ((SwitchTableViewCell, IndexPath, Bool) -> Void)) {
-        super.init(SwitchTableViewCell.self, reuseIdentifier: "SwitchTableViewCell", data: data)
+    init(isOn: Bool = false, configuration: @escaping ((SwitchTableViewCell, IndexPath, Bool) -> Void)) {
+        super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
         let _ = self.cellConfiguration(SwitchTableViewCell.self) { (cell, indexPath, data) in
-            cell.selectionStyle = .none
-            cell.sw.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
+            cell.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
             configuration(cell, indexPath, data as! Bool)
         }
     }

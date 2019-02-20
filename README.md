@@ -1,6 +1,5 @@
 # TableViewContent
 
-[![CI Status](https://img.shields.io/travis/Akira Matsuda/TableViewContent.svg?style=flat)](https://travis-ci.org/Akira Matsuda/TableViewContent)
 [![Version](https://img.shields.io/cocoapods/v/TableViewContent.svg?style=flat)](https://cocoapods.org/pods/TableViewContent)
 [![License](https://img.shields.io/cocoapods/l/TableViewContent.svg?style=flat)](https://cocoapods.org/pods/TableViewContent)
 [![Platform](https://img.shields.io/cocoapods/p/TableViewContent.svg?style=flat)](https://cocoapods.org/pods/TableViewContent)

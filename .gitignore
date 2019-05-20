@@ -1,5 +1,12 @@
+# Created by https://www.gitignore.io/api/macos,swift,xcode,carthage,fastlane,cocoapods,objective-c,ruby
 
-# Created by https://www.gitignore.io/api/swift,linux,xcode,macos,windows,cocoapods,objective-c,swiftpackagemanager
+### Carthage ###
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
+
+Carthage/Build
 
 ### CocoaPods ###
 ## CocoaPods GitIgnore Template
@@ -9,24 +16,28 @@
 #           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
 Pods/
 
-### Linux ###
-*~
+### fastlane ###
+# fastlane - A streamlined workflow tool for Cocoa deployment
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-# temporary files which can be created if a process still has a handle open of a deleted file
-.fuse_hidden*
+# fastlane specific
+fastlane/report.xml
 
-# KDE directory preferences
-.directory
+# deliver temporary files
+fastlane/Preview.html
 
-# Linux trash folder which might appear on any partition or disk
-.Trash-*
+# snapshot generated screenshots
+# fastlane/screenshots/**/*.png
+fastlane/screenshots/screenshots.html
 
-# .nfs files are created when an open file is removed but is still being accessed
-.nfs*
-
+# scan temporary files
+fastlane/test_output
 ### macOS ###
-# General
-.DS_Store
+*.DS_Store
 .AppleDouble
 .LSOverride
 
@@ -83,35 +94,10 @@ xcuserdata/
 *.dSYM.zip
 *.dSYM
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+# CocoaPods - Refactored to standalone file
 
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
 
-Carthage/Build
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
-# screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+# Carthage - Refactored to standalone file
 
 # Code Injection
 #
@@ -121,6 +107,57 @@ fastlane/test_output
 iOSInjectionProject/
 
 ### Objective-C Patch ###
+
+### Ruby ###
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Used by dotenv library to load environment variables.
+# .env
+
+## Specific to RubyMotion:
+.dat*
+.repl_history
+*.bridgesupport
+build-iPhoneOS/
+build-iPhoneSimulator/
+
+## Specific to RubyMotion (use of CocoaPods):
+#
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
+#
+# vendor/Pods/
+
+## Documentation cache and generated files:
+/.yardoc/
+/_yardoc/
+/doc/
+/rdoc/
+
+## Environment normalization:
+/.bundle/
+/vendor/bundle
+/lib/bundler/man/
+
+# for a library or gem, you might want to ignore these files since the code is
+# intended to run in multiple environments; otherwise, check them in:
+# Gemfile.lock
+# .ruby-version
+# .ruby-gemset
+
+# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+.rvmrc
 
 ### Swift ###
 # Xcode
@@ -144,25 +181,11 @@ playground.xcworkspace
 # Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
 # Packages/
 # Package.pins
-# Package.resolved
 .build/
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+# CocoaPods - Refactored to standalone file
 
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
+# Carthage - Refactored to standalone file
 
 # fastlane
 #
@@ -172,52 +195,16 @@ playground.xcworkspace
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
 
-# Code Injection
-#
-# After new code Injection tools there's a generated folder /iOSInjectionProject
-# https://github.com/johnno1962/injectionforxcode
-
-
-### SwiftPackageManager ###
-Packages
-xcuserdata
-*.xcodeproj
-
-### Windows ###
-# Windows thumbnail cache files
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
-
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
 ### Xcode ###
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
-## User settings
+## Build generated
 
-## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+## Various settings
 
-## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+## Other
 
 ### Xcode Patch ###
 *.xcodeproj/*
@@ -226,5 +213,4 @@ $RECYCLE.BIN/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 
-
-# End of https://www.gitignore.io/api/swift,linux,xcode,macos,windows,cocoapods,objective-c,swiftpackagemanager
+# End of https://www.gitignore.io/api/macos,swift,xcode,carthage,fastlane,cocoapods,objective-c,ruby

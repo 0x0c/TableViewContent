@@ -42,9 +42,9 @@ class ViewController: UIViewController {
                     print("\(isOn)")
                 }]),
             TableViewSection(headerTitle: "header2", footerTitle: "footer2", contents: [
-                CellContent(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell"),
-                CustomCellContent()
-                ])
+                CustomCellContent().didButtonPressed {
+                    print("button pressed")
+                }])
             ])
         tableView.dataSource = dataSource
         

@@ -10,15 +10,25 @@ import UIKit
 import TableViewContent
 
 class CustomTableViewCell: UITableViewCell {
-    
+    @IBOutlet weak var button: UIButton!
 }
 
 class CustomCellContent: CellContent {
+    private var buttonPressedAction: () -> Void = {}
     init() {
-        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell")
+        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)
+        self.cellConfiguration(CustomTableViewCell.self) { [unowned self] (cell, index, _) in
+            cell.button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
+        }
     }
     
-    init(_ configuration: ((CustomTableViewCell, IndexPath, Any?) -> Void)?) {
-        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", configuration: configuration)
+    @discardableResult
+    func didButtonPressed(_ action: @escaping () -> Void) -> Self {
+        buttonPressedAction = action
+        return self
+    }
+    
+    @objc private func buttonPressed() {
+        buttonPressedAction()
     }
 }

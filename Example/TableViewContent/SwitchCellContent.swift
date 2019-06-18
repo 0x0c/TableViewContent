@@ -41,7 +41,7 @@ open class SwitchTableViewCell: UITableViewCell {
 
 open class SwitchCellContent: CellContent {
     
-    internal var toggledAction: (Bool) -> Void = {(isOn) in }
+    private var toggledAction: (Bool) -> Void = {(isOn) in }
     public var title: String
     public var isOn: Bool
     
@@ -49,15 +49,23 @@ open class SwitchCellContent: CellContent {
         self.title = title
         self.isOn = isOn
         super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
+        self.cellConfiguration(SwitchTableViewCell.self) { [unowned self] (cell, indexPath, data) in
+            cell.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
+            cell.textLabel?.text = self.title
+            cell.isSwitchOn = self.isOn
+        }
     }
     
-    open func configure(_ configuration: @escaping (SwitchTableViewCell, IndexPath, Bool) -> Void) {
-        self.cellConfiguration(SwitchTableViewCell.self) { [unowned self] (cell, indexPath, data) in
+    @discardableResult
+    open func configure(_ configuration: @escaping (SwitchTableViewCell, IndexPath, Bool) -> Void) -> Self {
+        cellConfiguration(SwitchTableViewCell.self) { [unowned self] (cell, indexPath, data) in
             cell.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
             cell.textLabel?.text = self.title
             cell.isSwitchOn = self.isOn
             configuration(cell, indexPath, data as! Bool)
         }
+        
+        return self
     }
     
     open func toggleAction(_ toggleAction: @escaping (Bool) -> Void) -> Self {

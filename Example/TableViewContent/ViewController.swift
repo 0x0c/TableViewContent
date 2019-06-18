@@ -17,25 +17,23 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let section = TableViewSection([
-            DefaultCellContent(title: "title"),
-            DefaultCellContent(title: "title", style: .subtitle).configure { (content) in
-                content.detailText = "subtitle"
-            }])
-        section.append(DefaultCellContent(title: "title", style: .value1).configure { (content) in
-            content.detailText = "value1"
-            content.selectionStyle = .none
-        })
-        section.append(DefaultCellContent(title: "title", style: .value2).configure { (content) in
-            content.accessoryType = .disclosureIndicator
-            content.detailText = "value2"
-        }).didSelect { (_, _, _) in
-            let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
-        
         let dataSource = ContentDataSource([
-            section,
+            TableViewSection([
+                DefaultCellContent(title: "title"),
+                DefaultCellContent(title: "title", style: .subtitle).configure { (content) in
+                    content.detailText = "subtitle"
+                },
+                DefaultCellContent(title: "title", style: .value1).configure { (content) in
+                    content.detailText = "value1"
+                    content.selectionStyle = .none
+                },
+                DefaultCellContent(title: "title", style: .value2).configure { (content) in
+                    content.accessoryType = .disclosureIndicator
+                    content.detailText = "value2"
+                    }.didSelect { (_, _, _) in
+                        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+                        self.navigationController?.pushViewController(viewController, animated: true)
+                }]),
             TableViewSection(headerTitle: "header", contents: [
                 SwitchCellContent(title: "Switch"),
                 SwitchCellContent(title: "Switch2", isOn: true).toggle { (isOn) in

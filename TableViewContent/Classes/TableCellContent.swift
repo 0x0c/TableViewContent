@@ -22,7 +22,7 @@ open class TableCellContent : CellContent {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.title = title
         self.style = style
-        let _ = self.cellConfiguration(UITableViewCell.self) { [unowned self] (cell, _, _) in
+        self.cellConfiguration(UITableViewCell.self) { [unowned self] (cell, _, _) in
             cell.textLabel?.text = self.title
             cell.detailTextLabel?.text = self.detailText
             cell.imageView?.image = self.image

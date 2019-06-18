@@ -9,8 +9,8 @@ import Foundation
 
 open class TableViewSection: NSObject {
     internal var contents: [CellContent] = []
-    open var headerTitle: String? = nil
-    open var footerTitle: String? = nil
+    internal var headerTitle: String? = nil
+    internal var footerTitle: String? = nil
     open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)? = nil
     
     public override init() {

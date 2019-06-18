@@ -19,6 +19,16 @@ open class CellContent {
     public let reuseIdentifier: String
     public var action: ((UITableView, IndexPath, Any?) -> Void)? = nil
     public var data: Any? = nil
+    public var title: String?
+    public var detailText: String?
+    public var image: UIImage?
+    public var selectionStyle: UITableViewCell.SelectionStyle = .blue
+    public var accessoryType: UITableViewCell.AccessoryType = .none
+    public var accessoryView: UIView?
+    public var editingAccessoryType: UITableViewCell.AccessoryType = .none
+    public var editingAccessoryView: UIView?
+    public var style: UITableViewCell.CellStyle = .default
+    
     internal var configure: (Any, IndexPath) -> Void = {(data, indexPath) in }
     
     public init(style: UITableViewCell.CellStyle, reuseIdentifier: String, data: Any? = nil) {
@@ -59,6 +69,54 @@ open class CellContent {
             }
         }
         
+        return self
+    }
+    
+    @discardableResult
+    open func title(_ title: String?) -> Self {
+        self.title = title
+        return self
+    }
+    
+    @discardableResult
+    open func detailText(_ text: String?) -> Self {
+        self.detailText = text
+        return self
+    }
+    
+    @discardableResult
+    open func image(_ image: UIImage?) -> Self {
+        self.image = image
+        return self
+    }
+    
+    @discardableResult
+    open func selectionStyle(_ style: UITableViewCell.SelectionStyle) -> Self {
+        self.selectionStyle = style
+        return self
+    }
+    
+    @discardableResult
+    open func accessoryType(_ type: UITableViewCell.AccessoryType) -> Self {
+        self.accessoryType = type
+        return self
+    }
+    
+    @discardableResult
+    open func accessoryView(_ view: UIView?) -> Self {
+        self.accessoryView = view
+        return self
+    }
+    
+    @discardableResult
+    open func editingAccessoryType(_ type: UITableViewCell.AccessoryType) -> Self {
+        self.editingAccessoryType = type
+        return self
+    }
+    
+    @discardableResult
+    open func editingAccessoryView(_ view: UIView?) -> Self {
+        self.editingAccessoryView = view
         return self
     }
 }

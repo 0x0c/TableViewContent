@@ -42,13 +42,12 @@ open class SwitchTableViewCell: UITableViewCell {
 open class SwitchCellContent: CellContent {
     
     private var toggledAction: (Bool) -> Void = {(isOn) in }
-    public var title: String
     public var isOn: Bool
     
     init(title: String, isOn: Bool = false) {
-        self.title = title
         self.isOn = isOn
         super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
+        self.title(title)
         self.cellConfiguration(SwitchTableViewCell.self) { [unowned self] (cell, indexPath, data) in
             cell.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
             cell.textLabel?.text = self.title

@@ -41,10 +41,13 @@ class ViewController: UIViewController {
                 SwitchCellContent(title: "Switch2", isOn: true).toggleAction { (isOn) in
                     print("\(isOn)")
                 }]),
-            TableViewSection(headerTitle: "header2", footerTitle: "footer2", contents: [
+            TableViewSection(contents: [
+                DefaultCellContent(title: "title")
+                ], footerTitle: "footer"),
+            TableViewSection(headerTitle: "header2", contents: [
                 CustomCellContent().didButtonPressed {
                     print("button pressed")
-                }])
+                }], footerTitle: "footer2")
             ])
         tableView.dataSource = dataSource
         

@@ -39,8 +39,13 @@ open class TableViewSection: NSObject {
         self.contents = contents
     }
     
-    public convenience init(headerTitle: String, footerTitle: String, contents: [CellContent]) {
+    public convenience init(headerTitle: String, contents: [CellContent], footerTitle: String) {
         self.init(headerTitle: headerTitle, footerTitle: footerTitle)
+        self.contents = contents
+    }
+    
+    public convenience init(contents: [CellContent], footerTitle: String) {
+        self.init(footerTitle: footerTitle)
         self.contents = contents
     }
     

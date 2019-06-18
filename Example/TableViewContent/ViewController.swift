@@ -35,14 +35,14 @@ class ViewController: UIViewController {
         }
 
         
-        let dataSource = ContentDataSource(sections:
-            [section,
-             TableViewSection(headerTitle: "header", contents: [
+        let dataSource = ContentDataSource([
+            section,
+            TableViewSection(headerTitle: "header", contents: [
                 SwitchCellContent(title: "Switch"),
                 SwitchCellContent(title: "Switch2", isOn: true).toggleAction { (isOn) in
                     print("\(isOn)")
                 }]),
-             TableViewSection(headerTitle: "header2", footerTitle: "footer2", contents: [
+            TableViewSection(headerTitle: "header2", footerTitle: "footer2", contents: [
                 CellContent(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell"),
                 CustomCellContent()
                 ])

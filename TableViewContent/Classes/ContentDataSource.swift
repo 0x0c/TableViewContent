@@ -11,7 +11,7 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
     internal var sections: [TableViewSection] = []
     open var registeredReuseIdentifiers = [] as [String]
     
-    public init(sections: [TableViewSection]) {
+    public init(_ sections: [TableViewSection]) {
         super.init()
         self.sections = sections
     }

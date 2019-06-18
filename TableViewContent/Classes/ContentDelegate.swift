@@ -18,7 +18,7 @@ open class ContentDelegate: NSObject, UITableViewDelegate {
         let section = dataSource.sections[indexPath.section]
         let row = section.contents[indexPath.row]
         if let action = row.action {
-            action(row.data, tableView, indexPath)
+            action(tableView, indexPath, row.data)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

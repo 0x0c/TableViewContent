@@ -17,7 +17,7 @@ open class CellContent {
     public let source: RepresentationSource
     
     public let reuseIdentifier: String
-    public var action: ((Any?, UITableView, IndexPath) -> Void)? = nil
+    public var action: ((UITableView, IndexPath, Any?) -> Void)? = nil
     public var data: Any? = nil
     internal var configure: (Any, IndexPath) -> Void = {(data, indexPath) in }
     
@@ -42,7 +42,7 @@ open class CellContent {
     }
 
     @discardableResult
-    open func selectedAction(_ selectedAction: @escaping (Any?, UITableView, IndexPath) -> Void) -> Self {
+    open func selectedAction(_ selectedAction: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
         action = selectedAction
         return self
     }

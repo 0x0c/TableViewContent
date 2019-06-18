@@ -9,7 +9,7 @@
 import UIKit
 import TableViewContent
 
-class SwitchTableViewCell: UITableViewCell {
+open class SwitchTableViewCell: UITableViewCell {
     private let sw = UISwitch()
     private var targetAdded = false
     public var isSwitchOn: Bool {
@@ -27,7 +27,7 @@ class SwitchTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -42,16 +42,21 @@ class SwitchTableViewCell: UITableViewCell {
 open class SwitchCellContent: CellContent {
     
     internal var toggledAction: (Bool) -> Void = {(isOn) in }
+    public var title: String
+    public var isOn: Bool
     
-    init(title: String, isOn: Bool = false, configuration: ((SwitchTableViewCell, IndexPath, Bool) -> Void)? = nil) {
+    init(title: String, isOn: Bool = false) {
+        self.title = title
+        self.isOn = isOn
         super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
-        let _ = self.cellConfiguration(SwitchTableViewCell.self) { (cell, indexPath, data) in
+    }
+    
+    open func configure(_ configuration: @escaping (SwitchTableViewCell, IndexPath, Bool) -> Void) {
+        self.cellConfiguration(SwitchTableViewCell.self) { [unowned self] (cell, indexPath, data) in
             cell.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
-            cell.textLabel?.text = title
-            cell.isSwitchOn = isOn
-            if let configuration = configuration {
-                configuration(cell, indexPath, data as! Bool)
-            }
+            cell.textLabel?.text = self.title
+            cell.isSwitchOn = self.isOn
+            configuration(cell, indexPath, data as! Bool)
         }
     }
     

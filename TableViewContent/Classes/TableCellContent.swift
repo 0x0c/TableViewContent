@@ -8,15 +8,15 @@
 import UIKit
 
 open class TableCellContent : CellContent {
-    public var title: String?
-    public var detailText: String?
-    public var image: UIImage?
-    public var selectionStyle: UITableViewCell.SelectionStyle = .blue
-    public var accessoryType: UITableViewCell.AccessoryType = .none
-    public var accessoryView: UIView?
-    public var editingAccessoryType: UITableViewCell.AccessoryType = .none
-    public var editingAccessoryView: UIView?
-    public var style: UITableViewCell.CellStyle = .default
+    internal var title: String?
+    internal var detailText: String?
+    internal var image: UIImage?
+    internal var selectionStyle: UITableViewCell.SelectionStyle = .blue
+    internal var accessoryType: UITableViewCell.AccessoryType = .none
+    internal var accessoryView: UIView?
+    internal var editingAccessoryType: UITableViewCell.AccessoryType = .none
+    internal var editingAccessoryView: UIView?
+    internal var style: UITableViewCell.CellStyle = .default
     
     public init<Cell>(title: String, cellType: Cell.Type, reuseIdentifier: String, style: UITableViewCell.CellStyle) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,6 +40,54 @@ open class TableCellContent : CellContent {
     @discardableResult
     open func configure(_ configuration: ((TableCellContent) -> ())) -> Self {
         configuration(self)
+        return self
+    }
+    
+    @discardableResult
+    open func title(_ title: String) -> Self {
+        self.title = title
+        return self
+    }
+    
+    @discardableResult
+    open func detailText(_ text: String) -> Self {
+        self.detailText = text
+        return self
+    }
+    
+    @discardableResult
+    open func image(_ image: UIImage) -> Self {
+        self.image = image
+        return self
+    }
+    
+    @discardableResult
+    open func selectionStyle(_ style: UITableViewCell.SelectionStyle) -> Self {
+        self.selectionStyle = style
+        return self
+    }
+    
+    @discardableResult
+    open func accessoryType(_ type: UITableViewCell.AccessoryType) -> Self {
+        self.accessoryType = type
+        return self
+    }
+    
+    @discardableResult
+    open func accessoryView(_ view: UIView) -> Self {
+        self.accessoryView = view
+        return self
+    }
+    
+    @discardableResult
+    open func editingAccessoryType(_ type: UITableViewCell.AccessoryType) -> Self {
+        self.editingAccessoryType = type
+        return self
+    }
+    
+    @discardableResult
+    open func editingAccessoryView(_ view: UIView) -> Self {
+        self.editingAccessoryView = view
         return self
     }
 }

@@ -23,7 +23,7 @@ class CustomCellContent: CellContent {
     }
     
     @discardableResult
-    func didButtonPressed(_ action: @escaping () -> Void) -> Self {
+    func didButtonPress(_ action: @escaping () -> Void) -> Self {
         buttonPressedAction = action
         return self
     }

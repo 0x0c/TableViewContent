@@ -42,7 +42,7 @@ open class CellContent {
     }
 
     @discardableResult
-    open func selectedAction(_ selectedAction: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
+    open func didSelect(_ selectedAction: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
         action = selectedAction
         return self
     }

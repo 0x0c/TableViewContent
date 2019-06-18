@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         section.append(DefaultCellContent(title: "title", style: .value2).configure { (content) in
             content.accessoryType = .disclosureIndicator
             content.detailText = "value2"
-        }).selectedAction { (_, _, _) in
+        }).didSelect { (_, _, _) in
             let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
             self.navigationController?.pushViewController(viewController, animated: true)
         }
@@ -38,14 +38,14 @@ class ViewController: UIViewController {
             section,
             TableViewSection(headerTitle: "header", contents: [
                 SwitchCellContent(title: "Switch"),
-                SwitchCellContent(title: "Switch2", isOn: true).toggleAction { (isOn) in
+                SwitchCellContent(title: "Switch2", isOn: true).toggle { (isOn) in
                     print("\(isOn)")
                 }]),
             TableViewSection(contents: [
                 DefaultCellContent(title: "title")
                 ], footerTitle: "footer"),
             TableViewSection(headerTitle: "header2", contents: [
-                CustomCellContent().didButtonPressed {
+                CustomCellContent().didButtonPress {
                     print("button pressed")
                 }], footerTitle: "footer2")
             ])

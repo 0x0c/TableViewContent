@@ -69,7 +69,7 @@ open class SwitchCellContent: CellContent {
     }
     
     @discardableResult
-    open func toggleAction(_ toggleAction: @escaping (Bool) -> Void) -> Self {
+    open func toggle(_ toggleAction: @escaping (Bool) -> Void) -> Self {
         toggledAction = toggleAction
         return self
     }

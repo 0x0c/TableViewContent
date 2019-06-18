@@ -44,19 +44,19 @@ open class TableCellContent : CellContent {
     }
     
     @discardableResult
-    open func title(_ title: String) -> Self {
+    open func title(_ title: String?) -> Self {
         self.title = title
         return self
     }
     
     @discardableResult
-    open func detailText(_ text: String) -> Self {
+    open func detailText(_ text: String?) -> Self {
         self.detailText = text
         return self
     }
     
     @discardableResult
-    open func image(_ image: UIImage) -> Self {
+    open func image(_ image: UIImage?) -> Self {
         self.image = image
         return self
     }
@@ -74,7 +74,7 @@ open class TableCellContent : CellContent {
     }
     
     @discardableResult
-    open func accessoryView(_ view: UIView) -> Self {
+    open func accessoryView(_ view: UIView?) -> Self {
         self.accessoryView = view
         return self
     }
@@ -86,7 +86,7 @@ open class TableCellContent : CellContent {
     }
     
     @discardableResult
-    open func editingAccessoryView(_ view: UIView) -> Self {
+    open func editingAccessoryView(_ view: UIView?) -> Self {
         self.editingAccessoryView = view
         return self
     }

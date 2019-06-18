@@ -11,6 +11,7 @@ open class TableViewSection: NSObject {
     internal var contents: [CellContent] = []
     open var headerTitle: String? = nil
     open var footerTitle: String? = nil
+    open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)? = nil
     
     public override init() {
         super.init()
@@ -50,8 +51,38 @@ open class TableViewSection: NSObject {
     }
     
     @discardableResult
+    public func header(_ title: String) -> Self {
+        headerTitle = title
+        return self
+    }
+    
+    @discardableResult
+    public func footer(_ title: String) -> Self {
+        footerTitle = title
+        return self
+    }
+    
+    @discardableResult
+    public func contents(_ sectionContents: [CellContent]) -> Self {
+        contents = sectionContents
+        return self
+    }
+    
+    @discardableResult
+    public func contents(_ closure: (TableViewSection) -> Void) -> Self {
+        closure(self)
+        return self
+    }
+    
+    @discardableResult
     public func append<Content: CellContent>(_ content: Content) -> Content {
         contents.append(content)
         return content
+    }
+    
+    @discardableResult
+    public func didSelected(_ action: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
+        selectedAction = action
+        return self
     }
 }

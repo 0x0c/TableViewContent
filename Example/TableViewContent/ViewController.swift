@@ -45,7 +45,16 @@ class ViewController: UIViewController {
             TableViewSection(headerTitle: "header2", contents: [
                 CustomCellContent().didButtonPress {
                     print("button pressed")
-                }], footerTitle: "footer2")
+                }], footerTitle: "footer2"),
+            TableViewSection().header("header3")
+                .contents { (section) in
+                    for i in 0...10 {
+                        section.append(DefaultCellContent(title: "\(i)"))
+                    }
+                }.footer("footer3")
+                .didSelected({ (_, index, _) in
+                    print("selected \(index)")
+                })
             ])
         tableView.dataSource = dataSource
         

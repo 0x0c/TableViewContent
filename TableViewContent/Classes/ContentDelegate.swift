@@ -20,6 +20,9 @@ open class ContentDelegate: NSObject, UITableViewDelegate {
         if let action = row.action {
             action(tableView, indexPath, row.data)
         }
+        else if let action = section.selectedAction {
+            action(tableView, indexPath, row.data)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

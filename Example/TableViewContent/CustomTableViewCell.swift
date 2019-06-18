@@ -14,10 +14,11 @@ class CustomTableViewCell: UITableViewCell {
 }
 
 class CustomCellContent: CellContent {
-    init(configuration: @escaping ((CustomTableViewCell, IndexPath, Any?) -> Void)) {
-        super.init(CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell")
-        let _ = self.cellConfiguration(CustomTableViewCell.self) { (cell, indexPath, data) in
-            configuration(cell, indexPath, data)
-        }
+    init() {
+        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell")
+    }
+    
+    init(_ configuration: ((CustomTableViewCell, IndexPath, Any?) -> Void)?) {
+        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", configuration: configuration)
     }
 }

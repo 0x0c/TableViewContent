@@ -18,15 +18,11 @@ open class TableCellContent : CellContent {
     public var editingAccessoryView: UIView?
     public var style: UITableViewCell.CellStyle = .default
     
-    fileprivate var contentConfiguration: (TableCellContent) -> Void = { (_) in }
-    
     public init<Cell>(title: String, cellType: Cell.Type, reuseIdentifier: String, style: UITableViewCell.CellStyle) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.title = title
         self.style = style
         let _ = self.cellConfiguration(UITableViewCell.self) { [unowned self] (cell, _, _) in
-            self.contentConfiguration(self)
-
             cell.textLabel?.text = self.title
             cell.detailTextLabel?.text = self.detailText
             cell.imageView?.image = self.image
@@ -41,8 +37,9 @@ open class TableCellContent : CellContent {
         }
     }
     
-    open func contentConfiguration(_ configuration: @escaping ((TableCellContent) -> ())) -> Self {
-        contentConfiguration = configuration
+    @discardableResult
+    open func configure(_ configuration: ((TableCellContent) -> ())) -> Self {
+        configuration(self)
         return self
     }
 }

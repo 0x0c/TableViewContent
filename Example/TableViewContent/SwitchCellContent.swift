@@ -43,11 +43,15 @@ open class SwitchCellContent: CellContent {
     
     internal var toggledAction: (Bool) -> Void = {(isOn) in }
     
-    init(isOn: Bool = false, configuration: @escaping ((SwitchTableViewCell, IndexPath, Bool) -> Void)) {
+    init(title: String, isOn: Bool = false, configuration: ((SwitchTableViewCell, IndexPath, Bool) -> Void)? = nil) {
         super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
         let _ = self.cellConfiguration(SwitchTableViewCell.self) { (cell, indexPath, data) in
             cell.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
-            configuration(cell, indexPath, data as! Bool)
+            cell.textLabel?.text = title
+            cell.isSwitchOn = isOn
+            if let configuration = configuration {
+                configuration(cell, indexPath, data as! Bool)
+            }
         }
     }
     

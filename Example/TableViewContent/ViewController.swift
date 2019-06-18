@@ -33,9 +33,13 @@ class ViewController: UIViewController {
                         self.navigationController?.pushViewController(viewController, animated: true)
                 }]),
             TableViewSection(headerTitle: "header", contents: [
-                SwitchCellContent(title: "Switch"),
-                SwitchCellContent(title: "Switch2", isOn: true).toggle { (isOn) in
-                    print("\(isOn)")
+                SwitchCellContent(title: "Switch")
+                    .selectionStyle(.none),
+                SwitchCellContent(title: "Switch2", isOn: true)
+                    .toggle { (isOn) in
+                        print("\(isOn)")
+                    }.didSelect { (_, _, isOn) in
+                        print("\(String(describing: isOn))")
                 }]),
             TableViewSection(contents: [
                 DefaultCellContent(title: "title")

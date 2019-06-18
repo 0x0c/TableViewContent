@@ -33,7 +33,6 @@ class ViewController: UIViewController {
             let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
             self.navigationController?.pushViewController(viewController, animated: true)
         }
-
         
         let dataSource = ContentDataSource([
             section,

@@ -13,7 +13,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var button: UIButton!
 }
 
-class CustomCellContent: TabpleViewCellRepresentation {
+class CustomCell: TableViewCellRepresentation {
     private var buttonPressedAction: () -> Void = {}
     init() {
         super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)

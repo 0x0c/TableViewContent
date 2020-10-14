@@ -39,7 +39,7 @@ open class SwitchTableViewCell: UITableViewCell {
     }
 }
 
-open class SwitchCellContent: TabpleViewCellRepresentation {
+open class SwitchCell: TableViewCellRepresentation {
     
     private var configureContent: (SwitchTableViewCell, IndexPath, Bool) -> Void = { (_, _, _) in }
     private var toggledAction: (Bool) -> Void = {(isOn) in }

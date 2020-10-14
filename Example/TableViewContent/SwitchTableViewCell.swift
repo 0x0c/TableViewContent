@@ -71,7 +71,7 @@ open class SwitchCell: TableViewCellRepresentation {
     }
     
     @discardableResult
-    open func toggle(_ toggleAction: @escaping (Bool) -> Void) -> Self {
+    open func toggled(_ toggleAction: @escaping (Bool) -> Void) -> Self {
         toggledAction = toggleAction
         return self
     }

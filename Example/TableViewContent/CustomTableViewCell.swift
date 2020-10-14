@@ -14,7 +14,10 @@ class CustomTableViewCell: UITableViewCell {
 }
 
 class CustomCell: TableViewCellRepresentation {
-    private var buttonPressedAction: () -> Void = {}
+    public typealias Action = () -> Void
+    
+    private var buttonPressedAction: Action = {}
+    
     init() {
         super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)
         self.configure(CustomTableViewCell.self) { [unowned self] (cell, _, _) in
@@ -22,8 +25,13 @@ class CustomCell: TableViewCellRepresentation {
         }
     }
     
+    convenience init(_ action: @escaping Action) {
+        self.init()
+        buttonPressedAction = action
+    }
+    
     @discardableResult
-    func didButtonPress(_ action: @escaping () -> Void) -> Self {
+    func didButtonPress(_ action: @escaping Action) -> Self {
         buttonPressedAction = action
         return self
     }

@@ -37,7 +37,7 @@ class ViewController: UIViewController {
                 SwitchCell(title: "Switch")
                     .selectionStyle(.none)
                 SwitchCell(title: "Switch2", isOn: true)
-                    .toggle { (isOn) in
+                    .toggled { (isOn) in
                         print("\(isOn)")
                     }.didSelect { (_, _, isOn) in
                         print("\(String(describing: isOn))")
@@ -48,10 +48,9 @@ class ViewController: UIViewController {
                 DefaultTableViewCell(title: "title")
             }
             TableViewSection {
-                CustomCell()
-                    .didButtonPress {
-                        print("button pressed")
-                    }
+                CustomCell {
+                    print("button pressed")
+                }
             }
             TableViewSection()
                 .header("header3")

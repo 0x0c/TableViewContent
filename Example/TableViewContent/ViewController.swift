@@ -17,47 +17,54 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let dataSource = ContentDataSource([
-            TableViewSection([
-                DefaultCellContent(title: "title"),
-                DefaultCellContent(title: "title", style: .subtitle)
-                    .detailText("subtitle"),
-                DefaultCellContent(title: "title", style: .value1)
+        let dataSource = ContentDataSource {
+            TableViewSection {
+                DefaultTableViewCell(title: "title")
+                DefaultTableViewCell(title: "title", style: .subtitle)
+                    .detailText("subtitle")
+                DefaultTableViewCell(title: "title", style: .value1)
                     .detailText("value1")
-                    .selectionStyle(.none),
-                DefaultCellContent(title: "title", style: .value2)
+                    .selectionStyle(.none)
+                DefaultTableViewCell(title: "title", style: .value2)
                     .accessoryType(.disclosureIndicator)
                     .detailText("value2")
                     .didSelect { (_, _, _) in
                         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
                         self.navigationController?.pushViewController(viewController, animated: true)
-                }]),
-            TableViewSection(headerTitle: "header", contents: [
+                }
+            }
+            TableViewSection {
                 SwitchCellContent(title: "Switch")
-                    .selectionStyle(.none),
+                    .selectionStyle(.none)
                 SwitchCellContent(title: "Switch2", isOn: true)
                     .toggle { (isOn) in
                         print("\(isOn)")
                     }.didSelect { (_, _, isOn) in
                         print("\(String(describing: isOn))")
-                }]),
-            TableViewSection(contents: [
-                DefaultCellContent(title: "title")
-                ], footerTitle: "footer"),
-            TableViewSection(headerTitle: "header2", contents: [
-                CustomCellContent().didButtonPress {
-                    print("button pressed")
-                }], footerTitle: "footer2"),
-            TableViewSection().header("header3")
+                    }
+            }
+            
+            TableViewSection {
+                DefaultTableViewCell(title: "title")
+            }
+            TableViewSection {
+                CustomCellContent()
+                    .didButtonPress {
+                        print("button pressed")
+                    }
+            }
+            TableViewSection()
+                .header("header3")
                 .contents { (section) in
                     for i in 0...10 {
-                        section.append(DefaultCellContent(title: "\(i)"))
+                        section.append(DefaultTableViewCell(title: "\(i)"))
                     }
-                }.footer("footer3")
+                }
+                .footer("footer3")
                 .didSelected({ (_, index, _) in
                     print("selected \(index)")
                 })
-            ])
+        }
         tableView.dataSource = dataSource
         
         delegate = ContentDelegate(dataSource: dataSource)

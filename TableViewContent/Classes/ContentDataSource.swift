@@ -7,6 +7,13 @@
 
 import Foundation
 
+@_functionBuilder
+public  struct TableViewSectionBuilder {
+    public static func buildBlock(_ items: TableViewSection...) -> [TableViewSection] {
+        return items
+    }
+}
+
 open class ContentDataSource: NSObject, UITableViewDataSource {
     internal var sections: [TableViewSection] = []
     open var registeredReuseIdentifiers = [] as [String]
@@ -14,6 +21,11 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
     public init(_ sections: [TableViewSection]) {
         super.init()
         self.sections = sections
+    }
+    
+    public init(@TableViewSectionBuilder _ sections: () -> [TableViewSection]) {
+        super.init()
+        self.sections = sections()
     }
     
     open func numberOfSections(in tableView: UITableView) -> Int {
@@ -36,7 +48,7 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
                 tableView.register(nib, forCellReuseIdentifier: row.reuseIdentifier)
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
-            row.configure(cell, indexPath)
+            row._configure(cell, indexPath)
             return cell
             
         case let .class(cellClass):
@@ -45,17 +57,17 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
                 tableView.register(cellClass, forCellReuseIdentifier: row.reuseIdentifier)
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
-            row.configure(cell, indexPath)
+            row._configure(cell, indexPath)
             return cell
             
         case let .style(cellStyle):
             if let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier) {
-                row.configure(cell, indexPath)
+                row._configure(cell, indexPath)
                 return cell
             }
             else {
                 let cell = UITableViewCell(style: cellStyle, reuseIdentifier: row.reuseIdentifier)
-                row.configure(cell, indexPath)
+                row._configure(cell, indexPath)
                 return cell
             }
         }

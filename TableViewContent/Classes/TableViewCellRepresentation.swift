@@ -7,13 +7,13 @@
 
 import UIKit
 
-open class CellContent {
-    public enum RepresentationSource {
-        case nib(UINib)
-        case `class`(AnyClass)
-        case style(UITableViewCell.CellStyle)
-    }
-    
+public enum RepresentationSource {
+    case nib(UINib)
+    case `class`(AnyClass)
+    case style(UITableViewCell.CellStyle)
+}
+
+open class TableViewCellRepresentation {
     public let source: RepresentationSource
     
     public let reuseIdentifier: String
@@ -29,7 +29,7 @@ open class CellContent {
     public var editingAccessoryView: UIView?
     public var style: UITableViewCell.CellStyle = .default
     
-    internal var configure: (Any, IndexPath) -> Void = {(data, indexPath) in }
+    internal var _configure: (Any, IndexPath) -> Void = {(data, indexPath) in }
     
     public init(style: UITableViewCell.CellStyle, reuseIdentifier: String, data: Any? = nil) {
         self.source = .style(style)
@@ -41,14 +41,14 @@ open class CellContent {
         self.source = .class(cellType as! AnyClass)
         self.reuseIdentifier = reuseIdentifier
         self.data = data
-        self.cellConfiguration(cellType, configuration: configuration)
+        self.configure(cellType, configuration: configuration)
     }
     
     public init<Cell>(nib: UINib, cellType: Cell.Type, reuseIdentifier: String, data: Any? = nil, configuration: ((Cell, IndexPath, Any?) -> Void)? = nil) {
         self.source = .nib(nib)
         self.reuseIdentifier = reuseIdentifier
         self.data = data
-        self.cellConfiguration(cellType, configuration: configuration)
+        self.configure(cellType, configuration: configuration)
     }
 
     @discardableResult
@@ -58,8 +58,8 @@ open class CellContent {
     }
     
     @discardableResult
-    open func cellConfiguration<Cell>(_ cellType: Cell.Type, configuration: ((Cell, IndexPath, Any?) -> Void)?) -> Self {
-        self.configure = { [unowned self] (cell, indexPath) in
+    open func configure<Cell>(_ cellType: Cell.Type, configuration: ((Cell, IndexPath, Any?) -> Void)?) -> Self {
+        self._configure = { [unowned self] (cell, indexPath) in
             guard let cell = cell as? Cell else {
                 fatalError("Could not cast cell to \(Cell.self)")
             }

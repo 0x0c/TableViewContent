@@ -13,11 +13,11 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var button: UIButton!
 }
 
-class CustomCellContent: CellContent {
+class CustomCellContent: TabpleViewCellRepresentation {
     private var buttonPressedAction: () -> Void = {}
     init() {
         super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)
-        self.cellConfiguration(CustomTableViewCell.self) { [unowned self] (cell, _, _) in
+        self.configure(CustomTableViewCell.self) { [unowned self] (cell, _, _) in
             cell.button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
         }
     }

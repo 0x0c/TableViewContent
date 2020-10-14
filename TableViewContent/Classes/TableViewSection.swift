@@ -7,8 +7,15 @@
 
 import Foundation
 
+@_functionBuilder
+public struct TableViewCellBuilder {
+    public static func buildBlock(_ items: TableViewCellRepresentation...) -> [TableViewCellRepresentation] {
+        return items
+    }
+}
+
 open class TableViewSection: NSObject {
-    internal var contents: [CellContent] = []
+    internal var contents: [TableViewCellRepresentation] = []
     internal var headerTitle: String? = nil
     internal var footerTitle: String? = nil
     open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)? = nil
@@ -30,26 +37,16 @@ open class TableViewSection: NSObject {
         self.footerTitle = footerTitle
     }
     
-    public convenience init(_ contents: [CellContent]) {
+    public convenience init(@TableViewCellBuilder _ contents: () -> [TableViewCellRepresentation]) {
+        self.init()
+        self.contents = contents()
+    }
+    
+    public convenience init(_ contents: [TableViewCellRepresentation]) {
         self.init()
         self.contents = contents
     }
-    
-    public convenience init(headerTitle: String, contents: [CellContent]) {
-        self.init(headerTitle: headerTitle)
-        self.contents = contents
-    }
-    
-    public convenience init(headerTitle: String, contents: [CellContent], footerTitle: String) {
-        self.init(headerTitle: headerTitle, footerTitle: footerTitle)
-        self.contents = contents
-    }
-    
-    public convenience init(contents: [CellContent], footerTitle: String) {
-        self.init(footerTitle: footerTitle)
-        self.contents = contents
-    }
-    
+
     @discardableResult
     public func header(_ title: String) -> Self {
         headerTitle = title
@@ -63,8 +60,14 @@ open class TableViewSection: NSObject {
     }
     
     @discardableResult
-    public func contents(_ sectionContents: [CellContent]) -> Self {
+    public func contents(_ sectionContents: [TableViewCellRepresentation]) -> Self {
         contents = sectionContents
+        return self
+    }
+    
+    @discardableResult
+    public func contents(@TableViewCellBuilder _ sectionContents: () -> [TableViewCellRepresentation]) -> Self {
+        contents = sectionContents()
         return self
     }
     
@@ -75,7 +78,7 @@ open class TableViewSection: NSObject {
     }
     
     @discardableResult
-    public func append<Content: CellContent>(_ content: Content) -> Content {
+    public func append<Content: TableViewCellRepresentation>(_ content: Content) -> Content {
         contents.append(content)
         return content
     }

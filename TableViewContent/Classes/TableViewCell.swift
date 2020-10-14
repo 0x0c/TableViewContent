@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class TableCell : TabpleViewCellRepresentation {    
+open class TableViewCell : TableViewCellRepresentation {
     public init<Cell>(title: String, cellType: Cell.Type, reuseIdentifier: String, style: UITableViewCell.CellStyle) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.title = title
@@ -28,14 +28,14 @@ open class TableCell : TabpleViewCellRepresentation {
     }
     
     @discardableResult
-    open func configure(_ configuration: ((TableCell) -> ())) -> Self {
+    open func configure(_ configuration: ((TableViewCell) -> ())) -> Self {
         configuration(self)
         return self
     }
 }
 
-open class DefaultCellContent : TableCell {
+open class DefaultTableViewCell : TableViewCell {
     public init(title: String, style: UITableViewCell.CellStyle = .default) {
-        super.init(title: title, cellType: UITableViewCell.self, reuseIdentifier: "\(NSStringFromClass(TableCell.self))-\(style.rawValue)", style: style)
+        super.init(title: title, cellType: UITableViewCell.self, reuseIdentifier: "\(NSStringFromClass(TableViewCell.self))-\(style.rawValue)", style: style)
     }
 }

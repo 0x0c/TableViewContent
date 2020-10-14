@@ -39,9 +39,9 @@ open class SwitchTableViewCell: UITableViewCell {
     }
 }
 
-open class SwitchCellContent: CellContent {
+open class SwitchCellContent: TabpleViewCellRepresentation {
     
-    private var contentConfiguration: (SwitchTableViewCell, IndexPath, Bool) -> Void = { (_, _, _) in }
+    private var configureContent: (SwitchTableViewCell, IndexPath, Bool) -> Void = { (_, _, _) in }
     private var toggledAction: (Bool) -> Void = {(isOn) in }
     public var isOn: Bool
     
@@ -49,7 +49,7 @@ open class SwitchCellContent: CellContent {
         self.isOn = isOn
         super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
         self.title(title)
-        super.cellConfiguration(SwitchTableViewCell.self) { [unowned self] (cell, indexPath, data) in
+        super.configure(SwitchTableViewCell.self) { [unowned self] (cell, indexPath, data) in
             cell.addTarget(self, action: #selector(self.valueChanged(_:)), for: .valueChanged)
             cell.textLabel?.text = self.title
             cell.detailTextLabel?.text = self.detailText
@@ -60,13 +60,13 @@ open class SwitchCellContent: CellContent {
             cell.editingAccessoryType = self.editingAccessoryType
             
             cell.isSwitchOn = self.isOn
-            self.contentConfiguration(cell, indexPath, data as! Bool)
+            self.configureContent(cell, indexPath, data as! Bool)
         }
     }
     
     @discardableResult
     open func configure(_ configuration: @escaping (SwitchTableViewCell, IndexPath, Bool) -> Void) -> Self {
-        contentConfiguration = configuration
+        configureContent = configuration
         return self
     }
     

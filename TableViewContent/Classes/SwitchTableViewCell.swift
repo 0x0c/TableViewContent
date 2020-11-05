@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class SwitchCell: TableViewCellRepresentation {
+open class SwitchCell: CellRepresentation {
     
     private var configureContent: (SwitchTableViewCell, IndexPath, Bool) -> Void = { (_, _, _) in }
     private var toggledAction: (Bool) -> Void = {(isOn) in }

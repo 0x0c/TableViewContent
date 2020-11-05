@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="CustomHeaderView" customModule="TableViewContent_Example" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="67"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Header" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyR-uV-ipr">
+                    <rect key="frame" x="20" y="23" width="120" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="qfA-cc-QnP"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="j8I-lr-GAq">
+                    <rect key="frame" x="261" y="18" width="133" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="133" id="bLP-V3-d4L"/>
+                    </constraints>
+                    <segments>
+                        <segment title="First"/>
+                        <segment title="Second"/>
+                    </segments>
+                </segmentedControl>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="nyR-uV-ipr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0Qm-uh-KsD"/>
+                <constraint firstAttribute="trailing" secondItem="j8I-lr-GAq" secondAttribute="trailing" constant="20" symbolic="YES" id="O0R-Lw-KJ0"/>
+                <constraint firstItem="j8I-lr-GAq" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="VcF-pN-izU"/>
+                <constraint firstItem="nyR-uV-ipr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="23" id="h99-te-jjz"/>
+                <constraint firstItem="nyR-uV-ipr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="pXm-yR-BZI"/>
+                <constraint firstAttribute="bottom" secondItem="nyR-uV-ipr" secondAttribute="bottom" constant="23" id="w3e-3i-bUv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="headerTitle" destination="nyR-uV-ipr" id="wDT-gq-HKt"/>
+            </connections>
+            <point key="canvasLocation" x="-923.1884057971015" y="-31.808035714285712"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

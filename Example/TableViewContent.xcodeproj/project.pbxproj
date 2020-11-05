@@ -15,6 +15,8 @@
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		9E59A30073917E3B9B940A43 /* Pods_TableViewContent_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98ED16037388F7C6CBA69316 /* Pods_TableViewContent_Tests.framework */; };
 		D8EA5AF2585C745D1C9229CB /* Pods_TableViewContent_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A113A00DC1B24113548C9C /* Pods_TableViewContent_Example.framework */; };
+		E902795D2553DB2A0076246D /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902795C2553DB2A0076246D /* CustomHeaderView.swift */; };
+		E90279612553DB300076246D /* CustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90279602553DB300076246D /* CustomHeaderView.xib */; };
 		E94A52C3216BBD440074BF82 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A52C1216BBD440074BF82 /* CustomTableViewCell.swift */; };
 		E94A52C4216BBD440074BF82 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -47,6 +49,8 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		98ED16037388F7C6CBA69316 /* Pods_TableViewContent_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TableViewContent_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7A73DFCCD09D36F0E59C11F /* Pods-TableViewContent_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewContent_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TableViewContent_Tests/Pods-TableViewContent_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		E902795C2553DB2A0076246D /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
+		E90279602553DB300076246D /* CustomHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeaderView.xib; sourceTree = "<group>"; };
 		E94A52C1216BBD440074BF82 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		F1D0D8B5537BDF9787B774A8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				E902795C2553DB2A0076246D /* CustomHeaderView.swift */,
+				E90279602553DB300076246D /* CustomHeaderView.xib */,
 			);
 			name = "Example for TableViewContent";
 			path = TableViewContent;
@@ -251,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90279612553DB300076246D /* CustomHeaderView.xib in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				E94A52C4216BBD440074BF82 /* CustomTableViewCell.xib in Resources */,
@@ -341,6 +348,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E902795D2553DB2A0076246D /* CustomHeaderView.swift in Sources */,
 				E94A52C3216BBD440074BF82 /* CustomTableViewCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,

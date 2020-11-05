@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let dataSource = ContentDataSource {
-            TableViewSection {
+            Section {
                 DefaultTableViewCell(title: "title", style: .subtitle)
                     .detailText("subtitle")
                 DefaultTableViewCell(title: "title", style: .value1)
@@ -32,7 +32,7 @@ class ViewController: UIViewController {
                         self.navigationController?.pushViewController(viewController, animated: true)
                 }
             }
-            TableViewSection {
+            Section {
                 SwitchCell(title: "Switch")
                     .selectionStyle(.none)
                 SwitchCell(title: "Switch2", isOn: true)
@@ -42,31 +42,38 @@ class ViewController: UIViewController {
                         print("\(String(describing: isOn))")
                     }
             }
-            
-            TableViewSection {
+            Section {
                 DefaultTableViewCell(title: "title")
             }
-            TableViewSection {
+            Section {
                 CustomCell {
                     print("button pressed")
                 }
             }
-            TableViewSection()
-                .header("header3")
+            Section()
+                .header(.title("header3"))
                 .contents { (section) in
-                    for i in 0...10 {
+                    for i in 0...5 {
                         section.append(DefaultTableViewCell(title: "\(i)"))
                     }
                 }
-                .footer("footer3")
-                .didSelected { (_, index, _) in
-                    print("selected \(index)")
+                .footer(.title("footer3"))
+            Section()
+                .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
+                .contents { (section) in
+                    for i in 0...5 {
+                        section.append(DefaultTableViewCell(title: "\(i)"))
+                    }
                 }
+                .footer(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil)))
         }
-        tableView.dataSource = dataSource
-        
         delegate = ContentDelegate(dataSource: dataSource)
         tableView.delegate = delegate
+        tableView.dataSource = dataSource
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = 44
+        tableView.sectionFooterHeight = UITableView.automaticDimension
     }
 
     override func didReceiveMemoryWarning() {

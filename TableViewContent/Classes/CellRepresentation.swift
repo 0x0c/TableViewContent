@@ -13,7 +13,7 @@ public enum RepresentationSource {
     case style(UITableViewCell.CellStyle)
 }
 
-open class TableViewCellRepresentation {
+open class CellRepresentation {
     public let source: RepresentationSource
     
     public let reuseIdentifier: String

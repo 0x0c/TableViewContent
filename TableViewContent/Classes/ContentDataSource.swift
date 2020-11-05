@@ -5,10 +5,10 @@
 //  Created by Akira Matsuda on 2019/06/19.
 //
 
-import Foundation
+import UIKit
 
 @_functionBuilder
-public  struct TableViewSectionBuilder {
+public struct TableViewSectionBuilder {
     public static func buildBlock(_ items: TableViewSection...) -> [TableViewSection] {
         return items
     }
@@ -19,12 +19,10 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
     open var registeredReuseIdentifiers = [] as [String]
     
     public init(_ sections: [TableViewSection]) {
-        super.init()
         self.sections = sections
     }
     
     public init(@TableViewSectionBuilder _ sections: () -> [TableViewSection]) {
-        super.init()
         self.sections = sections()
     }
     
@@ -75,11 +73,21 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
     
     open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let s = sections[section]
-        return s.headerTitle
+        switch s.headerView?.sectionType {
+        case let .title(text):
+            return text
+        default:
+            return nil
+        }
     }
     
     open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let s = sections[section]
-        return s.footerTitle
+        switch s.footerView?.sectionType {
+        case let .title(text):
+            return text
+        default:
+            return nil
+        }
     }
 }

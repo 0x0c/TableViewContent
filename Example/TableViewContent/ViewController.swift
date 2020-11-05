@@ -42,7 +42,6 @@ class ViewController: UIViewController {
                         print("\(String(describing: isOn))")
                     }
             }
-            
             TableViewSection {
                 DefaultTableViewCell(title: "title")
             }
@@ -52,21 +51,29 @@ class ViewController: UIViewController {
                 }
             }
             TableViewSection()
-                .header("header3")
+                .header(.init(.title("header3")))
                 .contents { (section) in
-                    for i in 0...10 {
+                    for i in 0...5 {
                         section.append(DefaultTableViewCell(title: "\(i)"))
                     }
                 }
-                .footer("footer3")
-                .didSelected { (_, index, _) in
-                    print("selected \(index)")
+                .footer(TableViewSectionView(.title("footer3")))
+            TableViewSection()
+                .header(.init(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil))))
+                .contents { (section) in
+                    for i in 0...5 {
+                        section.append(DefaultTableViewCell(title: "\(i)"))
+                    }
                 }
+                .footer(.init(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil))))
         }
-        tableView.dataSource = dataSource
-        
         delegate = ContentDelegate(dataSource: dataSource)
         tableView.delegate = delegate
+        tableView.dataSource = dataSource
+        tableView.estimatedSectionHeaderHeight = 44
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionFooterHeight = 44
+        tableView.sectionFooterHeight = UITableView.automaticDimension
     }
 
     override func didReceiveMemoryWarning() {

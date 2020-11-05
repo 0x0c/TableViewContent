@@ -14,29 +14,45 @@ public struct TableViewCellBuilder {
     }
 }
 
-open class TableViewSection: NSObject {
+public protocol SectionConfigurable {
+    func configure(_ data: Any)
+}
+
+open class TableViewSectionView {
+    public enum SectionType {
+        case title(String)
+        case nib(Any, UINib)
+    }
+    
+    public typealias SectionViewRepresentation = UIView & SectionConfigurable
+
+    private var internalView: SectionViewRepresentation?
+    private(set) var sectionType: SectionType
+
+    public init(_ type: SectionType) {
+        self.sectionType = type
+        switch sectionType {
+        case let .nib(data, nib):
+            internalView = nib.instantiate(withOwner: nil, options: nil).first as? SectionViewRepresentation
+            internalView?.configure(data)
+        default:
+            break
+        }
+    }
+
+    open func sectionView() -> UIView? {
+        return internalView
+    }
+}
+
+open class TableViewSection {
+    internal var headerView: TableViewSectionView?
+    internal var footerView: TableViewSectionView?
     internal var contents: [TableViewCellRepresentation] = []
-    internal var headerTitle: String? = nil
-    internal var footerTitle: String? = nil
     open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)? = nil
     
-    public override init() {
-        super.init()
-    }
-    
-    public init(headerTitle: String) {
-        self.headerTitle = headerTitle
-    }
-    
-    public init(footerTitle: String) {
-        self.footerTitle = footerTitle
-    }
-    
-    public convenience init(headerTitle: String, footerTitle: String) {
-        self.init(headerTitle: headerTitle)
-        self.footerTitle = footerTitle
-    }
-    
+    public init() {}
+
     public convenience init(@TableViewCellBuilder _ contents: () -> [TableViewCellRepresentation]) {
         self.init()
         self.contents = contents()
@@ -48,14 +64,14 @@ open class TableViewSection: NSObject {
     }
 
     @discardableResult
-    public func header(_ title: String) -> Self {
-        headerTitle = title
+    public func header(_ header: TableViewSectionView) -> Self {
+        headerView = header
         return self
     }
     
     @discardableResult
-    public func footer(_ title: String) -> Self {
-        footerTitle = title
+    public func footer(_ footer: TableViewSectionView) -> Self {
+        footerView = footer
         return self
     }
     

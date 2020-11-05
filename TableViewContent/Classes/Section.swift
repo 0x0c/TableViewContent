@@ -91,7 +91,7 @@ open class Section {
     }
     
     @discardableResult
-    public func didSelected(_ action: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
+    public func didSelect(_ action: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
         selectedAction = action
         return self
     }

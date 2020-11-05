@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         title = "Example"
 
         // Do any additional setup after loading the view, typically from a nib.
+        title = "Example"
         let dataSource = ContentDataSource {
             Section {
                 DefaultTableViewCell(title: "title")
@@ -26,7 +27,6 @@ class ViewController: UIViewController {
                     .detailText("subtitle")
                 DefaultTableViewCell(title: "title", style: .value1)
                     .detailText("value1")
-                    .selectionStyle(.none)
                 DefaultTableViewCell(title: "title", style: .value2)
                     .accessoryType(.disclosureIndicator)
                     .detailText("value2")
@@ -37,7 +37,6 @@ class ViewController: UIViewController {
             }
             Section {
                 SwitchCell(title: "Switch")
-                    .selectionStyle(.none)
                 SwitchCell(title: "Switch2", isOn: true)
                     .toggled { isOn in
                         print("\(isOn)")

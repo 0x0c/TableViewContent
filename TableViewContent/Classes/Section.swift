@@ -5,7 +5,7 @@
 //  Created by Akira Matsuda on 2019/06/19.
 //
 
-import Foundation
+import UIKit
 
 @_functionBuilder
 public struct CellBuilder {

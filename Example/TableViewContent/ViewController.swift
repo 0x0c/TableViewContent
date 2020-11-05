@@ -16,9 +16,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Example"
+
         // Do any additional setup after loading the view, typically from a nib.
         let dataSource = ContentDataSource {
             Section {
+                DefaultTableViewCell(title: "title")
                 DefaultTableViewCell(title: "title", style: .subtitle)
                     .detailText("subtitle")
                 DefaultTableViewCell(title: "title", style: .value1)
@@ -36,14 +39,11 @@ class ViewController: UIViewController {
                 SwitchCell(title: "Switch")
                     .selectionStyle(.none)
                 SwitchCell(title: "Switch2", isOn: true)
-                    .toggled { (isOn) in
+                    .toggled { isOn in
                         print("\(isOn)")
-                    }.didSelect { (_, _, isOn) in
+                    }.didSelect { _, _, isOn in
                         print("\(String(describing: isOn))")
                     }
-            }
-            Section {
-                DefaultTableViewCell(title: "title")
             }
             Section {
                 CustomCell {
@@ -51,16 +51,16 @@ class ViewController: UIViewController {
                 }
             }
             Section()
-                .header(.title("header3"))
-                .contents { (section) in
+                .header(.title("header"))
+                .contents { section in
                     for i in 0...5 {
                         section.append(DefaultTableViewCell(title: "\(i)"))
                     }
                 }
-                .footer(.title("footer3"))
+                .footer(.title("footer"))
             Section()
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
-                .contents { (section) in
+                .contents { section in
                     for i in 0...5 {
                         section.append(DefaultTableViewCell(title: "\(i)"))
                     }
@@ -70,14 +70,5 @@ class ViewController: UIViewController {
         delegate = ContentDelegate(dataSource: dataSource)
         tableView.delegate = delegate
         tableView.dataSource = dataSource
-        tableView.estimatedSectionHeaderHeight = 44
-        tableView.sectionHeaderHeight = UITableView.automaticDimension
-        tableView.estimatedSectionFooterHeight = 44
-        tableView.sectionFooterHeight = UITableView.automaticDimension
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

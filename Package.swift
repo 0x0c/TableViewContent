@@ -12,7 +12,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "TableViewContent", path: "TableViewContent/Classes"),
-        .testTarget(name: "TableViewContent", dependencies: ["TableViewContent"]),
+        .testTarget(name: "TableViewContentTest", dependencies: ["TableViewContent"]),
     ],
     swiftLanguageVersions: [
         .v5

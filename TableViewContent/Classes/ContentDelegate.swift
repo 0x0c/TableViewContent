@@ -5,7 +5,7 @@
 //  Created by Akira Matsuda on 2019/06/19.
 //
 
-import Foundation
+import UIKit
 
 open class ContentDelegate: NSObject, UITableViewDelegate {
     private let dataSource: ContentDataSource

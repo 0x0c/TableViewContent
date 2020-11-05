@@ -19,7 +19,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let dataSource = ContentDataSource {
             TableViewSection {
-                DefaultTableViewCell(title: "title")
                 DefaultTableViewCell(title: "title", style: .subtitle)
                     .detailText("subtitle")
                 DefaultTableViewCell(title: "title", style: .value1)
@@ -60,9 +59,9 @@ class ViewController: UIViewController {
                     }
                 }
                 .footer("footer3")
-                .didSelected({ (_, index, _) in
+                .didSelected { (_, index, _) in
                     print("selected \(index)")
-                })
+                }
         }
         tableView.dataSource = dataSource
         

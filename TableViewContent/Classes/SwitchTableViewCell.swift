@@ -1,43 +1,11 @@
 //
 //  SwitchTableViewCell.swift
-//  TableViewContent_Example
+//  Pods
 //
-//  Created by Akira Matsuda on 2018/10/11.
-//  Copyright © 2018 CocoaPods. All rights reserved.
+//  Created by Akira Matsuda on 2020/11/05.
 //
 
 import UIKit
-import TableViewContent
-
-open class SwitchTableViewCell: UITableViewCell {
-    private let sw = UISwitch()
-    private var targetAdded = false
-    public var isSwitchOn: Bool {
-        get {
-            return sw.isOn
-        }
-        set(isOn) {
-            sw.isOn = isOn
-        }
-    }
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.accessoryView = sw
-        self.selectionStyle = .none
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    fileprivate func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
-        if targetAdded == false {
-            sw.addTarget(target, action: action, for: controlEvents)
-            targetAdded = true
-        }
-    }
-}
 
 open class SwitchCell: TableViewCellRepresentation {
     
@@ -45,7 +13,7 @@ open class SwitchCell: TableViewCellRepresentation {
     private var toggledAction: (Bool) -> Void = {(isOn) in }
     public var isOn: Bool
     
-    init(title: String, isOn: Bool = false) {
+    public init(title: String, isOn: Bool = false) {
         self.isOn = isOn
         super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
         self.title(title)
@@ -76,8 +44,39 @@ open class SwitchCell: TableViewCellRepresentation {
         return self
     }
     
-    @objc func valueChanged(_ sender: UISwitch) {
+    @objc
+    func valueChanged(_ sender: UISwitch) {
         data = sender.isOn
         toggledAction(sender.isOn)
+    }
+}
+
+open class SwitchTableViewCell: UITableViewCell {
+    private let sw = UISwitch()
+    private var targetAdded = false
+    public var isSwitchOn: Bool {
+        get {
+            return sw.isOn
+        }
+        set(isOn) {
+            sw.isOn = isOn
+        }
+    }
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.accessoryView = sw
+        self.selectionStyle = .none
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event) {
+        if targetAdded == false {
+            sw.addTarget(target, action: action, for: controlEvents)
+            targetAdded = true
+        }
     }
 }

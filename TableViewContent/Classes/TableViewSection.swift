@@ -8,7 +8,7 @@
 import Foundation
 
 @_functionBuilder
-public struct TableViewCellBuilder {
+public struct CellBuilder {
     public static func buildBlock(_ items: TableViewCellRepresentation...) -> [TableViewCellRepresentation] {
         return items
     }
@@ -18,7 +18,7 @@ public protocol SectionConfigurable {
     func configure(_ data: Any)
 }
 
-open class TableViewSectionView {
+open class SectionView {
     public enum SectionType {
         case title(String)
         case nib(Any, UINib)
@@ -45,15 +45,15 @@ open class TableViewSectionView {
     }
 }
 
-open class TableViewSection {
-    internal var headerView: TableViewSectionView?
-    internal var footerView: TableViewSectionView?
+open class Section {
+    internal var headerView: SectionView?
+    internal var footerView: SectionView?
     internal var contents: [TableViewCellRepresentation] = []
     open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)? = nil
     
     public init() {}
 
-    public convenience init(@TableViewCellBuilder _ contents: () -> [TableViewCellRepresentation]) {
+    public convenience init(@CellBuilder _ contents: () -> [TableViewCellRepresentation]) {
         self.init()
         self.contents = contents()
     }
@@ -64,13 +64,13 @@ open class TableViewSection {
     }
 
     @discardableResult
-    public func header(_ header: TableViewSectionView) -> Self {
+    public func header(_ header: SectionView) -> Self {
         headerView = header
         return self
     }
     
     @discardableResult
-    public func footer(_ footer: TableViewSectionView) -> Self {
+    public func footer(_ footer: SectionView) -> Self {
         footerView = footer
         return self
     }
@@ -82,13 +82,13 @@ open class TableViewSection {
     }
     
     @discardableResult
-    public func contents(@TableViewCellBuilder _ sectionContents: () -> [TableViewCellRepresentation]) -> Self {
+    public func contents(@CellBuilder _ sectionContents: () -> [TableViewCellRepresentation]) -> Self {
         contents = sectionContents()
         return self
     }
     
     @discardableResult
-    public func contents(_ closure: (TableViewSection) -> Void) -> Self {
+    public func contents(_ closure: (Section) -> Void) -> Self {
         closure(self)
         return self
     }

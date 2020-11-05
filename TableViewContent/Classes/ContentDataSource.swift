@@ -8,21 +8,21 @@
 import UIKit
 
 @_functionBuilder
-public struct TableViewSectionBuilder {
-    public static func buildBlock(_ items: TableViewSection...) -> [TableViewSection] {
+public struct SectionBuilder {
+    public static func buildBlock(_ items: Section...) -> [Section] {
         return items
     }
 }
 
 open class ContentDataSource: NSObject, UITableViewDataSource {
-    internal var sections: [TableViewSection] = []
+    internal var sections: [Section] = []
     open var registeredReuseIdentifiers = [] as [String]
     
-    public init(_ sections: [TableViewSection]) {
+    public init(_ sections: [Section]) {
         self.sections = sections
     }
     
-    public init(@TableViewSectionBuilder _ sections: () -> [TableViewSection]) {
+    public init(@SectionBuilder _ sections: () -> [Section]) {
         self.sections = sections()
     }
     
@@ -73,7 +73,7 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
     
     open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let s = sections[section]
-        switch s.headerView?.sectionType {
+        switch s.headerView {
         case let .title(text):
             return text
         default:
@@ -83,7 +83,7 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
     
     open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         let s = sections[section]
-        switch s.footerView?.sectionType {
+        switch s.footerView {
         case let .title(text):
             return text
         default:

@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class TableViewCell : TableViewCellRepresentation {
+open class TableViewCell : CellRepresentation {
     public init<Cell>(title: String, cellType: Cell.Type, reuseIdentifier: String, style: UITableViewCell.CellStyle) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.title = title

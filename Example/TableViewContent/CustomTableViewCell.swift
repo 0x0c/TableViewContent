@@ -13,7 +13,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var button: UIButton!
 }
 
-class CustomCell: TableViewCellRepresentation {
+class CustomCell: CellRepresentation {
     public typealias Action = () -> Void
     
     private var buttonPressedAction: Action = {}

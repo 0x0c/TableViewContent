@@ -31,7 +31,7 @@ open class ContentDelegate: NSObject, UITableViewDelegate {
         guard let headerView = s.headerView else {
             return nil
         }
-        return headerView.sectionView()
+        return headerView.sectionView
     }
     
     public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -39,6 +39,6 @@ open class ContentDelegate: NSObject, UITableViewDelegate {
         guard let footerView = s.footerView else {
             return nil
         }
-        return footerView.sectionView()
+        return footerView.sectionView
     }
 }

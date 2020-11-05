@@ -41,4 +41,36 @@ open class ContentDelegate: NSObject, UITableViewDelegate {
         }
         return footerView.sectionView
     }
+    
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let s = dataSource.sections[section]
+        if s.headerView == nil {
+            return 0
+        }
+        return UITableView.automaticDimension
+    }
+    
+    public func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        let s = dataSource.sections[section]
+        if s.headerView == nil {
+            return 0
+        }
+        return 1
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        let s = dataSource.sections[section]
+        if s.footerView == nil {
+            return 0
+        }
+        return UITableView.automaticDimension
+    }
+
+    public func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+        let s = dataSource.sections[section]
+        if s.footerView == nil {
+            return 0
+        }
+        return 1
+    }
 }

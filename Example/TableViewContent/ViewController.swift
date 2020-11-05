@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Example"
+
         // Do any additional setup after loading the view, typically from a nib.
         title = "Example"
         let dataSource = ContentDataSource {
@@ -36,9 +38,9 @@ class ViewController: UIViewController {
             Section {
                 SwitchCell(title: "Switch")
                 SwitchCell(title: "Switch2", isOn: true)
-                    .toggled { (isOn) in
+                    .toggled { isOn in
                         print("\(isOn)")
-                    }.didSelect { (_, _, isOn) in
+                    }.didSelect { _, _, isOn in
                         print("\(String(describing: isOn))")
                     }
             }
@@ -48,13 +50,13 @@ class ViewController: UIViewController {
                 }
             }
             Section()
-                .header(.title("header3"))
+                .header(.title("header"))
                 .contents { section in
                     for i in 0...5 {
                         section.append(DefaultTableViewCell(title: "\(i)"))
                     }
                 }
-                .footer(.title("footer3"))
+                .footer(.title("footer"))
             Section()
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
                 .contents { section in
@@ -67,10 +69,5 @@ class ViewController: UIViewController {
         delegate = ContentDelegate(dataSource: dataSource)
         tableView.delegate = delegate
         tableView.dataSource = dataSource
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

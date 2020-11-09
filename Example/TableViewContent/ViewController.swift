@@ -28,7 +28,10 @@ class ViewController: UIViewController {
                     .accessoryType(.disclosureIndicator)
                     .detailText("value2")
                     .didSelect { _, _, _ in
-                        let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+                        let viewController = UIStoryboard(
+                            name: "Main",
+                            bundle: nil
+                        ).instantiateViewController(withIdentifier: "ViewController")
                         self.navigationController?.pushViewController(viewController, animated: true)
                     }
             }

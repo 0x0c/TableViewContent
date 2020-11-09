@@ -7,39 +7,29 @@
 
 import UIKit
 
-open class SwitchRow: RowRepresentation {
-    private var configureContent: (SwitchTableViewCell, IndexPath, Bool) -> Void = { _, _, _ in }
-    private var toggledAction: (Bool) -> Void = { _ in }
+open class SwitchRow: Row<SwitchTableViewCell> {
+    private var toggledAction: ((Bool) -> Void)?
     public var isOn: Bool
 
     public init(title: String, isOn: Bool = false) {
         self.isOn = isOn
-        super.init(SwitchTableViewCell.self, reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self), data: isOn)
+        super.init(
+            .class(SwitchTableViewCell.self),
+            reuseIdentifier: NSStringFromClass(SwitchTableViewCell.self)
+        )
         self.title(title)
-        super.configure(SwitchTableViewCell.self) { [unowned self] cell, indexPath, data in
-            cell.textLabel?.text = self.title
-            cell.detailTextLabel?.text = self.detailText
-            cell.imageView?.image = self.image
-            cell.selectionStyle = self.selectionStyle
-            cell.accessoryType = self.accessoryType
-            cell.editingAccessoryView = self.editingAccessoryView
-            cell.editingAccessoryType = self.editingAccessoryType
+        selectionStyle(.none)
+        configure { [unowned self] cell, _ in
+            cell.prepareAccessoryView()
             cell.isOn = self.isOn
-            cell.configure { [weak self] newValue in
+            cell.toggled { [weak self] newValue in
                 guard let weakSelf = self else {
                     return
                 }
                 weakSelf.isOn = newValue
-                weakSelf.toggledAction(newValue)
+                weakSelf.toggledAction?(newValue)
             }
-            self.configureContent(cell, indexPath, data as! Bool)
         }
-    }
-
-    @discardableResult
-    open func configure(_ configuration: @escaping (SwitchTableViewCell, IndexPath, Bool) -> Void) -> Self {
-        configureContent = configuration
-        return self
     }
 
     @discardableResult
@@ -51,7 +41,8 @@ open class SwitchRow: RowRepresentation {
 
 open class SwitchTableViewCell: UITableViewCell {
     private let sw = UISwitch()
-    private var targetAdded = false
+    private var toggledAction: ((Bool) -> Void)?
+
     public var isOn: Bool {
         get {
             sw.isOn
@@ -61,13 +52,10 @@ open class SwitchTableViewCell: UITableViewCell {
         }
     }
 
-    private var toggledAction: ((Bool) -> Void)?
-
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         accessoryView = sw
-        selectionStyle = .none
-        sw.addTarget(self, action: #selector(toggled(_:)), for: .valueChanged)
+        sw.addTarget(self, action: #selector(_toggled(_:)), for: .valueChanged)
     }
 
     @available(*, unavailable)
@@ -76,11 +64,15 @@ open class SwitchTableViewCell: UITableViewCell {
     }
 
     @objc
-    private func toggled(_ sender: UISwitch) {
+    private func _toggled(_ sender: UISwitch) {
         toggledAction?(sender.isOn)
     }
 
-    func configure(action: ((Bool) -> Void)?) {
+    internal func toggled(action: ((Bool) -> Void)?) {
         toggledAction = action
+    }
+
+    func prepareAccessoryView() {
+        accessoryView = sw
     }
 }

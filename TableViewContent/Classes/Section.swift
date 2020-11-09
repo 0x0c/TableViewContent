@@ -39,19 +39,19 @@ public enum SectionSupplementalyView {
 open class Section {
     internal var headerView: SectionSupplementalyView?
     internal var footerView: SectionSupplementalyView?
-    internal var contents: [RowRepresentation] = []
-    open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)?
+    internal var rows = [RowRepresentation]()
+    open var selectedAction: ((UITableView, IndexPath) -> Void)?
 
     public init() {}
 
-    public convenience init(@CellBuilder _ contents: () -> [RowRepresentation]) {
+    public convenience init(@CellBuilder _ rows: () -> [RowRepresentation]) {
         self.init()
-        self.contents = contents()
+        self.rows = rows()
     }
 
-    public convenience init(_ contents: [RowRepresentation]) {
+    public convenience init(_ rows: [RowRepresentation]) {
         self.init()
-        self.contents = contents
+        self.rows = rows
     }
 
     @discardableResult
@@ -67,31 +67,31 @@ open class Section {
     }
 
     @discardableResult
-    public func contents(_ sectionContents: [RowRepresentation]) -> Self {
-        contents = sectionContents
+    public func rows(_ sectionContents: [RowRepresentation]) -> Self {
+        rows = sectionContents
         return self
     }
 
     @discardableResult
     public func contents(@CellBuilder _ sectionContents: () -> [RowRepresentation]) -> Self {
-        contents = sectionContents()
+        rows = sectionContents()
         return self
     }
 
     @discardableResult
-    public func contents(_ closure: (Section) -> Void) -> Self {
+    public func rows(_ closure: (Section) -> Void) -> Self {
         closure(self)
         return self
     }
 
     @discardableResult
-    public func append<Content: RowRepresentation>(_ content: Content) -> Content {
-        contents.append(content)
-        return content
+    public func append(_ row: RowRepresentation) -> Self {
+        rows.append(row)
+        return self
     }
 
     @discardableResult
-    public func didSelect(_ action: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
+    public func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
         selectedAction = action
         return self
     }

@@ -14,7 +14,7 @@ public struct SectionBuilder {
     }
 }
 
-open class ContentDataSource: NSObject, UITableViewDataSource {
+open class DataSource: NSObject, UITableViewDataSource {
     internal var sections: [Section] = []
     open var registeredReuseIdentifiers = [] as [String]
 
@@ -32,42 +32,41 @@ open class ContentDataSource: NSObject, UITableViewDataSource {
 
     open func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         let s = sections[section]
-        return s.contents.count
+        return s.rows.count
     }
 
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
-        let row = section.contents[indexPath.row]
+        let row = section.rows[indexPath.row]
 
-        switch row.source {
-        case let .nib(nib):
+        switch row.representation {
+        case let .nib(nibClass):
             if !registeredReuseIdentifiers.contains(row.reuseIdentifier) {
                 registeredReuseIdentifiers.append(row.reuseIdentifier)
-                tableView.register(nib, forCellReuseIdentifier: row.reuseIdentifier)
+                tableView.register(nibClass, forCellReuseIdentifier: row.reuseIdentifier)
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
-            row._configure(cell, indexPath)
-            return cell
-
         case let .class(cellClass):
             if !registeredReuseIdentifiers.contains(row.reuseIdentifier) {
                 registeredReuseIdentifiers.append(row.reuseIdentifier)
                 tableView.register(cellClass, forCellReuseIdentifier: row.reuseIdentifier)
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
-            row._configure(cell, indexPath)
-            return cell
-
-        case let .style(cellStyle):
+        case let .cellStyle(style):
             if let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier) {
-                row._configure(cell, indexPath)
+                row.prepare(cell)
+                row.internalConfigure(cell, indexPath)
                 return cell
             } else {
-                let cell = UITableViewCell(style: cellStyle, reuseIdentifier: row.reuseIdentifier)
-                row._configure(cell, indexPath)
+                let cell = UITableViewCell(style: style, reuseIdentifier: row.reuseIdentifier)
+                row.prepare(cell)
+                row.internalConfigure(cell, indexPath)
                 return cell
             }
         }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
+        row.prepare(cell)
+        row.internalConfigure(cell, indexPath)
+        return cell
     }
 
     open func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {

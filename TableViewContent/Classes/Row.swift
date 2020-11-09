@@ -1,41 +1,131 @@
 //
-//  TableCellContent.swift
+//  TableViewContent.swift
 //  Pods-TableViewContent_Example
 //
-//  Created by Akira Matsuda on 2018/10/12.
+//  Created by Akira Matsuda on 2018/10/08.
 //
 
 import UIKit
 
-open class Row: RowRepresentation {
-    public init<Cell>(title: String, cellType _: Cell.Type, reuseIdentifier: String, style: UITableViewCell.CellStyle) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.title = title
-        self.style = style
-        configure(UITableViewCell.self) { [unowned self] cell, _, _ in
-            cell.textLabel?.text = self.title
-            cell.detailTextLabel?.text = self.detailText
-            cell.imageView?.image = self.image
+public enum CellRepresentation {
+    case nib(UINib)
+    case `class`(AnyClass)
+    case cellStyle(UITableViewCell.CellStyle)
+}
 
-            cell.selectionStyle = self.selectionStyle
+open class RowConfiguration {
+    public var title: String?
+    public var detailText: String?
+    public var image: UIImage?
+    public var selectionStyle: UITableViewCell.SelectionStyle = .blue
+    public var accessoryType: UITableViewCell.AccessoryType = .none
+    public var accessoryView: UIView?
+    public var editingAccessoryType: UITableViewCell.AccessoryType = .none
+    public var editingAccessoryView: UIView?
+    public var style: UITableViewCell.CellStyle = .default
+}
 
-            cell.accessoryView = self.accessoryView
-            cell.accessoryType = self.accessoryType
+public protocol RowRepresentation {
+    var configuration: RowConfiguration { get set }
+    var reuseIdentifier: String { get }
+    var representation: CellRepresentation { get }
+    var selectedAction: ((UITableView, IndexPath, RowConfiguration) -> Void)? { get }
+    func prepare(_ cell: UITableViewCell)
+    func internalConfigure(_ cell: UITableViewCell, _ indexPath: IndexPath)
+}
 
-            cell.editingAccessoryView = self.editingAccessoryView
-            cell.editingAccessoryType = self.editingAccessoryType
-        }
+open class Row<Cell: UITableViewCell>: RowRepresentation {
+    public let reuseIdentifier: String
+    public let representation: CellRepresentation
+
+    public var configuration = RowConfiguration()
+    public var selectedAction: ((UITableView, IndexPath, RowConfiguration) -> Void)?
+
+    private var _configure: (Cell, IndexPath) -> Void = { _, _ in }
+    public func internalConfigure(_ cell: UITableViewCell, _ indexPath: IndexPath) {
+        _configure(cell as! Cell, indexPath)
+    }
+
+    public init(
+        _ representation: CellRepresentation,
+        reuseIdentifier: String
+    ) {
+        self.representation = representation
+        self.reuseIdentifier = reuseIdentifier
     }
 
     @discardableResult
-    open func configure(_ configuration: (Row) -> Void) -> Self {
-        configuration(self)
+    open func configure(_ configuration: ((Cell, IndexPath) -> Void)?) -> Self {
+        _configure = { [unowned self] cell, indexPath in
+            self.prepare(cell)
+            configuration?(cell, indexPath)
+        }
+
         return self
     }
-}
 
-open class DefaultRow: Row {
-    public init(title: String, style: UITableViewCell.CellStyle = .default) {
-        super.init(title: title, cellType: UITableViewCell.self, reuseIdentifier: "\(NSStringFromClass(DefaultRow.self))-\(style.rawValue)", style: style)
+    public func prepare(_ cell: UITableViewCell) {
+        cell.textLabel?.text = configuration.title
+        cell.detailTextLabel?.text = configuration.detailText
+        cell.imageView?.image = configuration.image
+        cell.selectionStyle = configuration.selectionStyle
+        cell.accessoryView = configuration.accessoryView
+        cell.accessoryType = configuration.accessoryType
+        cell.editingAccessoryView = configuration.editingAccessoryView
+        cell.editingAccessoryType = configuration.editingAccessoryType
+    }
+
+    @discardableResult
+    open func didSelect(_ action: @escaping (UITableView, IndexPath, RowConfiguration) -> Void) -> Self {
+        selectedAction = action
+        return self
+    }
+
+    @discardableResult
+    open func title(_ title: String?) -> Self {
+        configuration.title = title
+        return self
+    }
+
+    @discardableResult
+    open func detailText(_ text: String?) -> Self {
+        configuration.detailText = text
+        return self
+    }
+
+    @discardableResult
+    open func image(_ image: UIImage?) -> Self {
+        configuration.image = image
+        return self
+    }
+
+    @discardableResult
+    open func selectionStyle(_ style: UITableViewCell.SelectionStyle) -> Self {
+        configuration.selectionStyle = style
+        return self
+    }
+
+    @discardableResult
+    open func accessoryType(_ type: UITableViewCell.AccessoryType) -> Self {
+        configuration.accessoryType = type
+        return self
+    }
+
+    @discardableResult
+    open func accessoryView(_ view: UIView?) -> Self {
+        configuration.accessoryView = view
+        return self
+    }
+
+    @discardableResult
+    open func editingAccessoryType(_ type: UITableViewCell.AccessoryType) -> Self {
+        configuration.editingAccessoryType = type
+        return self
+    }
+
+    @discardableResult
+    open func editingAccessoryView(_ view: UIView?) -> Self {
+        configuration.editingAccessoryView = view
+        return self
     }
 }

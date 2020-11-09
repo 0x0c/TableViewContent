@@ -11,13 +11,13 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
-    var delegate: ContentDelegate?
+    var delegate: Delegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Example"
-        let dataSource = ContentDataSource {
+        let dataSource = DataSource {
             Section {
                 DefaultRow(title: "title")
                 DefaultRow(title: "title", style: .subtitle)
@@ -43,8 +43,6 @@ class ViewController: UIViewController {
                 SwitchRow(title: "Switch2", isOn: true)
                     .toggled { isOn in
                         print("Switch2 \(isOn)")
-                    }.didSelect { _, _, isOn in
-                        print("\(String(describing: isOn))")
                     }
             }
             Section {
@@ -54,7 +52,7 @@ class ViewController: UIViewController {
             }
             Section()
                 .header(.title("header"))
-                .contents { section in
+                .rows { section in
                     for i in 0 ... 5 {
                         section.append(DefaultRow(title: "\(i)"))
                     }
@@ -62,14 +60,15 @@ class ViewController: UIViewController {
                 .footer(.title("footer"))
             Section()
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
-                .contents { section in
+                .rows { section in
                     for i in 0 ... 5 {
                         section.append(DefaultRow(title: "\(i)"))
                     }
                 }
                 .footer(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil)))
         }
-        delegate = ContentDelegate(dataSource: dataSource)
+        delegate = Delegate(dataSource: dataSource)
+        delegate?.clearSelectionAutomatically = true
         tableView.delegate = delegate
         tableView.dataSource = dataSource
     }

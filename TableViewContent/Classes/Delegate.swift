@@ -7,22 +7,25 @@
 
 import UIKit
 
-open class ContentDelegate: NSObject, UITableViewDelegate {
-    private let dataSource: ContentDataSource
+open class Delegate: NSObject, UITableViewDelegate {
+    private let dataSource: DataSource
+    open var clearSelectionAutomatically: Bool = false
 
-    public init(dataSource: ContentDataSource) {
+    public init(dataSource: DataSource) {
         self.dataSource = dataSource
     }
 
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = dataSource.sections[indexPath.section]
-        let row = section.contents[indexPath.row]
-        if let action = row.action {
-            action(tableView, indexPath, row.data)
+        let row = section.rows[indexPath.row]
+        if let action = row.selectedAction {
+            action(tableView, indexPath, row.configuration)
         } else if let action = section.selectedAction {
-            action(tableView, indexPath, row.data)
+            action(tableView, indexPath)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
+        if clearSelectionAutomatically {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 
     public func tableView(_: UITableView, viewForHeaderInSection section: Int) -> UIView? {

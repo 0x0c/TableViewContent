@@ -6,14 +6,13 @@
 //  Copyright (c) 2018 Akira Matsuda. All rights reserved.
 //
 
-import UIKit
 import TableViewContent
+import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     var delegate: ContentDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Example"
@@ -30,16 +29,19 @@ class ViewController: UIViewController {
                 DefaultTableViewCell(title: "title", style: .value2)
                     .accessoryType(.disclosureIndicator)
                     .detailText("value2")
-                    .didSelect { (_, _, _) in
+                    .didSelect { _, _, _ in
                         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
                         self.navigationController?.pushViewController(viewController, animated: true)
-                }
+                    }
             }
             Section {
                 SwitchCell(title: "Switch")
+                    .toggled { isOn in
+                        print("Switch1 \(isOn)")
+                    }
                 SwitchCell(title: "Switch2", isOn: true)
                     .toggled { isOn in
-                        print("\(isOn)")
+                        print("Switch2 \(isOn)")
                     }.didSelect { _, _, isOn in
                         print("\(String(describing: isOn))")
                     }
@@ -52,7 +54,7 @@ class ViewController: UIViewController {
             Section()
                 .header(.title("header"))
                 .contents { section in
-                    for i in 0...5 {
+                    for i in 0 ... 5 {
                         section.append(DefaultTableViewCell(title: "\(i)"))
                     }
                 }
@@ -60,7 +62,7 @@ class ViewController: UIViewController {
             Section()
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
                 .contents { section in
-                    for i in 0...5 {
+                    for i in 0 ... 5 {
                         section.append(DefaultTableViewCell(title: "\(i)"))
                     }
                 }

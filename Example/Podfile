@@ -1,8 +1,10 @@
 use_frameworks!
+platform :ios, '11.0'
 
 target 'TableViewContent_Example' do
   pod 'TableViewContent', :path => '../'
 
+  pod 'SwiftFormat/CLI'
   target 'TableViewContent_Tests' do
     inherit! :search_paths
 

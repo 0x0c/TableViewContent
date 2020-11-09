@@ -11,7 +11,7 @@ import UIKit
 import TableViewContent
 
 class CustomHeaderView: UIView, TableViewContent.SectionConfigurable {
-    @IBOutlet weak var headerTitle: UILabel!
+    @IBOutlet var headerTitle: UILabel!
 
     func configure(_ data: Any) {
         guard let data = data as? String else {

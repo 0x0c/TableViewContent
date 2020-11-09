@@ -26,6 +26,7 @@ open class RowConfiguration {
 }
 
 public protocol RowRepresentation {
+    var updateAfterSelected: Bool { get set }
     var configuration: RowConfiguration { get set }
     var reuseIdentifier: String { get }
     var representation: CellRepresentation { get }
@@ -35,6 +36,8 @@ public protocol RowRepresentation {
 }
 
 open class Row<Cell: UITableViewCell>: RowRepresentation {
+    public var updateAfterSelected: Bool = false
+    
     public let reuseIdentifier: String
     public let representation: CellRepresentation
 
@@ -52,6 +55,12 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     ) {
         self.representation = representation
         self.reuseIdentifier = reuseIdentifier
+    }
+    
+    @discardableResult
+    open func updateAfterSelected(_ update: Bool) -> Self {
+        updateAfterSelected = update
+        return self
     }
 
     @discardableResult

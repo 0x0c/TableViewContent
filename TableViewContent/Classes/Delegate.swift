@@ -16,6 +16,9 @@ open class Delegate: NSObject, UITableViewDelegate {
     }
 
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if clearSelectionAutomatically {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         let section = dataSource.sections[indexPath.section]
         let row = section.rows[indexPath.row]
         if let action = row.selectedAction {
@@ -23,8 +26,8 @@ open class Delegate: NSObject, UITableViewDelegate {
         } else if let action = section.selectedAction {
             action(tableView, indexPath)
         }
-        if clearSelectionAutomatically {
-            tableView.deselectRow(at: indexPath, animated: true)
+        if row.updateAfterSelected {
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
 

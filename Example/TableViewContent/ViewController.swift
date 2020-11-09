@@ -24,6 +24,10 @@ class ViewController: UIViewController {
                     .detailText("subtitle")
                 DefaultRow(title: "title", style: .value1)
                     .detailText("value1")
+                    .updateAfterSelected(true)
+                    .didSelect { _, _, configuration in
+                        configuration.title = "updated"
+                    }
                 DefaultRow(title: "title", style: .value2)
                     .accessoryType(.disclosureIndicator)
                     .detailText("value2")

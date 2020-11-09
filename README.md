@@ -19,6 +19,72 @@ it, simply add the following line to your Podfile:
 pod 'TableViewContent'
 ```
 
+## Usage
+
+You can declare table view sections and cells as follows:
+
+```
+Section {
+    DefaultRow(title: "title")
+    DefaultRow(title: "title", style: .subtitle)
+        .detailText("subtitle")
+    DefaultRow(title: "title", style: .value1)
+        .detailText("value1")
+    DefaultRow(title: "title", style: .value2)
+        .accessoryType(.disclosureIndicator)
+        .detailText("value2")
+}
+```
+
+To handle cell selection, call `didSelect` method.
+
+```
+DefaultRow(title: "title", style: .value2)
+.accessoryType(.disclosureIndicator)
+.detailText("value2")
+.didSelect { _, _, _ in
+    let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+    self.navigationController?.pushViewController(viewController, animated: true)
+}
+```
+
+Define class that inherit `RowRepresentation` for implementing custom row.
+```
+class CustomRow: RowRepresentation {
+    public typealias Action = () -> Void
+
+    private var buttonPressedAction: Action = {}
+
+    init() {
+        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)
+        configure(CustomTableViewCell.self) { [unowned self] cell, _, _ in
+            cell.button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
+        }
+    }
+
+    convenience init(_ action: @escaping Action) {
+        self.init()
+        buttonPressedAction = action
+    }
+
+    @discardableResult
+    func didButtonPress(_ action: @escaping Action) -> Self {
+        buttonPressedAction = action
+        return self
+    }
+
+    @objc private func buttonPressed() {
+        buttonPressedAction()
+    }
+}
+
+class CustomTableViewCell: UITableViewCell {
+    @IBOutlet var button: UIButton!
+}
+```
+
+See example code to lean advanced usage.
+
 ## Author
 
 Akira Matsuda, akira.matsuda@me.com

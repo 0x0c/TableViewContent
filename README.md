@@ -52,15 +52,36 @@ DefaultRow(title: "title", style: .value2)
 
 Define class that inherit `RowRepresentation` for implementing custom row.
 ```
-class CustomRow: RowRepresentation {
+class CustomTableViewCell: UITableViewCell {
+    public typealias Action = () -> Void
+
+    @IBOutlet private var button: UIButton!
+    var buttonPressedAction: Action = {}
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+    }
+
+    @objc
+    private func buttonPressed(_: UIButton) {
+        buttonPressedAction()
+    }
+}
+
+class CustomRow: Row<CustomTableViewCell> {
     public typealias Action = () -> Void
 
     private var buttonPressedAction: Action = {}
 
     init() {
-        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)
-        configure(CustomTableViewCell.self) { [unowned self] cell, _, _ in
-            cell.button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
+        super.init(
+            .nib(.init(nibName: "CustomTableViewCell", bundle: nil)),
+            reuseIdentifier: NSStringFromClass(CustomTableViewCell.self)
+        )
+        selectionStyle(.none)
+        configure { [unowned self] cell, _ in
+            cell.buttonPressedAction = self.buttonPressedAction
         }
     }
 
@@ -75,13 +96,10 @@ class CustomRow: RowRepresentation {
         return self
     }
 
-    @objc private func buttonPressed() {
+    @objc
+    private func buttonPressed() {
         buttonPressedAction()
     }
-}
-
-class CustomTableViewCell: UITableViewCell {
-    @IBOutlet var button: UIButton!
 }
 ```
 

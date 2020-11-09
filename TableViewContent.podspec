@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-Declare tableView contents, inspired DataSourceKit.
+Declare tableView row and section header/footer, inspired DataSourceKit.
                        DESC
 
   s.homepage         = 'https://github.com/0x0c/TableViewContent'

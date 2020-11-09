@@ -6,36 +6,36 @@
 //  Copyright © 2018 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import TableViewContent
+import UIKit
 
 class CustomTableViewCell: UITableViewCell {
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet var button: UIButton!
 }
 
-class CustomCell: CellRepresentation {
+class CustomRow: RowRepresentation {
     public typealias Action = () -> Void
-    
+
     private var buttonPressedAction: Action = {}
-    
+
     init() {
         super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)
-        self.configure(CustomTableViewCell.self) { [unowned self] (cell, _, _) in
+        configure(CustomTableViewCell.self) { [unowned self] cell, _, _ in
             cell.button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
         }
     }
-    
+
     convenience init(_ action: @escaping Action) {
         self.init()
         buttonPressedAction = action
     }
-    
+
     @discardableResult
     func didButtonPress(_ action: @escaping Action) -> Self {
         buttonPressedAction = action
         return self
     }
-    
+
     @objc private func buttonPressed() {
         buttonPressedAction()
     }

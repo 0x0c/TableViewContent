@@ -9,8 +9,8 @@ import UIKit
 
 @_functionBuilder
 public struct CellBuilder {
-    public static func buildBlock(_ items: CellRepresentation...) -> [CellRepresentation] {
-        return items
+    public static func buildBlock(_ items: RowRepresentation...) -> [RowRepresentation] {
+        items
     }
 }
 
@@ -26,7 +26,7 @@ public enum SectionSupplementalyView {
 
     var sectionView: UIView? {
         switch self {
-        case .title(_):
+        case .title:
             return nil
         case let .nib(data, nib):
             let internalView = nib.instantiate(withOwner: nil, options: nil).first as? SectionViewRepresentation
@@ -39,17 +39,17 @@ public enum SectionSupplementalyView {
 open class Section {
     internal var headerView: SectionSupplementalyView?
     internal var footerView: SectionSupplementalyView?
-    internal var contents: [CellRepresentation] = []
-    open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)? = nil
-    
+    internal var contents: [RowRepresentation] = []
+    open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)?
+
     public init() {}
 
-    public convenience init(@CellBuilder _ contents: () -> [CellRepresentation]) {
+    public convenience init(@CellBuilder _ contents: () -> [RowRepresentation]) {
         self.init()
         self.contents = contents()
     }
-    
-    public convenience init(_ contents: [CellRepresentation]) {
+
+    public convenience init(_ contents: [RowRepresentation]) {
         self.init()
         self.contents = contents
     }
@@ -59,37 +59,37 @@ open class Section {
         headerView = header
         return self
     }
-    
+
     @discardableResult
     public func footer(_ footer: SectionSupplementalyView) -> Self {
         footerView = footer
         return self
     }
-    
+
     @discardableResult
-    public func contents(_ sectionContents: [CellRepresentation]) -> Self {
+    public func contents(_ sectionContents: [RowRepresentation]) -> Self {
         contents = sectionContents
         return self
     }
-    
+
     @discardableResult
-    public func contents(@CellBuilder _ sectionContents: () -> [CellRepresentation]) -> Self {
+    public func contents(@CellBuilder _ sectionContents: () -> [RowRepresentation]) -> Self {
         contents = sectionContents()
         return self
     }
-    
+
     @discardableResult
     public func contents(_ closure: (Section) -> Void) -> Self {
         closure(self)
         return self
     }
-    
+
     @discardableResult
-    public func append<Content: CellRepresentation>(_ content: Content) -> Content {
+    public func append<Content: RowRepresentation>(_ content: Content) -> Content {
         contents.append(content)
         return content
     }
-    
+
     @discardableResult
     public func didSelect(_ action: @escaping (UITableView, IndexPath, Any?) -> Void) -> Self {
         selectedAction = action

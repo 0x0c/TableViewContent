@@ -9,7 +9,7 @@ import UIKit
 
 @_functionBuilder
 public struct CellBuilder {
-    public static func buildBlock(_ items: CellRepresentation...) -> [CellRepresentation] {
+    public static func buildBlock(_ items: RowRepresentation...) -> [RowRepresentation] {
         items
     }
 }
@@ -39,17 +39,17 @@ public enum SectionSupplementalyView {
 open class Section {
     internal var headerView: SectionSupplementalyView?
     internal var footerView: SectionSupplementalyView?
-    internal var contents: [CellRepresentation] = []
+    internal var contents: [RowRepresentation] = []
     open var selectedAction: ((UITableView, IndexPath, Any?) -> Void)?
 
     public init() {}
 
-    public convenience init(@CellBuilder _ contents: () -> [CellRepresentation]) {
+    public convenience init(@CellBuilder _ contents: () -> [RowRepresentation]) {
         self.init()
         self.contents = contents()
     }
 
-    public convenience init(_ contents: [CellRepresentation]) {
+    public convenience init(_ contents: [RowRepresentation]) {
         self.init()
         self.contents = contents
     }
@@ -67,13 +67,13 @@ open class Section {
     }
 
     @discardableResult
-    public func contents(_ sectionContents: [CellRepresentation]) -> Self {
+    public func contents(_ sectionContents: [RowRepresentation]) -> Self {
         contents = sectionContents
         return self
     }
 
     @discardableResult
-    public func contents(@CellBuilder _ sectionContents: () -> [CellRepresentation]) -> Self {
+    public func contents(@CellBuilder _ sectionContents: () -> [RowRepresentation]) -> Self {
         contents = sectionContents()
         return self
     }
@@ -85,7 +85,7 @@ open class Section {
     }
 
     @discardableResult
-    public func append<Content: CellRepresentation>(_ content: Content) -> Content {
+    public func append<Content: RowRepresentation>(_ content: Content) -> Content {
         contents.append(content)
         return content
     }

@@ -1,5 +1,5 @@
 //
-//  SwitchTableViewCell.swift
+//  SwitchRow.swift
 //  Pods
 //
 //  Created by Akira Matsuda on 2020/11/05.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class SwitchCell: CellRepresentation {
+open class SwitchRow: RowRepresentation {
     private var configureContent: (SwitchTableViewCell, IndexPath, Bool) -> Void = { _, _, _ in }
     private var toggledAction: (Bool) -> Void = { _ in }
     public var isOn: Bool
@@ -24,8 +24,14 @@ open class SwitchCell: CellRepresentation {
             cell.accessoryType = self.accessoryType
             cell.editingAccessoryView = self.editingAccessoryView
             cell.editingAccessoryType = self.editingAccessoryType
-            cell.isSwitchOn = self.isOn
-            cell.configure(action: toggledAction)
+            cell.isOn = self.isOn
+            cell.configure { [weak self] newValue in
+                guard let weakSelf = self else {
+                    return
+                }
+                weakSelf.isOn = newValue
+                weakSelf.toggledAction(newValue)
+            }
             self.configureContent(cell, indexPath, data as! Bool)
         }
     }
@@ -41,18 +47,12 @@ open class SwitchCell: CellRepresentation {
         toggledAction = toggleAction
         return self
     }
-
-    @objc
-    func valueChanged(_ sender: UISwitch) {
-        data = sender.isOn
-        toggledAction(sender.isOn)
-    }
 }
 
 open class SwitchTableViewCell: UITableViewCell {
     private let sw = UISwitch()
     private var targetAdded = false
-    public var isSwitchOn: Bool {
+    public var isOn: Bool {
         get {
             sw.isOn
         }

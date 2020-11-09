@@ -21,12 +21,12 @@ class ViewController: UIViewController {
         title = "Example"
         let dataSource = ContentDataSource {
             Section {
-                DefaultTableViewCell(title: "title")
-                DefaultTableViewCell(title: "title", style: .subtitle)
+                DefaultRow(title: "title")
+                DefaultRow(title: "title", style: .subtitle)
                     .detailText("subtitle")
-                DefaultTableViewCell(title: "title", style: .value1)
+                DefaultRow(title: "title", style: .value1)
                     .detailText("value1")
-                DefaultTableViewCell(title: "title", style: .value2)
+                DefaultRow(title: "title", style: .value2)
                     .accessoryType(.disclosureIndicator)
                     .detailText("value2")
                     .didSelect { _, _, _ in
@@ -35,11 +35,11 @@ class ViewController: UIViewController {
                     }
             }
             Section {
-                SwitchCell(title: "Switch")
+                SwitchRow(title: "Switch")
                     .toggled { isOn in
                         print("Switch1 \(isOn)")
                     }
-                SwitchCell(title: "Switch2", isOn: true)
+                SwitchRow(title: "Switch2", isOn: true)
                     .toggled { isOn in
                         print("Switch2 \(isOn)")
                     }.didSelect { _, _, isOn in
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
                     }
             }
             Section {
-                CustomCell {
+                CustomRow {
                     print("button pressed")
                 }
             }
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
                 .header(.title("header"))
                 .contents { section in
                     for i in 0 ... 5 {
-                        section.append(DefaultTableViewCell(title: "\(i)"))
+                        section.append(DefaultRow(title: "\(i)"))
                     }
                 }
                 .footer(.title("footer"))
@@ -63,7 +63,7 @@ class ViewController: UIViewController {
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
                 .contents { section in
                     for i in 0 ... 5 {
-                        section.append(DefaultTableViewCell(title: "\(i)"))
+                        section.append(DefaultRow(title: "\(i)"))
                     }
                 }
                 .footer(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil)))

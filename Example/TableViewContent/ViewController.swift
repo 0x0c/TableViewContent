@@ -85,19 +85,21 @@ class ViewController: UIViewController {
                 .footer(.title("footer"))
             Section()
                 .header(.view(UIColor.green, ColorHeaderView(height: 40)))
-                .rows { section in
-                    for i in 0 ... 5 {
-                        section.append(DefaultRow(title: "\(i)"))
-                    }
+                .rows {
+                    DefaultRow(title: "a")
+                    DefaultRow(title: "b")
+                    DefaultRow(title: "c")
+                    DefaultRow(title: "d")
                 }
                 .footer(.view(UIColor.blue, ColorHeaderView(height: 40)))
             Section()
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
-                .rows { section in
-                    for i in 0 ... 5 {
-                        section.append(DefaultRow(title: "\(i)"))
-                    }
-                }
+                .rows([
+                    DefaultRow(title: "a"),
+                    DefaultRow(title: "b"),
+                    DefaultRow(title: "c"),
+                    DefaultRow(title: "d"),
+                ])
                 .footer(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil)))
         }
         delegate = Delegate(dataSource: dataSource)

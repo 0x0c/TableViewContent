@@ -9,6 +9,27 @@
 import TableViewContent
 import UIKit
 
+class ColorHeaderView: UIView, SectionConfigurable {
+    init(height: CGFloat) {
+        super.init(frame: .zero)
+        NSLayoutConstraint.activate([
+            heightAnchor.constraint(equalToConstant: height),
+        ])
+    }
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func configure(_ data: Any) {
+        guard let color = data as? UIColor else {
+            return
+        }
+        backgroundColor = color
+    }
+}
+
 class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var delegate: Delegate?
@@ -62,6 +83,14 @@ class ViewController: UIViewController {
                     }
                 }
                 .footer(.title("footer"))
+            Section()
+                .header(.view(UIColor.green, ColorHeaderView(height: 40)))
+                .rows { section in
+                    for i in 0 ... 5 {
+                        section.append(DefaultRow(title: "\(i)"))
+                    }
+                }
+                .footer(.view(UIColor.blue, ColorHeaderView(height: 40)))
             Section()
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
                 .rows { section in

@@ -78,7 +78,7 @@ open class Section {
     }
 
     @discardableResult
-    public func contents(@CellBuilder _ sectionContents: () -> [RowRepresentation]) -> Self {
+    public func rows(@CellBuilder _ sectionContents: () -> [RowRepresentation]) -> Self {
         rows = sectionContents()
         return self
     }

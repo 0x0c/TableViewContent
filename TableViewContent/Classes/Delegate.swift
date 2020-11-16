@@ -8,11 +8,20 @@
 import UIKit
 
 open class Delegate: NSObject, UITableViewDelegate {
-    private let dataSource: DataSource
+    private var dataSource: DataSource
+    private var tableView: UITableView?
     open var clearSelectionAutomatically: Bool = false
 
-    public init(dataSource: DataSource) {
+    public init(dataSource: DataSource, tableView: UITableView? = nil) {
         self.dataSource = dataSource
+        self.tableView = tableView
+    }
+    
+    func reload(_ dataSource: DataSource) {
+        if let tableView = tableView {
+            self.dataSource = dataSource
+            tableView.reloadData()
+        }
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

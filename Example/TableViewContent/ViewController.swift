@@ -60,6 +60,7 @@ class ViewController: UIViewController {
                         self.navigationController?.pushViewController(viewController, animated: true)
                     }
             }
+            .sectionIndexTitle("Section")
             Section {
                 SwitchRow(title: "Switch")
                     .toggled { isOn in
@@ -69,12 +70,12 @@ class ViewController: UIViewController {
                     .toggled { isOn in
                         print("Switch2 \(isOn)")
                     }
-            }
+            }.sectionIndexTitle("Switch Section")
             Section {
                 CustomRow {
                     print("button pressed")
                 }
-            }
+            }.sectionIndexTitle("Button Section")
             Section()
                 .header(.title("header"))
                 .rows { section in
@@ -83,6 +84,7 @@ class ViewController: UIViewController {
                     }
                 }
                 .footer(.title("footer"))
+                .sectionIndexTitle("Header Section")
             Section()
                 .header(.view(UIColor.green, ColorHeaderView(height: 40)))
                 .rows {
@@ -92,6 +94,7 @@ class ViewController: UIViewController {
                     DefaultRow(title: "d")
                 }
                 .footer(.view(UIColor.blue, ColorHeaderView(height: 40)))
+                .sectionIndexTitle("Header Section2")
             Section()
                 .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
                 .rows([
@@ -101,7 +104,9 @@ class ViewController: UIViewController {
                     DefaultRow(title: "d"),
                 ])
                 .footer(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil)))
+                .sectionIndexTitle("Custom Header Section")
         }
+        dataSource.presentSectinIndex = true
         delegate = Delegate(dataSource: dataSource)
         delegate?.clearSelectionAutomatically = true
         tableView.delegate = delegate

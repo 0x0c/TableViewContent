@@ -45,6 +45,7 @@ open class Section {
     internal var headerView: SectionSupplementalyView?
     internal var footerView: SectionSupplementalyView?
     internal var rows = [RowRepresentation]()
+    internal var sectionIndexTitle: String?
     open var selectedAction: ((UITableView, IndexPath) -> Void)?
 
     public init() {}
@@ -57,6 +58,12 @@ open class Section {
     public convenience init(_ rows: [RowRepresentation]) {
         self.init()
         self.rows = rows
+    }
+    
+    @discardableResult
+    public func sectionIndexTitle(_ title: String) -> Self {
+        sectionIndexTitle = title
+        return self
     }
 
     @discardableResult

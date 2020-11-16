@@ -16,7 +16,8 @@ public struct SectionBuilder {
 
 open class DataSource: NSObject, UITableViewDataSource {
     internal var sections: [Section] = []
-    open var registeredReuseIdentifiers = [] as [String]
+    public private(set) var registeredReuseIdentifiers = [] as [String]
+    open var presentSectinIndex: Bool = false
 
     public init(_ sections: [Section]) {
         self.sections = sections
@@ -35,7 +36,7 @@ open class DataSource: NSObject, UITableViewDataSource {
         return s.rows.count
     }
 
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = sections[indexPath.section]
         let row = section.rows[indexPath.row]
 
@@ -69,7 +70,7 @@ open class DataSource: NSObject, UITableViewDataSource {
         return cell
     }
 
-    open func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
+    public func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
         let s = sections[section]
         switch s.headerView {
         case let .title(text):
@@ -79,7 +80,7 @@ open class DataSource: NSObject, UITableViewDataSource {
         }
     }
 
-    open func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
+    public func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
         let s = sections[section]
         switch s.footerView {
         case let .title(text):
@@ -87,5 +88,21 @@ open class DataSource: NSObject, UITableViewDataSource {
         default:
             return nil
         }
+    }
+    
+    public func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        if presentSectinIndex {
+            var indexTitles = [String]()
+            for section in sections {
+                if let title = section.sectionIndexTitle, let char = title.first {
+                    indexTitles.append(String(char))
+                }
+                else {
+                    return nil
+                }
+            }
+            return indexTitles
+        }
+        return nil
     }
 }

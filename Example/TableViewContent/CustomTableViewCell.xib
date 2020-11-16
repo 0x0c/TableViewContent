@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,15 +18,15 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VFu-v5-Enw">
-                        <rect key="frame" x="118" y="6" width="84" height="30.5"/>
+                        <rect key="frame" x="8" y="6" width="304" height="30.5"/>
                         <state key="normal" title="Custom Cell"/>
                     </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="VFu-v5-Enw" secondAttribute="bottom" constant="7.5" id="I9O-1c-13d"/>
                     <constraint firstItem="VFu-v5-Enw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="IOW-2u-sUe"/>
-                    <constraint firstAttribute="trailing" secondItem="VFu-v5-Enw" secondAttribute="trailing" constant="118" id="bJj-Md-dAa"/>
-                    <constraint firstItem="VFu-v5-Enw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="118" id="gE0-ze-zfA"/>
+                    <constraint firstAttribute="trailing" secondItem="VFu-v5-Enw" secondAttribute="trailing" constant="8" id="MlE-9F-d23"/>
+                    <constraint firstItem="VFu-v5-Enw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="dJf-Qi-eKW"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

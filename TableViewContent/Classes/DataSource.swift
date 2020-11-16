@@ -27,11 +27,11 @@ open class DataSource: NSObject, UITableViewDataSource {
         self.sections = sections()
     }
 
-    open func numberOfSections(in _: UITableView) -> Int {
+    public func numberOfSections(in _: UITableView) -> Int {
         sections.count
     }
 
-    open func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_: UITableView, numberOfRowsInSection section: Int) -> Int {
         let s = sections[section]
         return s.rows.count
     }

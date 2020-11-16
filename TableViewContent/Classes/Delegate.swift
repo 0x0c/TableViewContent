@@ -15,7 +15,7 @@ open class Delegate: NSObject, UITableViewDelegate {
         self.dataSource = dataSource
     }
 
-    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if clearSelectionAutomatically {
             tableView.deselectRow(at: indexPath, animated: true)
         }

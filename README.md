@@ -50,7 +50,7 @@ DefaultRow(title: "title", style: .value2)
 }
 ```
 
-Define class that inherit `RowRepresentation` for implementing custom row.
+Define class that inherit `Row<T: UITableViewCell>` for implementing custom row.
 ```
 class CustomTableViewCell: UITableViewCell {
     public typealias Action = () -> Void

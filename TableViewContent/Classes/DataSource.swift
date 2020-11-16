@@ -106,8 +106,8 @@ open class DataSource: NSObject, UITableViewDataSource {
         if presentSectinIndex {
             var indexTitles = [String]()
             for section in sections {
-                if let title = section.sectionIndexTitle, let char = title.first {
-                    indexTitles.append(String(char))
+                if let title = section.sectionIndexTitle {
+                    indexTitles.append(title)
                 }
                 else {
                     return nil

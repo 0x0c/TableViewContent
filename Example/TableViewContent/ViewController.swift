@@ -111,7 +111,7 @@ class ViewController: UIViewController {
                     .sectionIndexTitle("Header Section")
             )
         }
-        delegate = Delegate(dataSource: dataSource)
+        delegate = Delegate(dataSource: dataSource, tableView: tableView)
         delegate?.clearSelectionAutomatically = true
         tableView.delegate = delegate
         tableView.dataSource = dataSource

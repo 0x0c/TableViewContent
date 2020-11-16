@@ -15,7 +15,7 @@ public struct SectionBuilder {
 }
 
 open class DataSource: NSObject, UITableViewDataSource {
-    internal var sections: [Section] = []
+    public private(set) var sections: [Section] = []
     public private(set) var registeredReuseIdentifiers = [] as [String]
     open var presentSectinIndex: Bool = false
 
@@ -25,6 +25,18 @@ open class DataSource: NSObject, UITableViewDataSource {
 
     public init(@SectionBuilder _ sections: () -> [Section]) {
         self.sections = sections()
+    }
+    
+    @discardableResult
+    public func sections(_ closure: (DataSource) -> Void) -> Self {
+        closure(self)
+        return self
+    }
+    
+    @discardableResult
+    public func append(_ section: Section) -> Self {
+        sections.append(section)
+        return self
     }
 
     public func numberOfSections(in _: UITableView) -> Int {

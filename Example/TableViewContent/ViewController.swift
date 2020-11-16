@@ -77,15 +77,6 @@ class ViewController: UIViewController {
                 }
             }.sectionIndexTitle("Button Section")
             Section()
-                .header(.title("header"))
-                .rows { section in
-                    for i in 0 ... 5 {
-                        section.append(DefaultRow(title: "\(i)"))
-                    }
-                }
-                .footer(.title("footer"))
-                .sectionIndexTitle("Header Section")
-            Section()
                 .header(.view(UIColor.green, ColorHeaderView(height: 40)))
                 .rows {
                     DefaultRow(title: "a")
@@ -107,6 +98,19 @@ class ViewController: UIViewController {
                 .sectionIndexTitle("Custom Header Section")
         }
         dataSource.presentSectinIndex = true
+        dataSource.sections { dataSource in
+            dataSource.append(
+                Section()
+                    .header(.title("header"))
+                    .rows { section in
+                        for i in 0 ... 5 {
+                            section.append(DefaultRow(title: "\(i)"))
+                        }
+                    }
+                    .footer(.title("footer"))
+                    .sectionIndexTitle("Header Section")
+            )
+        }
         delegate = Delegate(dataSource: dataSource)
         delegate?.clearSelectionAutomatically = true
         tableView.delegate = delegate

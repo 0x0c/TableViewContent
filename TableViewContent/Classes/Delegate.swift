@@ -17,7 +17,7 @@ open class Delegate: NSObject, UITableViewDelegate {
         self.tableView = tableView
     }
     
-    func reload(_ dataSource: DataSource) {
+    public func reload(_ dataSource: DataSource) {
         if let tableView = tableView {
             self.dataSource = dataSource
             tableView.reloadData()

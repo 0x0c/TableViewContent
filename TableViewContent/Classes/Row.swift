@@ -31,8 +31,7 @@ public protocol RowRepresentation {
     var reuseIdentifier: String { get }
     var representation: CellRepresentation { get }
     var selectedAction: ((UITableView, IndexPath, RowConfiguration) -> Void)? { get }
-    func prepare(_ cell: UITableViewCell)
-    func internalConfigure(_ cell: UITableViewCell, _ indexPath: IndexPath)
+    func prepare(_ cell: UITableViewCell, indexPath: IndexPath)
 }
 
 open class Row<Cell: UITableViewCell>: RowRepresentation {
@@ -45,9 +44,6 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     public var selectedAction: ((UITableView, IndexPath, RowConfiguration) -> Void)?
 
     private var _configure: (Cell, IndexPath) -> Void = { _, _ in }
-    public func internalConfigure(_ cell: UITableViewCell, _ indexPath: IndexPath) {
-        _configure(cell as! Cell, indexPath)
-    }
 
     public init(
         _ representation: CellRepresentation,
@@ -55,6 +51,18 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     ) {
         self.representation = representation
         self.reuseIdentifier = reuseIdentifier
+    }
+    
+    open func prepare(_ cell: UITableViewCell, indexPath: IndexPath) {
+        cell.textLabel?.text = configuration.title
+        cell.detailTextLabel?.text = configuration.detailText
+        cell.imageView?.image = configuration.image
+        cell.selectionStyle = configuration.selectionStyle
+        cell.accessoryView = configuration.accessoryView
+        cell.accessoryType = configuration.accessoryType
+        cell.editingAccessoryView = configuration.editingAccessoryView
+        cell.editingAccessoryType = configuration.editingAccessoryType
+        _configure(cell as! Cell, indexPath)
     }
     
     @discardableResult
@@ -65,23 +73,11 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
 
     @discardableResult
     open func configure(_ configuration: ((Cell, IndexPath) -> Void)?) -> Self {
-        _configure = { [unowned self] cell, indexPath in
-            self.prepare(cell)
+        _configure = { cell, indexPath in
             configuration?(cell, indexPath)
         }
 
         return self
-    }
-
-    public func prepare(_ cell: UITableViewCell) {
-        cell.textLabel?.text = configuration.title
-        cell.detailTextLabel?.text = configuration.detailText
-        cell.imageView?.image = configuration.image
-        cell.selectionStyle = configuration.selectionStyle
-        cell.accessoryView = configuration.accessoryView
-        cell.accessoryType = configuration.accessoryType
-        cell.editingAccessoryView = configuration.editingAccessoryView
-        cell.editingAccessoryType = configuration.editingAccessoryType
     }
 
     @discardableResult

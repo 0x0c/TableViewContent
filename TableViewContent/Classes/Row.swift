@@ -36,14 +36,13 @@ public protocol RowRepresentation {
 
 open class Row<Cell: UITableViewCell>: RowRepresentation {
     public var updateAfterSelected: Bool = false
-    
+    public var updateAnimation: UITableView.RowAnimation = .automatic
     public let reuseIdentifier: String
-    public let representation: CellRepresentation
-
     public var configuration = RowConfiguration()
     public var selectedAction: ((UITableView, IndexPath, RowConfiguration) -> Void)?
+    public let representation: CellRepresentation
 
-    private var _configure: (Cell, IndexPath) -> Void = { _, _ in }
+    private var configure: ((Cell, IndexPath) -> Void)?
 
     public init(
         _ representation: CellRepresentation,
@@ -62,7 +61,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         cell.accessoryType = configuration.accessoryType
         cell.editingAccessoryView = configuration.editingAccessoryView
         cell.editingAccessoryType = configuration.editingAccessoryType
-        _configure(cell as! Cell, indexPath)
+        configure?(cell as! Cell, indexPath)
     }
     
     @discardableResult
@@ -73,10 +72,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
 
     @discardableResult
     open func configure(_ configuration: ((Cell, IndexPath) -> Void)?) -> Self {
-        _configure = { cell, indexPath in
-            configuration?(cell, indexPath)
-        }
-
+        configure = configuration
         return self
     }
 

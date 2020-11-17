@@ -34,7 +34,7 @@ open class Delegate: NSObject, UITableViewDelegate {
             action(tableView, indexPath)
         }
         if row.updateAfterSelected {
-            tableView.reloadRows(at: [indexPath], with: .automatic)
+            tableView.reloadRows(at: [indexPath], with: row.updateAnimation)
         }
     }
 

@@ -27,6 +27,7 @@ open class RowConfiguration {
 
 public protocol RowRepresentation {
     var updateAfterSelected: Bool { get set }
+    var updateAnimation: UITableView.RowAnimation { get set }
     var configuration: RowConfiguration { get set }
     var reuseIdentifier: String { get }
     var representation: CellRepresentation { get }
@@ -65,8 +66,9 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     }
     
     @discardableResult
-    open func updateAfterSelected(_ update: Bool) -> Self {
+    open func updateAfterSelected(_ update: Bool, animation: UITableView.RowAnimation = .automatic) -> Self {
         updateAfterSelected = update
+        updateAnimation = animation
         return self
     }
 

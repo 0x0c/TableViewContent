@@ -64,7 +64,13 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         cell.editingAccessoryView = configuration.editingAccessoryView
         cell.editingAccessoryType = configuration.editingAccessoryType
         defaultCellConfiguration?(cell as! Cell, indexPath)
-        configure?(cell as! Cell, indexPath)
+        configureCell?(cell as! Cell, indexPath)
+    }
+    
+    @discardableResult
+    open func configuration(_ configuration: RowConfiguration) -> Self {
+        self.configuration = configuration
+        return self
     }
     
     @discardableResult

@@ -44,6 +44,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     public let representation: CellRepresentation
 
     private var configure: ((Cell, IndexPath) -> Void)?
+    var defaultCellConfiguration: ((Cell, IndexPath) -> Void)?
 
     public init(
         _ representation: CellRepresentation,
@@ -62,6 +63,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         cell.accessoryType = configuration.accessoryType
         cell.editingAccessoryView = configuration.editingAccessoryView
         cell.editingAccessoryType = configuration.editingAccessoryType
+        defaultCellConfiguration?(cell as! Cell, indexPath)
         configure?(cell as! Cell, indexPath)
     }
     

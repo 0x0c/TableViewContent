@@ -23,7 +23,7 @@ open class SwitchRow: Row<SwitchTableViewCell> {
         )
         self.title(title)
         selectionStyle(.none)
-        configure { [unowned self] cell, _ in
+        defaultCellConfiguration = { [unowned self] cell, _ in
             cell.prepareAccessoryView()
             cell.isOn = self.isOn
             cell.toggled { [weak self] newValue in

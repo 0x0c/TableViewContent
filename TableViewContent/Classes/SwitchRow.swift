@@ -71,7 +71,7 @@ open class SwitchTableViewCell: UITableViewCell {
         toggledAction?(sender.isOn)
     }
 
-    internal func toggled(action: ((Bool) -> Void)?) {
+    func toggled(action: ((Bool) -> Void)?) {
         toggledAction = action
     }
 

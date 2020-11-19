@@ -42,11 +42,11 @@ public enum SectionSupplementalyView {
 }
 
 open class Section {
-    internal var headerView: SectionSupplementalyView?
-    internal var footerView: SectionSupplementalyView?
-    internal var rows = [RowRepresentation]()
-    internal var sectionIndexTitle: String?
     open var selectedAction: ((UITableView, IndexPath) -> Void)?
+    var headerView: SectionSupplementalyView?
+    var footerView: SectionSupplementalyView?
+    var rows = [RowRepresentation]()
+    var sectionIndexTitle: String?
 
     public init() {}
 

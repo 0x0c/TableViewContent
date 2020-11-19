@@ -8,7 +8,7 @@
 import UIKit
 
 @_functionBuilder
-public struct CellBuilder {
+public enum CellBuilder {
     public static func buildBlock(_ items: RowRepresentation...) -> [RowRepresentation] {
         items
     }
@@ -23,7 +23,7 @@ public typealias SectionViewRepresentation = UIView & SectionConfigurable
 public enum SectionSupplementalyView {
     case title(String)
     case nib(Any, UINib)
-    case view(Any, (UIView & SectionConfigurable))
+    case view(Any, UIView & SectionConfigurable)
 
     var sectionView: UIView? {
         switch self {
@@ -59,7 +59,7 @@ open class Section {
         self.init()
         self.rows = rows
     }
-    
+
     @discardableResult
     public func sectionIndexTitle(_ title: String) -> Self {
         sectionIndexTitle = title

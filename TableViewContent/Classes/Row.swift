@@ -53,7 +53,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         self.representation = representation
         self.reuseIdentifier = reuseIdentifier
     }
-    
+
     open func prepare(_ cell: UITableViewCell, indexPath: IndexPath) {
         cell.textLabel?.text = configuration.title
         cell.detailTextLabel?.text = configuration.detailText
@@ -66,13 +66,13 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         defaultCellConfiguration?(cell as! Cell, indexPath)
         configureCell?(cell as! Cell, indexPath)
     }
-    
+
     @discardableResult
     open func configuration(_ configuration: RowConfiguration) -> Self {
         self.configuration = configuration
         return self
     }
-    
+
     @discardableResult
     open func updateAfterSelected(_ update: Bool, animation: UITableView.RowAnimation = .automatic) -> Self {
         updateAfterSelected = update

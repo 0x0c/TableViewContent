@@ -8,7 +8,7 @@
 import UIKit
 
 @_functionBuilder
-public struct SectionBuilder {
+public enum SectionBuilder {
     public static func buildBlock(_ items: Section...) -> [Section] {
         items
     }
@@ -26,13 +26,13 @@ open class DataSource: NSObject, UITableViewDataSource {
     public init(@SectionBuilder _ sections: () -> [Section]) {
         self.sections = sections()
     }
-    
+
     @discardableResult
     public func sections(_ closure: (DataSource) -> Void) -> Self {
         closure(self)
         return self
     }
-    
+
     @discardableResult
     public func append(_ section: Section) -> Self {
         sections.append(section)
@@ -67,13 +67,14 @@ open class DataSource: NSObject, UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier) {
                 row.prepare(cell, indexPath: indexPath)
                 return cell
-            } else {
+            }
+            else {
                 let cell = UITableViewCell(style: style, reuseIdentifier: row.reuseIdentifier)
                 row.prepare(cell, indexPath: indexPath)
                 return cell
             }
         }
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
         row.prepare(cell, indexPath: indexPath)
         return cell
@@ -98,7 +99,7 @@ open class DataSource: NSObject, UITableViewDataSource {
             return nil
         }
     }
-    
+
     public func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if presentSectinIndex {
             var indexTitles = [String]()

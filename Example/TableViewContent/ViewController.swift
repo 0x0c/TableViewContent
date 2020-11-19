@@ -13,7 +13,7 @@ class ColorHeaderView: UIView, SectionConfigurable {
     init(height: CGFloat) {
         super.init(frame: .zero)
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: height),
+            heightAnchor.constraint(equalToConstant: height)
         ])
     }
 
@@ -98,7 +98,7 @@ class ViewController: UIViewController {
                     DefaultRow(title: "a"),
                     DefaultRow(title: "b"),
                     DefaultRow(title: "c"),
-                    DefaultRow(title: "d"),
+                    DefaultRow(title: "d")
                 ])
                 .footer(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil)))
                 .sectionIndexTitle("Custom Header Section")

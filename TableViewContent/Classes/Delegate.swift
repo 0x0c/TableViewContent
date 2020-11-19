@@ -16,7 +16,7 @@ open class Delegate: NSObject, UITableViewDelegate {
         self.dataSource = dataSource
         self.tableView = tableView
     }
-    
+
     public func reload(_ dataSource: DataSource) {
         self.dataSource = dataSource
         tableView.reloadData()
@@ -30,7 +30,8 @@ open class Delegate: NSObject, UITableViewDelegate {
         let row = section.rows[indexPath.row]
         if let action = row.selectedAction {
             action(tableView, indexPath)
-        } else if let action = section.selectedAction {
+        }
+        else if let action = section.selectedAction {
             action(tableView, indexPath)
         }
         if row.updateAfterSelected {

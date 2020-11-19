@@ -43,7 +43,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
     public let representation: CellRepresentation
 
-    private var configure: ((Cell, IndexPath) -> Void)?
+    private var configureCell: ((Cell, IndexPath) -> Void)?
     var defaultCellConfiguration: ((Cell, IndexPath) -> Void)?
 
     public init(
@@ -81,8 +81,8 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     }
 
     @discardableResult
-    open func configure(_ configuration: ((Cell, IndexPath) -> Void)?) -> Self {
-        configure = configuration
+    open func configureCell(_ configuration: ((Cell, IndexPath) -> Void)?) -> Self {
+        configureCell = configuration
         return self
     }
 

@@ -32,16 +32,20 @@ public protocol RowRepresentation {
     var reuseIdentifier: String { get }
     var representation: CellRepresentation { get }
     var selectedAction: ((UITableView, IndexPath) -> Void)? { get }
+    var trailingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)? { get set }
+    var leadingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)? { get set }
     func prepare(_ cell: UITableViewCell, indexPath: IndexPath)
 }
 
 open class Row<Cell: UITableViewCell>: RowRepresentation {
     public var updateAfterSelected: Bool = false
     public var updateAnimation: UITableView.RowAnimation = .automatic
-    public let reuseIdentifier: String
     public var configuration = RowConfiguration()
-    public var selectedAction: ((UITableView, IndexPath) -> Void)?
+    public let reuseIdentifier: String
     public let representation: CellRepresentation
+    public var selectedAction: ((UITableView, IndexPath) -> Void)?
+    public var trailingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)?
+    public var leadingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)?
 
     private var configureCell: ((Cell, IndexPath) -> Void)?
     var defaultCellConfiguration: ((Cell, IndexPath) -> Void)?
@@ -139,6 +143,18 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     @discardableResult
     open func editingAccessoryView(_ view: UIView?) -> Self {
         configuration.editingAccessoryView = view
+        return self
+    }
+    
+    @discardableResult
+    open func trailingSwipeActions(_ actions: @escaping () -> UISwipeActionsConfiguration?) -> Self {
+        trailingSwipeActionsConfiguration = actions
+        return self
+    }
+    
+    @discardableResult
+    open func leadingSwipeActions(_ actions: @escaping () -> UISwipeActionsConfiguration?) -> Self {
+        leadingSwipeActionsConfiguration = actions
         return self
     }
 }

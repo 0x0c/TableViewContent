@@ -59,6 +59,32 @@ class ViewController: UIViewController {
                         ).instantiateViewController(withIdentifier: "ViewController")
                         self.navigationController?.pushViewController(viewController, animated: true)
                     }
+                DefaultRow(title: "Swipe")
+                    .trailingSwipeActions { () -> UISwipeActionsConfiguration? in
+                        let action = UIContextualAction(
+                            style: .destructive,
+                            title: "trailing"
+                        ) { _, _, handler in
+                            print("trailing action")
+                            handler(true)
+                        }
+                        let configuration = UISwipeActionsConfiguration(actions: [action])
+                        configuration.performsFirstActionWithFullSwipe = true
+                        return configuration
+                    }
+                    .leadingSwipeActions { () -> UISwipeActionsConfiguration? in
+                        let action = UIContextualAction(
+                            style: .destructive,
+                            title: "leading"
+                        ) { _, _, handler in
+                            print("leading action")
+                            handler(true)
+                        }
+                        action.backgroundColor = .blue
+                        let configuration = UISwipeActionsConfiguration(actions: [action])
+                        configuration.performsFirstActionWithFullSwipe = true
+                        return configuration
+                    }
             }
             .sectionIndexTitle("Section")
             Section {

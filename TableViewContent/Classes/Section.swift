@@ -22,18 +22,18 @@ public typealias SectionViewRepresentation = UIView & SectionConfigurable
 
 public enum SectionSupplementalyView {
     case title(String)
-    case nib(Any, UINib)
-    case view(Any, UIView & SectionConfigurable)
+    case nib(UINib, Any)
+    case view(UIView & SectionConfigurable, Any)
 
     var sectionView: UIView? {
         switch self {
         case .title:
             return nil
-        case let .nib(data, nib):
+        case let .nib(nib, data):
             let internalView = nib.instantiate(withOwner: nil, options: nil).first as? SectionViewRepresentation
             internalView?.configure(data)
             return internalView
-        case let .view(data, sectionView):
+        case let .view(sectionView, data):
             let internalView = sectionView
             internalView.configure(data)
             return internalView

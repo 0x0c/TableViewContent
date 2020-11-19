@@ -83,24 +83,24 @@ class ViewController: UIViewController {
                 }
             }.sectionIndexTitle("Button Section")
             Section()
-                .header(.view(UIColor.green, ColorHeaderView(height: 40)))
+                .header(.view(ColorHeaderView(height: 40), UIColor.green))
                 .rows {
                     DefaultRow(title: "a")
                     DefaultRow(title: "b")
                     DefaultRow(title: "c")
                     DefaultRow(title: "d")
                 }
-                .footer(.view(UIColor.blue, ColorHeaderView(height: 40)))
+                .footer(.view(ColorHeaderView(height: 40), UIColor.blue))
                 .sectionIndexTitle("Header Section2")
             Section()
-                .header(.nib("custom header", UINib(nibName: "CustomHeaderView", bundle: nil)))
+                .header(.nib(UINib(nibName: "CustomHeaderView", bundle: nil), "custom header"))
                 .rows([
                     DefaultRow(title: "a"),
                     DefaultRow(title: "b"),
                     DefaultRow(title: "c"),
                     DefaultRow(title: "d")
                 ])
-                .footer(.nib("custom footer", UINib(nibName: "CustomHeaderView", bundle: nil)))
+                .footer(.nib(UINib(nibName: "CustomHeaderView", bundle: nil), "custom footer"))
                 .sectionIndexTitle("Custom Header Section")
         }
         dataSource.presentSectinIndex = true

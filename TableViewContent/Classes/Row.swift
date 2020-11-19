@@ -145,13 +145,13 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         configuration.editingAccessoryView = view
         return self
     }
-    
+
     @discardableResult
     open func trailingSwipeActions(_ actions: @escaping () -> UISwipeActionsConfiguration?) -> Self {
         trailingSwipeActionsConfiguration = actions
         return self
     }
-    
+
     @discardableResult
     open func leadingSwipeActions(_ actions: @escaping () -> UISwipeActionsConfiguration?) -> Self {
         leadingSwipeActionsConfiguration = actions

@@ -86,13 +86,13 @@ open class Delegate: NSObject, UITableViewDelegate {
         }
         return 1
     }
-    
+
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let section = dataSource.sections[indexPath.section]
         let row = section.rows[indexPath.row]
         return row.trailingSwipeActionsConfiguration?()
     }
-    
+
     public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let section = dataSource.sections[indexPath.section]
         let row = section.rows[indexPath.row]

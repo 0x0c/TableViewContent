@@ -29,7 +29,7 @@ open class Delegate: NSObject, UITableViewDelegate {
         let section = dataSource.sections[indexPath.section]
         let row = section.rows[indexPath.row]
         if let action = row.selectedAction {
-            action(tableView, indexPath, row.configuration)
+            action(tableView, indexPath)
         } else if let action = section.selectedAction {
             action(tableView, indexPath)
         }

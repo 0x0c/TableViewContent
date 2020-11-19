@@ -31,7 +31,7 @@ public protocol RowRepresentation {
     var configuration: RowConfiguration { get set }
     var reuseIdentifier: String { get }
     var representation: CellRepresentation { get }
-    var selectedAction: ((UITableView, IndexPath, RowConfiguration) -> Void)? { get }
+    var selectedAction: ((UITableView, IndexPath) -> Void)? { get }
     func prepare(_ cell: UITableViewCell, indexPath: IndexPath)
 }
 
@@ -40,7 +40,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     public var updateAnimation: UITableView.RowAnimation = .automatic
     public let reuseIdentifier: String
     public var configuration = RowConfiguration()
-    public var selectedAction: ((UITableView, IndexPath, RowConfiguration) -> Void)?
+    public var selectedAction: ((UITableView, IndexPath) -> Void)?
     public let representation: CellRepresentation
 
     private var configure: ((Cell, IndexPath) -> Void)?
@@ -79,8 +79,10 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     }
 
     @discardableResult
-    open func didSelect(_ action: @escaping (UITableView, IndexPath, RowConfiguration) -> Void) -> Self {
-        selectedAction = action
+    open func didSelect(_ action: @escaping (UITableView, IndexPath, Row) -> Void) -> Self {
+        selectedAction = { tableView, indexPath in
+            action(tableView, indexPath, self)
+        }
         return self
     }
 

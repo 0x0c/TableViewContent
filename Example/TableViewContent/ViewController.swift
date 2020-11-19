@@ -46,8 +46,8 @@ class ViewController: UIViewController {
                 DefaultRow(title: "title", style: .value1)
                     .detailText("value1")
                     .updateAfterSelected(true)
-                    .didSelect { _, _, configuration in
-                        configuration.title = "updated"
+                    .didSelect { _, _, row in
+                        row.configuration.title = "updated"
                     }
                 DefaultRow(title: "title", style: .value2)
                     .accessoryType(.disclosureIndicator)
@@ -70,6 +70,12 @@ class ViewController: UIViewController {
                     .toggled { isOn in
                         print("Switch2 \(isOn)")
                     }
+                    .didSelect { _, _, row in
+                        if let row = row as? SwitchRow {
+                            row.isOn.toggle()
+                        }
+                    }
+                    .updateAfterSelected(true)
             }.sectionIndexTitle("Switch Section")
             Section {
                 CustomRow {

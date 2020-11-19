@@ -9,7 +9,11 @@ import UIKit
 
 open class SwitchRow: Row<SwitchTableViewCell> {
     private var toggledAction: ((Bool) -> Void)?
-    public var isOn: Bool
+    public var isOn: Bool {
+        didSet {
+            toggledAction?(isOn)
+        }
+    }
 
     public init(title: String, isOn: Bool = false) {
         self.isOn = isOn
@@ -27,7 +31,6 @@ open class SwitchRow: Row<SwitchTableViewCell> {
                     return
                 }
                 weakSelf.isOn = newValue
-                weakSelf.toggledAction?(newValue)
             }
         }
     }
@@ -47,8 +50,8 @@ open class SwitchTableViewCell: UITableViewCell {
         get {
             sw.isOn
         }
-        set(isOn) {
-            sw.isOn = isOn
+        set {
+            sw.setOn(newValue, animated: true)
         }
     }
 

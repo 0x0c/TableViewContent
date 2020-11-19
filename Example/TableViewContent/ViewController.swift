@@ -102,12 +102,14 @@ class ViewController: UIViewController {
                         }
                     }
                     .updateAfterSelected(true)
-            }.sectionIndexTitle("Switch Section")
+            }
+            .sectionIndexTitle("Switch Section")
             Section {
                 CustomRow {
                     print("button pressed")
                 }
-            }.sectionIndexTitle("Button Section")
+            }
+            .sectionIndexTitle("Button Section")
             Section()
                 .header(.view(ColorHeaderView(height: 40), UIColor.green))
                 .rows {

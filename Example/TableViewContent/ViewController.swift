@@ -99,7 +99,7 @@ class ViewController: UIViewController {
                 .configure { cell, _, _ in
                     cell.backgroundColor = .red
                 }
-                .didSelect { tableView, indexPath, _ in
+                .didSelect { [unowned self] tableView, indexPath, _ in
                     let alert = UIAlertController(title: "Please input text", message: "", preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .default) { _ in
                         tableView.reloadRows(at: [indexPath], with: .automatic)

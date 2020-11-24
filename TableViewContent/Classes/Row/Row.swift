@@ -9,7 +9,7 @@ import UIKit
 
 open class Row<Cell: UITableViewCell>: RowRepresentation {
     private var configureCell: ((Cell, IndexPath, Row) -> Void)?
-    public var prepare: ((Row) -> Void)?
+    public var bind: ((Row) -> Void)?
     public var updateAfterSelected: Bool = false
     public var updateAnimation: UITableView.RowAnimation = .automatic
     public var configuration = CellConfiguration()
@@ -27,8 +27,8 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         self.reuseIdentifier = reuseIdentifier
     }
 
-    open func prepareCell(_ cell: UITableViewCell, indexPath: IndexPath) {
-        prepare?(self)
+    open func prepare(_ cell: UITableViewCell, indexPath: IndexPath) {
+        bind?(self)
         cell.textLabel?.text = configuration.title
         cell.detailTextLabel?.text = configuration.detailText
         cell.imageView?.image = configuration.image
@@ -44,8 +44,8 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     open func defaultCellConfiguration(_ cell: Cell, _ indexPath: IndexPath) {}
 
     @discardableResult
-    open func prepare(_ prepare: @escaping (Row) -> Void) -> Self {
-        self.prepare = prepare
+    open func bind(_ bind: @escaping (Row) -> Void) -> Self {
+        self.bind = bind
         return self
     }
 

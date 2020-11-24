@@ -13,12 +13,15 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var delegate: Delegate?
 
+    private var textField: UITextField?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Example"
         let dataSource = DataSource {
             basicSection()
+            configureSection()
             switchSection()
             customCellSection()
             viewHeaderSection()
@@ -85,6 +88,31 @@ class ViewController: UIViewController {
         .sectionIndexTitle("Section")
     }
 
+    func configureSection() -> Section {
+        return Section {
+            DefaultRow(title: "configure", reuseIdentifier: "configure cell")
+                .bind { [unowned self] row in
+                    if let textField = self.textField {
+                        row.configuration.title = textField.text
+                    }
+                }
+                .configureCell { cell, _, _ in
+                    cell.backgroundColor = .red
+                }
+                .didSelect { tableView, indexPath, _ in
+                    let alert = UIAlertController(title: "Please input text", message: "", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "OK", style: .default) { _ in
+                        tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
+                    alert.addTextField { [unowned self] textField in
+                        self.textField = textField
+                    }
+                    alert.addAction(action)
+                    self.present(alert, animated: true, completion: nil)
+                }
+        }
+    }
+
     func switchSection() -> Section {
         return Section {
             SwitchRow(title: "Switch")
@@ -116,13 +144,13 @@ class ViewController: UIViewController {
 
     func viewHeaderSection() -> Section {
         return Section()
-            .header(.view(ColorHeaderView(height: 40), UIColor.green))
+            .header(.view(ColorHeaderView(height: 10), UIColor.green))
             .rows {
                 DefaultRow(title: "a")
                 DefaultRow(title: "b")
                 DefaultRow(title: "c")
             }
-            .footer(.view(ColorHeaderView(height: 40), UIColor.blue))
+            .footer(.view(ColorHeaderView(height: 10), UIColor.blue))
             .sectionIndexTitle("Header Section2")
     }
 

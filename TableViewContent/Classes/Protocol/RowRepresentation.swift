@@ -16,5 +16,5 @@ public protocol RowRepresentation {
     var selectedAction: ((UITableView, IndexPath) -> Void)? { get }
     var trailingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)? { get set }
     var leadingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)? { get set }
-    func prepareCell(_ cell: UITableViewCell, indexPath: IndexPath)
+    func prepare(_ cell: UITableViewCell, indexPath: IndexPath)
 }

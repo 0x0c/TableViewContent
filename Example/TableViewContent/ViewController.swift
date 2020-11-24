@@ -96,7 +96,7 @@ class ViewController: UIViewController {
                         row.configuration.title = textField.text
                     }
                 }
-                .configureCell { cell, _, _ in
+                .configure { cell, _, _ in
                     cell.backgroundColor = .red
                 }
                 .didSelect { tableView, indexPath, _ in

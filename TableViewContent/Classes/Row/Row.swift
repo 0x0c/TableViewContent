@@ -63,7 +63,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     }
 
     @discardableResult
-    open func configureCell(_ configuration: ((Cell, IndexPath, Row) -> Void)?) -> Self {
+    open func configure(_ configuration: ((Cell, IndexPath, Row) -> Void)?) -> Self {
         configureCell = configuration
         return self
     }

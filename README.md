@@ -25,7 +25,7 @@ pod 'TableViewContent'
 
 You can declare table view sections and cells as follows:
 
-```
+```swift
 Section {
     DefaultRow(title: "title")
     DefaultRow(title: "title", style: .subtitle)
@@ -40,7 +40,7 @@ Section {
 
 To handle cell selection, call `didSelect` method.
 
-```
+```swift
 DefaultRow(title: "title", style: .value2)
 .accessoryType(.disclosureIndicator)
 .detailText("value2")
@@ -51,7 +51,7 @@ DefaultRow(title: "title", style: .value2)
 ```
 
 Define class that inherit `Row<T: UITableViewCell>` for implementing custom row.
-```
+```swift
 class CustomTableViewCell: UITableViewCell {
     public typealias Action = () -> Void
 

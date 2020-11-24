@@ -13,7 +13,7 @@ open class DefaultRow: Row<UITableViewCell> {
             if let identifier = reuseIdentifier {
                 return identifier
             }
-            return "\(NSStringFromClass(DefaultRow.self))-\(style.rawValue)"
+            return "\(NSStringFromClass(Self.self))-\(style.rawValue)"
         }
         super.init(.cellStyle(style), reuseIdentifier: identifier)
         super.title(title)

@@ -13,7 +13,7 @@ public enum CellRepresentation {
     case cellStyle(UITableViewCell.CellStyle)
 }
 
-open class RowConfiguration {
+open class CellConfiguration {
     public var title: String?
     public var detailText: String?
     public var image: UIImage?
@@ -28,7 +28,7 @@ open class RowConfiguration {
 public protocol RowRepresentation {
     var updateAfterSelected: Bool { get set }
     var updateAnimation: UITableView.RowAnimation { get set }
-    var configuration: RowConfiguration { get set }
+    var configuration: CellConfiguration { get set }
     var reuseIdentifier: String { get }
     var representation: CellRepresentation { get }
     var selectedAction: ((UITableView, IndexPath) -> Void)? { get }
@@ -41,7 +41,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     private var configureCell: ((Cell, IndexPath) -> Void)?
     public var updateAfterSelected: Bool = false
     public var updateAnimation: UITableView.RowAnimation = .automatic
-    public var configuration = RowConfiguration()
+    public var configuration = CellConfiguration()
     public let reuseIdentifier: String
     public let representation: CellRepresentation
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
@@ -72,7 +72,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     open func defaultCellConfiguration(_ cell: Cell, _ indexPath: IndexPath) {}
 
     @discardableResult
-    open func configuration(_ configuration: RowConfiguration) -> Self {
+    open func configuration(_ configuration: CellConfiguration) -> Self {
         self.configuration = configuration
         return self
     }

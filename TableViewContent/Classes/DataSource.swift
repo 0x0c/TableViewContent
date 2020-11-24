@@ -65,18 +65,18 @@ open class DataSource: NSObject, UITableViewDataSource {
             }
         case let .cellStyle(style):
             if let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier) {
-                row.prepare(cell, indexPath: indexPath)
+                row.prepareCell(cell, indexPath: indexPath)
                 return cell
             }
             else {
                 let cell = UITableViewCell(style: style, reuseIdentifier: row.reuseIdentifier)
-                row.prepare(cell, indexPath: indexPath)
+                row.prepareCell(cell, indexPath: indexPath)
                 return cell
             }
         }
 
         let cell = tableView.dequeueReusableCell(withIdentifier: row.reuseIdentifier, for: indexPath)
-        row.prepare(cell, indexPath: indexPath)
+        row.prepareCell(cell, indexPath: indexPath)
         return cell
     }
 

@@ -37,7 +37,7 @@ class CustomRow: Row<CustomTableViewCell> {
             reuseIdentifier: NSStringFromClass(CustomTableViewCell.self)
         )
         selectionStyle(.none)
-        configureCell { [unowned self] cell, _ in
+        defaultCellConfiguration = { [unowned self] cell, _ in
             cell.buttonPressedAction = self.buttonPressedAction
         }
     }

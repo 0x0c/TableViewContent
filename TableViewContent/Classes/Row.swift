@@ -38,6 +38,7 @@ public protocol RowRepresentation {
 }
 
 open class Row<Cell: UITableViewCell>: RowRepresentation {
+    private var configureCell: ((Cell, IndexPath) -> Void)?
     public var updateAfterSelected: Bool = false
     public var updateAnimation: UITableView.RowAnimation = .automatic
     public var configuration = RowConfiguration()
@@ -46,9 +47,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
     public var trailingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)?
     public var leadingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)?
-
-    private var configureCell: ((Cell, IndexPath) -> Void)?
-    var defaultCellConfiguration: ((Cell, IndexPath) -> Void)?
+    public var defaultCellConfiguration: ((Cell, IndexPath) -> Void)?
 
     public init(
         _ representation: CellRepresentation,

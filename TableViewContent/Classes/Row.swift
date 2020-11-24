@@ -47,7 +47,6 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
     public var trailingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)?
     public var leadingSwipeActionsConfiguration: (() -> UISwipeActionsConfiguration?)?
-    public var defaultCellConfiguration: ((Cell, IndexPath) -> Void)?
 
     public init(
         _ representation: CellRepresentation,
@@ -66,9 +65,11 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         cell.accessoryType = configuration.accessoryType
         cell.editingAccessoryView = configuration.editingAccessoryView
         cell.editingAccessoryType = configuration.editingAccessoryType
-        defaultCellConfiguration?(cell as! Cell, indexPath)
+        defaultCellConfiguration(cell as! Cell, indexPath)
         configureCell?(cell as! Cell, indexPath)
     }
+
+    open func defaultCellConfiguration(_ cell: Cell, _ indexPath: IndexPath) {}
 
     @discardableResult
     open func configuration(_ configuration: RowConfiguration) -> Self {

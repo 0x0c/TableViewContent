@@ -23,15 +23,16 @@ open class SwitchRow: Row<SwitchTableViewCell> {
         )
         self.title(title)
         selectionStyle(.none)
-        defaultCellConfiguration = { [unowned self] cell, _ in
-            cell.prepareAccessoryView()
-            cell.isOn = self.isOn
-            cell.toggled { [weak self] newValue in
-                guard let weakSelf = self else {
-                    return
-                }
-                weakSelf.isOn = newValue
+    }
+
+    open override func defaultCellConfiguration(_ cell: SwitchTableViewCell, _ indexPath: IndexPath) {
+        cell.prepareAccessoryView()
+        cell.isOn = self.isOn
+        cell.toggled { [weak self] newValue in
+            guard let weakSelf = self else {
+                return
             }
+            weakSelf.isOn = newValue
         }
     }
 

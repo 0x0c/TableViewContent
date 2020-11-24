@@ -37,9 +37,10 @@ class CustomRow: Row<CustomTableViewCell> {
             reuseIdentifier: NSStringFromClass(CustomTableViewCell.self)
         )
         selectionStyle(.none)
-        defaultCellConfiguration = { [unowned self] cell, _ in
-            cell.buttonPressedAction = self.buttonPressedAction
-        }
+    }
+
+    override func defaultCellConfiguration(_ cell: CustomTableViewCell, _ indexPath: IndexPath) {
+        cell.buttonPressedAction = buttonPressedAction
     }
 
     convenience init(_ action: @escaping Action) {

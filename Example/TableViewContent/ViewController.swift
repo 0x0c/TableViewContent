@@ -130,6 +130,20 @@ class ViewController: UIViewController {
                 ])
                 .footer(.nib(UINib(nibName: "CustomHeaderView", bundle: nil), "custom footer"))
                 .sectionIndexTitle("Custom Header Section")
+            SelectionSection()
+                .header(.title("Multiple Selection"))
+                .rows {
+                    CheckmarkRow(title: "1")
+                    CheckmarkRow(title: "2")
+                    CheckmarkRow(title: "3")
+                }
+            SelectionSection(exclusive: true)
+                .header(.title("Exclusive"))
+                .rows {
+                    CheckmarkRow(title: "1")
+                    CheckmarkRow(title: "2")
+                    CheckmarkRow(title: "3")
+                }
         }
         dataSource.presentSectinIndex = true
         dataSource.sections { dataSource in

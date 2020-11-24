@@ -43,10 +43,12 @@ public enum SectionSupplementalyView {
 
 open class Section {
     open var selectedAction: ((UITableView, IndexPath) -> Void)?
-    var headerView: SectionSupplementalyView?
-    var footerView: SectionSupplementalyView?
-    var rows = [RowRepresentation]()
-    var sectionIndexTitle: String?
+    public var updateAfterSelected: Bool = false
+    public var updateAnimation: UITableView.RowAnimation = .automatic
+    public var headerView: SectionSupplementalyView?
+    public var footerView: SectionSupplementalyView?
+    public var rows = [RowRepresentation]()
+    public var sectionIndexTitle: String?
 
     public init() {}
 
@@ -61,49 +63,49 @@ open class Section {
     }
 
     @discardableResult
-    public func sectionIndexTitle(_ title: String) -> Self {
+    open func sectionIndexTitle(_ title: String) -> Self {
         sectionIndexTitle = title
         return self
     }
 
     @discardableResult
-    public func header(_ header: SectionSupplementalyView) -> Self {
+    open func header(_ header: SectionSupplementalyView) -> Self {
         headerView = header
         return self
     }
 
     @discardableResult
-    public func footer(_ footer: SectionSupplementalyView) -> Self {
+    open func footer(_ footer: SectionSupplementalyView) -> Self {
         footerView = footer
         return self
     }
 
     @discardableResult
-    public func rows(_ sectionContents: [RowRepresentation]) -> Self {
+    open func rows(_ sectionContents: [RowRepresentation]) -> Self {
         rows = sectionContents
         return self
     }
 
     @discardableResult
-    public func rows(@CellBuilder _ sectionContents: () -> [RowRepresentation]) -> Self {
+    open func rows(@CellBuilder _ sectionContents: () -> [RowRepresentation]) -> Self {
         rows = sectionContents()
         return self
     }
 
     @discardableResult
-    public func rows(_ closure: (Section) -> Void) -> Self {
+    open func rows(_ closure: (Section) -> Void) -> Self {
         closure(self)
         return self
     }
 
     @discardableResult
-    public func append(_ row: RowRepresentation) -> Self {
+    open func append(_ row: RowRepresentation) -> Self {
         rows.append(row)
         return self
     }
 
     @discardableResult
-    public func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
+    open func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
         selectedAction = action
         return self
     }

@@ -34,7 +34,10 @@ open class Delegate: NSObject, UITableViewDelegate {
         else if let action = section.selectedAction {
             action(tableView, indexPath)
         }
-        if row.updateAfterSelected {
+        if section.updateAfterSelected {
+            tableView.reloadSections(IndexSet(integer: indexPath.section), with: section.updateAnimation)
+        }
+        else if row.updateAfterSelected {
             tableView.reloadRows(at: [indexPath], with: row.updateAnimation)
         }
     }

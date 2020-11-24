@@ -177,7 +177,7 @@ class ViewController: UIViewController {
     }
 
     func exclusiveSelectionSection() -> Section {
-        return SelectionSection(exclusive: true)
+        return SelectionSection(exclusive: true, destructive: true)
             .header(.title("Exclusive"))
             .rows {
                 CheckmarkRow(title: "1")

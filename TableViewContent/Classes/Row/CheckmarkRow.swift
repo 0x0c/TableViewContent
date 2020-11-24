@@ -10,7 +10,7 @@ import UIKit
 open class CheckmarkRow: DefaultRow {
     public var checked: Bool = false
 
-    open override func defaultCellConfiguration(_ cell: UITableViewCell, _ indexPath: IndexPath) {
+    override open func defaultCellConfiguration(_ cell: UITableViewCell, _ indexPath: IndexPath) {
         if checked {
             cell.accessoryType = .checkmark
         }

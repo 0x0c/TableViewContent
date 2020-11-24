@@ -25,9 +25,9 @@ open class SwitchRow: Row<SwitchTableViewCell> {
         selectionStyle(.none)
     }
 
-    open override func defaultCellConfiguration(_ cell: SwitchTableViewCell, _ indexPath: IndexPath) {
+    override open func defaultCellConfiguration(_ cell: SwitchTableViewCell, _ indexPath: IndexPath) {
         cell.prepareAccessoryView()
-        cell.isOn = self.isOn
+        cell.isOn = isOn
         cell.toggled { [weak self] newValue in
             guard let weakSelf = self else {
                 return

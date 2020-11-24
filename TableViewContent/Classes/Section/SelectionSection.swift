@@ -15,12 +15,12 @@ open class SelectionSection: Section {
         self.exclusive = exclusive
     }
 
-    public override init() {
+    override public init() {
         super.init()
         _ = didSelect { _, _ in }
     }
 
-    open override func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
+    override open func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
         selectedAction = { [unowned self] tableView, indexPath in
             action(tableView, indexPath)
             if let row = self.rows[indexPath.row] as? CheckmarkRow {

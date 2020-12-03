@@ -10,19 +10,37 @@ import TableViewContent
 import UIKit
 
 class CustomTableViewCell: UITableViewCell {
-    @IBOutlet var button: UIButton!
+    public typealias Action = () -> Void
+
+    @IBOutlet private var button: UIButton!
+    var buttonPressedAction: Action = {}
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        button.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+    }
+
+    @objc
+    private func buttonPressed(_: UIButton) {
+        buttonPressedAction()
+    }
 }
 
-class CustomRow: RowRepresentation {
+class CustomRow: Row<CustomTableViewCell> {
     public typealias Action = () -> Void
 
     private var buttonPressedAction: Action = {}
 
     init() {
-        super.init(nib: UINib(nibName: "CustomTableViewCell", bundle: nil), cellType: CustomTableViewCell.self, reuseIdentifier: "CustomTableViewCell", data: nil)
-        configure(CustomTableViewCell.self) { [unowned self] cell, _, _ in
-            cell.button.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
-        }
+        super.init(
+            .nib(.init(nibName: "CustomTableViewCell", bundle: nil)),
+            reuseIdentifier: NSStringFromClass(CustomTableViewCell.self)
+        )
+        selectionStyle(.none)
+    }
+
+    override func defaultCellConfiguration(_ cell: CustomTableViewCell, _ indexPath: IndexPath) {
+        cell.buttonPressedAction = buttonPressedAction
     }
 
     convenience init(_ action: @escaping Action) {
@@ -36,7 +54,8 @@ class CustomRow: RowRepresentation {
         return self
     }
 
-    @objc private func buttonPressed() {
+    @objc
+    private func buttonPressed() {
         buttonPressedAction()
     }
 }

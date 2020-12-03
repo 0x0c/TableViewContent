@@ -19,6 +19,7 @@
 		E90279612553DB300076246D /* CustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90279602553DB300076246D /* CustomHeaderView.xib */; };
 		E94A52C3216BBD440074BF82 /* CustomRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A52C1216BBD440074BF82 /* CustomRow.swift */; };
 		E94A52C4216BBD440074BF82 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */; };
+		E9EECF1D256DA9E200606D3E /* ColorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EECF1C256DA9E200606D3E /* ColorHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		E90279602553DB300076246D /* CustomHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeaderView.xib; sourceTree = "<group>"; };
 		E94A52C1216BBD440074BF82 /* CustomRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRow.swift; sourceTree = "<group>"; };
 		E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
+		E9EECF1C256DA9E200606D3E /* ColorHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHeaderView.swift; sourceTree = "<group>"; };
 		F1D0D8B5537BDF9787B774A8 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		FC47E3A09CA4830F57C9306C /* TableViewContent.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = TableViewContent.podspec; path = ../TableViewContent.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				E9EECF1C256DA9E200606D3E /* ColorHeaderView.swift */,
 				E94A52C1216BBD440074BF82 /* CustomRow.swift */,
 				E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
@@ -366,6 +369,7 @@
 				E94A52C3216BBD440074BF82 /* CustomRow.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				E9EECF1D256DA9E200606D3E /* ColorHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

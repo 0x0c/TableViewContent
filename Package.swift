@@ -5,16 +5,16 @@ import PackageDescription
 let package = Package(
     name: "TableViewContent",
     platforms: [
-        .iOS(.v11),
+        .iOS(.v11)
     ],
     products: [
-        .library(name: "TableViewContent", targets: ["TableViewContent"]),
+        .library(name: "TableViewContent", targets: ["TableViewContent"])
     ],
     targets: [
         .target(name: "TableViewContent", path: "TableViewContent/Classes"),
-        .testTarget(name: "TableViewContentTest", dependencies: ["TableViewContent"]),
+        .testTarget(name: "TableViewContentTest", dependencies: ["TableViewContent"])
     ],
     swiftLanguageVersions: [
-        .v5,
+        .v5
     ]
 )

@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TableViewContent'
-  s.version          = '4.0.0'
-  s.summary          = 'Declare tableView contents, inspired DataSourceKit.'
+  s.version          = '5.0.0'
+  s.summary          = 'Declarative table view configure library.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-Declare tableView row and section header/footer, inspired DataSourceKit.
+Declare tableView row and section header/footer easy way.
                        DESC
 
   s.homepage         = 'https://github.com/0x0c/TableViewContent'

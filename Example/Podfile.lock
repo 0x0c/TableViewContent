@@ -1,6 +1,6 @@
 PODS:
   - SwiftFormat/CLI (0.47.2)
-  - TableViewContent (3.0.2)
+  - TableViewContent (5.0.0)
 
 DEPENDENCIES:
   - SwiftFormat/CLI
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SwiftFormat: 0315a7115b15fd4ea2d043d5f5c22e3c98f84078
-  TableViewContent: c14053186a1579cb9dbfe1173383e1ae75caf48b
+  TableViewContent: de4ea2c1a0c0526a01cd18f8de0e5891e07ada69
 
 PODFILE CHECKSUM: 35a8be3893318873897612545b5fea602dc5ba4d
 

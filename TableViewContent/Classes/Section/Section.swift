@@ -7,7 +7,7 @@
 
 import UIKit
 
-@_functionBuilder
+@resultBuilder
 public enum CellBuilder {
     public static func buildBlock(_ items: RowRepresentation...) -> [RowRepresentation] {
         items

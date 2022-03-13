@@ -80,6 +80,12 @@ open class Section {
     }
 
     @discardableResult
+    open func append(contentsOf elements: [RowRepresentation]) -> Self {
+        rows.append(contentsOf: elements)
+        return self
+    }
+    
+    @discardableResult
     open func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
         selectedAction = action
         return self

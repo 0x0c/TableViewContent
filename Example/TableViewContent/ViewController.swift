@@ -192,9 +192,9 @@ class ViewController: UIViewController {
                 Section()
                     .header(.title("header"))
                     .rows { section in
-                        for i in 0 ... 5 {
-                            section.append(DefaultRow(title: "\(i)"))
-                        }
+                        section.append(contentsOf: (0 ... 5).map { idx in
+                            DefaultRow(title: "\(idx)")
+                        })
                     }
                     .footer(.title("footer"))
                     .sectionIndexTitle("Header Section")

@@ -7,7 +7,7 @@
 
 import UIKit
 
-@_functionBuilder
+@resultBuilder
 public enum SectionBuilder {
     public static func buildBlock(_ items: Section...) -> [Section] {
         items

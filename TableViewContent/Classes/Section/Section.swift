@@ -7,7 +7,7 @@
 
 import UIKit
 
-@_functionBuilder
+@resultBuilder
 public enum CellBuilder {
     public static func buildBlock(_ items: RowRepresentation...) -> [RowRepresentation] {
         items
@@ -79,6 +79,12 @@ open class Section {
         return self
     }
 
+    @discardableResult
+    open func append(contentsOf elements: [RowRepresentation]) -> Self {
+        rows.append(contentsOf: elements)
+        return self
+    }
+    
     @discardableResult
     open func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
         selectedAction = action

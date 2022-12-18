@@ -8,16 +8,30 @@
 import UIKit
 
 open class Delegate: NSObject, UITableViewDelegate {
-    private var dataSource: DataSource
+    public enum DataSourceRepresentation {
+        case plain(DataSource)
+        case diffable(DiffableDataSource)
+
+        var sections: [any Sectionable] {
+            switch self {
+            case let .plain(dataSource):
+                return dataSource.sections
+            case let .diffable(dataSource):
+                return dataSource.sections
+            }
+        }
+    }
+
+    private var dataSource: DataSourceRepresentation
     private var tableView: UITableView
     open var clearSelectionAutomatically: Bool = false
 
-    public init(dataSource: DataSource, tableView: UITableView) {
+    public init(dataSource: DataSourceRepresentation, tableView: UITableView) {
         self.dataSource = dataSource
         self.tableView = tableView
     }
 
-    public func reload(_ dataSource: DataSource) {
+    public func reload(_ dataSource: DataSourceRepresentation) {
         self.dataSource = dataSource
         tableView.reloadData()
     }
@@ -34,8 +48,17 @@ open class Delegate: NSObject, UITableViewDelegate {
         else if let action = section.selectedAction {
             action(tableView, indexPath)
         }
-        if section.updateAfterSelected {
-            tableView.reloadSections(IndexSet(integer: indexPath.section), with: section.updateAnimation)
+        if case let .diffable(dataSource) = dataSource {
+            print(section.hashValue)
+            print(AnyHashable(section).hashValue)
+            dataSource.reloadItem([AnyHashable(row)])
+            return
+        }
+        if section.updateAfterSelected, case let .plain(dataSource) = dataSource {
+            tableView.reloadSections(
+                IndexSet(integer: indexPath.section),
+                with: dataSource.sections[indexPath.section].updateAnimation
+            )
         }
         else if row.updateAfterSelected {
             tableView.reloadRows(at: [indexPath], with: row.updateAnimation)

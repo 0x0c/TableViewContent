@@ -11,6 +11,7 @@ import UIKit
 
 class DiffableDataSoureViewController: UIViewController {
     var tableView: UITableView!
+    var delegate: Delegate?
     var dataSource: DiffableDataSource!
     private let refreshControl = UIRefreshControl()
 
@@ -20,7 +21,6 @@ class DiffableDataSoureViewController: UIViewController {
         title = "Diffable"
 
         tableView = UITableView(frame: .zero, style: .insetGrouped)
-        tableView.delegate = self
         view.addSubview(tableView)
         tableView.delaysContentTouches = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,14 +36,20 @@ class DiffableDataSoureViewController: UIViewController {
             }
         )
         tableView.dataSource = dataSource
-        dataSource.append(Section([
-            DefaultRow(title: "title"),
-            DefaultRow(title: "title"),
+        dataSource.append(Section {
+            DefaultRow(title: "title")
             DefaultRow(title: "title", style: .subtitle)
-                .detailText("subtitle"),
+                .detailText("subtitle")
             DefaultRow(title: "title", style: .value1)
                 .detailText("value1")
-        ].shuffled))
+                .updateAfterSelected(true)
+                .didSelect { _, _, row in
+                    row.configuration.title = "updated"
+                }
+        })
+        delegate = Delegate(dataSource: .diffable(dataSource), tableView: tableView)
+        delegate?.clearSelectionAutomatically = true
+        tableView.delegate = delegate
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
     }
@@ -73,8 +79,6 @@ class DiffableDataSoureViewController: UIViewController {
         updateDataSource(dataSource.sections)
     }
 
-    open func didSelectRow(at indexPath: IndexPath) {}
-
     @objc
     func refresh(_ sender: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -90,11 +94,5 @@ class DiffableDataSoureViewController: UIViewController {
             }
             sender.endRefreshing()
         }
-    }
-}
-
-extension DiffableDataSoureViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        didSelectRow(at: indexPath)
     }
 }

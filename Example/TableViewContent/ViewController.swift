@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         }
         appendSection(dataSource)
         dataSource.presentSectinIndex = true
-        delegate = Delegate(dataSource: dataSource, tableView: tableView)
+        delegate = Delegate(dataSource: .plain(dataSource), tableView: tableView)
         delegate?.clearSelectionAutomatically = true
         tableView.delegate = delegate
         tableView.dataSource = dataSource

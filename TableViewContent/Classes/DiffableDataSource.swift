@@ -22,39 +22,39 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
     @discardableResult
     public func section(@SectionBuilder _ sectionContents: () -> [any Sectionable]) -> Self {
         sections = sectionContents()
-        update()
+        reload()
         return self
     }
 
     @discardableResult
     public func section(_ section: any Sectionable) -> Self {
         sections = [section]
-        update()
+        reload()
         return self
     }
 
     @discardableResult
     public func append(@SectionableBuilder _ sectionContents: () -> [any Sectionable]) -> Self {
         sections.append(contentsOf: sectionContents())
-        update()
+        reload()
         return self
     }
 
     @discardableResult
     public func append(_ section: any Sectionable) -> Self {
         sections.append(section)
-        update()
+        reload()
         return self
     }
 
     @discardableResult
     public func append(_ sections: [any Sectionable]) -> Self {
         self.sections.append(contentsOf: sections)
-        update()
+        reload()
         return self
     }
 
-    private func update() {
+    public func reload() {
         var snapshot = NSDiffableDataSourceSnapshot<AnyHashable, AnyHashable>()
         for section in sections {
             if section.rows.isEmpty {
@@ -68,6 +68,18 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
                 snapshot.appendItems(section.snapshotItems, toSection: section.snapshotSection)
             }
         }
+        apply(snapshot, animatingDifferences: defaultRowAnimation != .none)
+    }
+
+    public func reloadSections(_ sections: [AnyHashable]) {
+        var snapshot = snapshot()
+        snapshot.reloadSections(sections)
+        apply(snapshot, animatingDifferences: defaultRowAnimation != .none)
+    }
+
+    public func reloadItem(_ items: [AnyHashable]) {
+        var snapshot = snapshot()
+        snapshot.reloadItems(items)
         apply(snapshot, animatingDifferences: defaultRowAnimation != .none)
     }
 

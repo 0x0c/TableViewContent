@@ -10,6 +10,8 @@ import Foundation
 public protocol Sectionable: Hashable {
     var snapshotItems: [AnyHashable] { get }
 
+    var selectedAction: ((UITableView, IndexPath) -> Void)? { get set }
+    var updateAfterSelected: Bool { get set }
     var rows: [any RowRepresentation] { get set }
     var headerView: SectionSupplementalyView? { get set }
     var footerView: SectionSupplementalyView? { get set }

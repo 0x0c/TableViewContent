@@ -48,20 +48,22 @@ open class Delegate: NSObject, UITableViewDelegate {
         else if let action = section.selectedAction {
             action(tableView, indexPath)
         }
+
         if case let .diffable(dataSource) = dataSource {
-            print(section.hashValue)
-            print(AnyHashable(section).hashValue)
-            dataSource.reloadItem([AnyHashable(row)])
-            return
+            if section.updateAfterSelected {
+                dataSource.reloadItem([AnyHashable(row)])
+            }
         }
-        if section.updateAfterSelected, case let .plain(dataSource) = dataSource {
-            tableView.reloadSections(
-                IndexSet(integer: indexPath.section),
-                with: dataSource.sections[indexPath.section].updateAnimation
-            )
-        }
-        else if row.updateAfterSelected {
-            tableView.reloadRows(at: [indexPath], with: row.updateAnimation)
+        else if case let .plain(dataSource) = dataSource {
+            if section.updateAfterSelected {
+                tableView.reloadSections(
+                    IndexSet(integer: indexPath.section),
+                    with: dataSource.sections[indexPath.section].updateAnimation
+                )
+            }
+            else if row.updateAfterSelected {
+                tableView.reloadRows(at: [indexPath], with: row.updateAnimation)
+            }
         }
     }
 

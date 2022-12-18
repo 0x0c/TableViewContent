@@ -11,7 +11,7 @@ open class CellConfiguration: Hashable {
     public static func == (lhs: CellConfiguration, rhs: CellConfiguration) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
-    
+
     public func hash(into hasher: inout Hasher) {
         hasher.combine(title)
         hasher.combine(detailText)
@@ -23,7 +23,7 @@ open class CellConfiguration: Hashable {
         hasher.combine(editingAccessoryView)
         hasher.combine(style)
     }
-    
+
     public var title: String?
     public var detailText: String?
     public var image: UIImage?

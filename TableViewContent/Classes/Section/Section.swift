@@ -20,7 +20,7 @@ open class Section: Sectionable {
     public static func == (lhs: Section, rhs: Section) -> Bool {
         return lhs.hashValue == rhs.hashValue
     }
-    
+
     public func registerCell(tableView: UITableView) {
         for row in rows {
             switch row.representation {
@@ -33,7 +33,7 @@ open class Section: Sectionable {
             }
         }
     }
-    
+
     public func cell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell? {
         let row = rows[indexPath.row]
         switch row.representation {

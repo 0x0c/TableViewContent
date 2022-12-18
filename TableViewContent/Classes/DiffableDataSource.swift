@@ -25,14 +25,14 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
         update()
         return self
     }
-    
+
     @discardableResult
     public func section(_ section: any Sectionable) -> Self {
         sections = [section]
         update()
         return self
     }
-    
+
     @discardableResult
     public func append(@SectionableBuilder _ sectionContents: () -> [any Sectionable]) -> Self {
         sections.append(contentsOf: sectionContents())
@@ -53,7 +53,7 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
         update()
         return self
     }
-    
+
     private func update() {
         var snapshot = NSDiffableDataSourceSnapshot<AnyHashable, AnyHashable>()
         for section in sections {
@@ -70,10 +70,10 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
         }
         apply(snapshot, animatingDifferences: defaultRowAnimation != .none)
     }
-    
+
     // MARK: -
 
-    public override func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override public func tableView(_: UITableView, titleForHeaderInSection section: Int) -> String? {
         let s = sections[section]
         switch s.headerView {
         case let .title(text):
@@ -83,7 +83,7 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
         }
     }
 
-    public override func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
+    override public func tableView(_: UITableView, titleForFooterInSection section: Int) -> String? {
         let s = sections[section]
         switch s.footerView {
         case let .title(text):
@@ -93,7 +93,7 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
         }
     }
 
-    public override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+    override public func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         if presentSectinIndex {
             var indexTitles = [String]()
             for section in sections {

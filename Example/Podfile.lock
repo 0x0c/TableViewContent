@@ -1,13 +1,13 @@
 PODS:
   - SwiftFormat/CLI (0.47.2)
-  - TableViewContent (5.0.0)
+  - TableViewContent (6.0.0)
 
 DEPENDENCIES:
   - SwiftFormat/CLI
   - TableViewContent (from `../`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - SwiftFormat
 
 EXTERNAL SOURCES:
@@ -16,8 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SwiftFormat: 0315a7115b15fd4ea2d043d5f5c22e3c98f84078
-  TableViewContent: de4ea2c1a0c0526a01cd18f8de0e5891e07ada69
+  TableViewContent: 275355f241addca2d1e7f2d4574e8fef7d41fcc8
 
-PODFILE CHECKSUM: 35a8be3893318873897612545b5fea602dc5ba4d
+PODFILE CHECKSUM: a23f3ed9cefad279ca8312e9ad89835b27dd8e13
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.7.2

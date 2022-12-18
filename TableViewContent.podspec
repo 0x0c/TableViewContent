@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'TableViewContent'
-  s.version          = '5.0.1'
+  s.version          = '6.0.0'
   s.summary          = 'Declarative table view configure library.'
 
 # This description is used to generate tags and improve search results.
@@ -28,8 +28,8 @@ Declare tableView row and section header/footer easy way.
   s.source           = { :git => 'https://github.com/0x0c/TableViewContent.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '11.0'
-  s.swift_version = '5.2'
+  s.ios.deployment_target = '13.0'
+  s.swift_version = '5.7'
   s.source_files = 'TableViewContent/Classes/**/*'
   
   # s.resource_bundles = {

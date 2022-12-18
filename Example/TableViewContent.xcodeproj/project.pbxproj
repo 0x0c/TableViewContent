@@ -17,6 +17,7 @@
 		D8EA5AF2585C745D1C9229CB /* Pods_TableViewContent_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A113A00DC1B24113548C9C /* Pods_TableViewContent_Example.framework */; };
 		E902795D2553DB2A0076246D /* CustomHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E902795C2553DB2A0076246D /* CustomHeaderView.swift */; };
 		E90279612553DB300076246D /* CustomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E90279602553DB300076246D /* CustomHeaderView.xib */; };
+		E93514D22948BE3E00A702C4 /* DiffableDataSoureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93514D12948BE3E00A702C4 /* DiffableDataSoureViewController.swift */; };
 		E94A52C3216BBD440074BF82 /* CustomRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94A52C1216BBD440074BF82 /* CustomRow.swift */; };
 		E94A52C4216BBD440074BF82 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */; };
 		E9EECF1D256DA9E200606D3E /* ColorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EECF1C256DA9E200606D3E /* ColorHeaderView.swift */; };
@@ -52,6 +53,7 @@
 		B7A73DFCCD09D36F0E59C11F /* Pods-TableViewContent_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TableViewContent_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TableViewContent_Tests/Pods-TableViewContent_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E902795C2553DB2A0076246D /* CustomHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomHeaderView.swift; sourceTree = "<group>"; };
 		E90279602553DB300076246D /* CustomHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomHeaderView.xib; sourceTree = "<group>"; };
+		E93514D12948BE3E00A702C4 /* DiffableDataSoureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDataSoureViewController.swift; sourceTree = "<group>"; };
 		E94A52C1216BBD440074BF82 /* CustomRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRow.swift; sourceTree = "<group>"; };
 		E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		E9EECF1C256DA9E200606D3E /* ColorHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHeaderView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				E93514D12948BE3E00A702C4 /* DiffableDataSoureViewController.swift */,
 				E9EECF1C256DA9E200606D3E /* ColorHeaderView.swift */,
 				E94A52C1216BBD440074BF82 /* CustomRow.swift */,
 				E94A52C2216BBD440074BF82 /* CustomTableViewCell.xib */,
@@ -367,6 +370,7 @@
 			files = (
 				E902795D2553DB2A0076246D /* CustomHeaderView.swift in Sources */,
 				E94A52C3216BBD440074BF82 /* CustomRow.swift in Sources */,
+				E93514D22948BE3E00A702C4 /* DiffableDataSoureViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				E9EECF1D256DA9E200606D3E /* ColorHeaderView.swift in Sources */,
@@ -561,6 +565,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -578,6 +583,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

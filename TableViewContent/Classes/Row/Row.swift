@@ -8,6 +8,15 @@
 import UIKit
 
 open class Row<Cell: UITableViewCell>: RowRepresentation {
+    public static func == (lhs: Row<Cell>, rhs: Row<Cell>) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(representation)
+        hasher.combine(configuration)
+    }
+
     private var configureCell: ((Cell, IndexPath, Row) -> Void)?
     public var bind: ((Row) -> Void)?
     public var updateAfterSelected: Bool = false

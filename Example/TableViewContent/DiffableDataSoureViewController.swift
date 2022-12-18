@@ -16,10 +16,10 @@ class DiffableDataSoureViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        tableView = UITableView(frame: .zero, style: .plain)
-        tableView.backgroundColor = .systemBackground
+        title = "Diffable"
+
+        tableView = UITableView(frame: .zero, style: .insetGrouped)
         tableView.delegate = self
         view.addSubview(tableView)
         tableView.delaysContentTouches = false

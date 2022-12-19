@@ -12,7 +12,7 @@ open class Row<Cell: UITableViewCell>: RowRepresentation {
         return lhs.hashValue == rhs.hashValue
     }
 
-    public func hash(into hasher: inout Hasher) {
+    open func hash(into hasher: inout Hasher) {
         hasher.combine(representation)
         hasher.combine(configuration)
     }

@@ -65,20 +65,6 @@ class DiffableDataSoureViewController: UIViewController {
 
     open func configureCell(_ cell: UITableViewCell) {}
 
-    open func registerViews(_ sections: [any Sectionable]) {
-        for section in sections {
-            section.registerCell(tableView: tableView)
-        }
-    }
-
-    open func updateDataSource(_ sections: [any Sectionable], animateWhenUpdate: Bool = true) {
-        registerViews(sections)
-    }
-
-    open func reloadSections() {
-        updateDataSource(dataSource.sections)
-    }
-
     @objc
     func refresh(_ sender: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {

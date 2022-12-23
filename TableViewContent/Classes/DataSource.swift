@@ -20,7 +20,7 @@ open class DataSource: NSObject, UITableViewDataSource {
     open var presentSectinIndex: Bool = false
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
 
-    public init(_ sections: [Section]) {
+    public init(_ sections: [any Sectionable]) {
         self.sections = sections
     }
 

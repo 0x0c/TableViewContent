@@ -12,6 +12,7 @@ public protocol Sectionable: Hashable {
 
     var selectedAction: ((UITableView, IndexPath) -> Void)? { get set }
     var updateAfterSelected: Bool { get set }
+    var updateAnimation: UITableView.RowAnimation { get set }
     var rows: [any RowRepresentation] { get set }
     var headerView: SectionSupplementalyView? { get set }
     var footerView: SectionSupplementalyView? { get set }

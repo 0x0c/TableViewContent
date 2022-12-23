@@ -21,7 +21,7 @@ open class DataSource: NSObject, UITableViewDataSource, DataSourceRepresentation
     open var presentSectinIndex: Bool = false
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
 
-    public init(tableView: UITableView, sections: [any Sectionable]) {
+    public init(tableView: UITableView, sections: [any Sectionable] = []) {
         self.tableView = tableView
         self.sections = sections
     }

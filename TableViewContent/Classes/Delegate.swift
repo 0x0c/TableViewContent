@@ -20,6 +20,15 @@ open class Delegate: NSObject, UITableViewDelegate {
                 return dataSource.sections
             }
         }
+        
+        var selectedAction: ((UITableView, IndexPath) -> Void)? {
+            switch self {
+            case let .plain(dataSource):
+                return dataSource.selectedAction
+            case let .diffable(dataSource):
+                return dataSource.selectedAction
+            }
+        }
     }
 
     private var dataSource: DataSourceRepresentation
@@ -46,6 +55,9 @@ open class Delegate: NSObject, UITableViewDelegate {
             action(tableView, indexPath)
         }
         else if let action = section.selectedAction {
+            action(tableView, indexPath)
+        }
+        else if let action = dataSource.selectedAction {
             action(tableView, indexPath)
         }
 

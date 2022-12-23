@@ -18,6 +18,15 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
     public private(set) var sections: [any Sectionable] = []
     open var presentSectinIndex = false
     open var ignoreEmptySection = false
+    public var selectedAction: ((UITableView, IndexPath) -> Void)?
+
+    @discardableResult
+    open func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
+        selectedAction = { tableView, indexPath in
+            action(tableView, indexPath)
+        }
+        return self
+    }
 
     @discardableResult
     public func section(@SectionBuilder _ sectionContents: () -> [any Sectionable]) -> Self {

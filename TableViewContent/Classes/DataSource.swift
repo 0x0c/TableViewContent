@@ -18,6 +18,7 @@ open class DataSource: NSObject, UITableViewDataSource {
     public private(set) var sections: [Section] = []
     public private(set) var registeredReuseIdentifiers = [] as [String]
     open var presentSectinIndex: Bool = false
+    public var selectedAction: ((UITableView, IndexPath) -> Void)?
 
     public init(_ sections: [Section]) {
         self.sections = sections
@@ -25,6 +26,14 @@ open class DataSource: NSObject, UITableViewDataSource {
 
     public init(@SectionBuilder _ sections: () -> [Section]) {
         self.sections = sections()
+    }
+    
+    @discardableResult
+    open func didSelect(_ action: @escaping (UITableView, IndexPath) -> Void) -> Self {
+        selectedAction = { tableView, indexPath in
+            action(tableView, indexPath)
+        }
+        return self
     }
 
     @discardableResult

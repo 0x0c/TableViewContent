@@ -27,9 +27,16 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
         }
         return self
     }
+    
+    @discardableResult
+    public func sections(_ sections: [any Sectionable]) -> Self {
+        self.sections = sections
+        reload()
+        return self
+    }
 
     @discardableResult
-    public func section(@SectionBuilder _ sectionContents: () -> [any Sectionable]) -> Self {
+    public func sections(@SectionBuilder _ sectionContents: () -> [any Sectionable]) -> Self {
         sections = sectionContents()
         reload()
         return self

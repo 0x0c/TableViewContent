@@ -37,6 +37,12 @@ open class DataSource: NSObject, UITableViewDataSource {
     }
 
     @discardableResult
+    public func sections(_ sections: [any Sectionable]) -> Self {
+        self.sections = sections
+        return self
+    }
+    
+    @discardableResult
     public func sections(_ closure: (DataSource) -> Void) -> Self {
         closure(self)
         return self

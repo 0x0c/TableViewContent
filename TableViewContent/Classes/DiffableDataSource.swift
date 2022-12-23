@@ -14,7 +14,7 @@ public enum SectionableBuilder {
     }
 }
 
-open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHashable>, SectionProvider {
+open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHashable>, SectionProvider, DataSourceRepresentation {
     public private(set) var sections: [any Sectionable] = []
     open var presentSectinIndex = false
     open var ignoreEmptySection = false
@@ -31,42 +31,36 @@ open class DiffableDataSource: UITableViewDiffableDataSource<AnyHashable, AnyHas
     @discardableResult
     public func sections(_ sections: [any Sectionable]) -> Self {
         self.sections = sections
-        reload()
         return self
     }
 
     @discardableResult
     public func sections(@SectionBuilder _ sectionContents: () -> [any Sectionable]) -> Self {
         sections = sectionContents()
-        reload()
         return self
     }
 
     @discardableResult
     public func section(_ section: any Sectionable) -> Self {
         sections = [section]
-        reload()
         return self
     }
 
     @discardableResult
     public func append(@SectionableBuilder _ sectionContents: () -> [any Sectionable]) -> Self {
         sections.append(contentsOf: sectionContents())
-        reload()
         return self
     }
 
     @discardableResult
     public func append(_ section: any Sectionable) -> Self {
         sections.append(section)
-        reload()
         return self
     }
 
     @discardableResult
     public func append(_ sections: [any Sectionable]) -> Self {
         self.sections.append(contentsOf: sections)
-        reload()
         return self
     }
 

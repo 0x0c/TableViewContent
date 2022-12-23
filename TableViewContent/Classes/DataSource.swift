@@ -14,7 +14,11 @@ public enum SectionBuilder {
     }
 }
 
-open class DataSource: NSObject, UITableViewDataSource {
+open class DataSource: NSObject, UITableViewDataSource, DataSourceRepresentation {
+    public func reload() {
+        
+    }
+    
     public private(set) var sections: [any Sectionable] = []
     public private(set) var registeredReuseIdentifiers = [] as [String]
     open var presentSectinIndex: Bool = false

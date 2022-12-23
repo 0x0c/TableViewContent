@@ -47,7 +47,7 @@ class DiffableDataSoureViewController: UIViewController {
                     row.configuration.title = "updated"
                 }
         })
-        delegate = Delegate(dataSource: .diffable(dataSource), tableView: tableView)
+        delegate = Delegate(dataSource: dataSource, tableView: tableView)
         delegate?.clearSelectionAutomatically = true
         tableView.delegate = delegate
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -68,7 +68,7 @@ class DiffableDataSoureViewController: UIViewController {
     @objc
     func refresh(_ sender: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.dataSource.section {
+            self.dataSource.sections {
                 Section([
                     DefaultRow(title: "title"),
                     DefaultRow(title: "title"),

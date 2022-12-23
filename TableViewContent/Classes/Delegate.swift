@@ -8,29 +8,6 @@
 import UIKit
 
 open class Delegate: NSObject, UITableViewDelegate {
-    public enum DataSourceRepresentation {
-        case plain(DataSource)
-        case diffable(DiffableDataSource)
-
-        var sections: [any Sectionable] {
-            switch self {
-            case let .plain(dataSource):
-                return dataSource.sections
-            case let .diffable(dataSource):
-                return dataSource.sections
-            }
-        }
-        
-        var selectedAction: ((UITableView, IndexPath) -> Void)? {
-            switch self {
-            case let .plain(dataSource):
-                return dataSource.selectedAction
-            case let .diffable(dataSource):
-                return dataSource.selectedAction
-            }
-        }
-    }
-
     private var dataSource: DataSourceRepresentation
     private var tableView: UITableView
     open var clearSelectionAutomatically: Bool = false
@@ -61,12 +38,12 @@ open class Delegate: NSObject, UITableViewDelegate {
             action(tableView, indexPath)
         }
 
-        if case let .diffable(dataSource) = dataSource {
+        if let dataSource = dataSource as? DiffableDataSource {
             if section.updateAfterSelected {
                 dataSource.reloadItem([AnyHashable(row)])
             }
         }
-        else if case let .plain(dataSource) = dataSource {
+        else if let dataSource = dataSource as? DataSource {
             if section.updateAfterSelected {
                 tableView.reloadSections(
                     IndexSet(integer: indexPath.section),

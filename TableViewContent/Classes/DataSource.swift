@@ -15,20 +15,19 @@ public enum SectionBuilder {
 }
 
 open class DataSource: NSObject, UITableViewDataSource, DataSourceRepresentation {
-    public func reload() {
-        
-    }
-    
+    public weak var tableView: UITableView?
     public private(set) var sections: [any Sectionable] = []
     public private(set) var registeredReuseIdentifiers = [] as [String]
     open var presentSectinIndex: Bool = false
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
 
-    public init(_ sections: [any Sectionable]) {
+    public init(tableView: UITableView, sections: [any Sectionable]) {
+        self.tableView = tableView
         self.sections = sections
     }
 
-    public init(@SectionBuilder _ sections: () -> [any Sectionable]) {
+    public init(tableView: UITableView, @SectionBuilder _ sections: () -> [any Sectionable]) {
+        self.tableView = tableView
         self.sections = sections()
     }
     
@@ -57,6 +56,12 @@ open class DataSource: NSObject, UITableViewDataSource, DataSourceRepresentation
         sections.append(section)
         return self
     }
+
+    public func reload() {
+        tableView?.reloadData()
+    }
+
+    // MARK: -
 
     public func numberOfSections(in _: UITableView) -> Int {
         sections.count

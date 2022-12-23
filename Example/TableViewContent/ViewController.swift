@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = "Example"
-        let dataSource = DataSource {
+        let dataSource = DataSource(tableView: tableView) {
             basicSection()
             configureSection()
             switchSection()

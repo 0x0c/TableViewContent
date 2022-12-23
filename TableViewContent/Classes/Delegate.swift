@@ -28,6 +28,9 @@ open class Delegate: NSObject, UITableViewDelegate {
         }
         let section = dataSource.sections[indexPath.section]
         let row = section.rows[indexPath.row]
+        if row.configuration.selectionStyle == .none {
+            return
+        }
         if let action = row.selectedAction {
             action(tableView, indexPath)
         }

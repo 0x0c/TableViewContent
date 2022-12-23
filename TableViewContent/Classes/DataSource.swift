@@ -9,13 +9,13 @@ import UIKit
 
 @resultBuilder
 public enum SectionBuilder {
-    public static func buildBlock(_ items: Section...) -> [Section] {
+    public static func buildBlock(_ items: any Sectionable...) -> [any Sectionable] {
         items
     }
 }
 
 open class DataSource: NSObject, UITableViewDataSource {
-    public private(set) var sections: [Section] = []
+    public private(set) var sections: [any Sectionable] = []
     public private(set) var registeredReuseIdentifiers = [] as [String]
     open var presentSectinIndex: Bool = false
     public var selectedAction: ((UITableView, IndexPath) -> Void)?
@@ -24,7 +24,7 @@ open class DataSource: NSObject, UITableViewDataSource {
         self.sections = sections
     }
 
-    public init(@SectionBuilder _ sections: () -> [Section]) {
+    public init(@SectionBuilder _ sections: () -> [any Sectionable]) {
         self.sections = sections()
     }
     
@@ -43,7 +43,7 @@ open class DataSource: NSObject, UITableViewDataSource {
     }
 
     @discardableResult
-    public func append(_ section: Section) -> Self {
+    public func append(_ section: any Sectionable) -> Self {
         sections.append(section)
         return self
     }

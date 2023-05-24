@@ -35,6 +35,8 @@ public extension Sectionable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(snapshotItems)
+        hasher.combine(headerView)
+        hasher.combine(footerView)
     }
 }
 
@@ -56,6 +58,7 @@ public extension Sectionable {
             hasher.combine($0)
         }
         hasher.combine(nonce)
+        hasher.combine(hashValue)
         return hasher.finalize()
     }
 

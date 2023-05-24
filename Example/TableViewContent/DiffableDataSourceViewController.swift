@@ -1,5 +1,5 @@
 //
-//  DiffableDataSoureViewController.swift
+//  DiffableDataSourceViewController.swift
 //  TableViewContent_Example
 //
 //  Created by Akira Matsuda on 2022/12/13.
@@ -9,7 +9,7 @@
 import TableViewContent
 import UIKit
 
-class DiffableDataSoureViewController: UIViewController {
+class DiffableDataSourceViewController: UIViewController {
     var tableView: UITableView!
     var delegate: Delegate?
     var dataSource: DiffableDataSource!
@@ -36,7 +36,7 @@ class DiffableDataSoureViewController: UIViewController {
             }
         )
         tableView.dataSource = dataSource
-        dataSource.append(Section {
+        let section1 = Section {
             DefaultRow(title: "title")
             DefaultRow(title: "title", style: .subtitle)
                 .detailText("subtitle")
@@ -46,12 +46,26 @@ class DiffableDataSoureViewController: UIViewController {
                 .didSelect { _, _, row in
                     row.configuration.title = "updated"
                 }
-        })
+        }.header(.title("section1"))
+        dataSource.append(section1)
+        let section2 = Section {
+            DefaultRow(title: "title")
+            DefaultRow(title: "title", style: .subtitle)
+                .detailText("subtitle")
+            DefaultRow(title: "title", style: .value1)
+                .detailText("value1")
+                .updateAfterSelected(true)
+                .didSelect { _, _, row in
+                    row.configuration.title = "updated"
+                }
+        }.header(.title("section2"))
+        dataSource.append(section2)
         delegate = Delegate(dataSource: dataSource, tableView: tableView)
         delegate?.clearSelectionAutomatically = true
         tableView.delegate = delegate
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         tableView.addSubview(refreshControl)
+        dataSource.reload()
     }
 
     open func cell(for indexPath: IndexPath) -> UITableViewCell? {

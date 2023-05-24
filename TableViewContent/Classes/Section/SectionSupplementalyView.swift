@@ -7,10 +7,27 @@
 
 import UIKit
 
-public enum SectionSupplementalyView {
+public enum SectionSupplementalyView: Hashable {
+    public static func == (lhs: SectionSupplementalyView, rhs: SectionSupplementalyView) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case let .title(string):
+            hasher.combine(string)
+        case let .nib(uINib, any):
+            hasher.combine(uINib)
+            hasher.combine(any)
+        case let .view(view, any):
+            hasher.combine(view)
+            hasher.combine(any)
+        }
+    }
+
     case title(String)
-    case nib(UINib, Any)
-    case view(UIView & SectionConfigurable, Any)
+    case nib(UINib, AnyHashable)
+    case view(UIView & SectionConfigurable, AnyHashable)
 
     var sectionView: UIView? {
         switch self {

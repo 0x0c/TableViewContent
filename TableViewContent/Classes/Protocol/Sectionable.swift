@@ -5,7 +5,7 @@
 //  Created by Akira Matsuda on 2022/12/14.
 //
 
-import Foundation
+import UIKit
 
 public protocol Sectionable: Hashable {
     var snapshotItems: [AnyHashable] { get }
